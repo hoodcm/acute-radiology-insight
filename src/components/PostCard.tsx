@@ -14,13 +14,13 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <Link to={`/posts/${post.slug}`} className="block group col-span-12 md:col-span-6 lg:col-span-3">
-      <div className="bg-card rounded-lg border border-transparent group-hover:border-accent transition-all duration-300 transform group-hover:scale-[1.03] overflow-hidden">
+      <div className="bg-card rounded-lg border border-transparent group-hover:border-accent transition-all duration-200 ease-in-out transform group-hover:scale-[1.02] overflow-hidden">
         <div className="aspect-video">
           <LazyImage
             src={imageUrl}
             placeholderSrc={placeholderUrl}
             alt={`Featured image for ${post.title}`}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-200 ease-in-out group-hover:scale-[1.04]"
           />
         </div>
         <div className="p-lg">
