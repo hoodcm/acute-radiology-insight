@@ -1,11 +1,5 @@
+
 import { Link } from 'react-router-dom';
-import { Menu, Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/sheet';
 import { DarkModeToggle } from './DarkModeToggle';
 import { SearchInput } from './SearchInput';
 
@@ -41,35 +35,9 @@ export function Header() {
           <DarkModeToggle />
         </div>
 
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center gap-x-2">
+          <SearchInput />
           <DarkModeToggle />
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Open Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="pt-2xl"
-            >
-              <div className="px-md mb-lg">
-                <SearchInput />
-              </div>
-              <nav className="flex flex-col space-y-sm">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className="block text-lg font-medium text-muted-foreground hover:text-foreground transition-colors px-md py-sm-plus rounded-md hover:bg-muted"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
         </div>
       </div>
     </header>
