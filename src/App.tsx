@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +16,7 @@ import Hindsight from "./pages/Hindsight";
 import Tools from "./pages/Tools";
 import About from "./pages/About";
 import Search from "./pages/Search";
+import AuthorPage from "./pages/AuthorPage";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,7 @@ const App = () => (
               <Route path="/tools" element={<Tools />} />
               <Route path="/about" element={<About />} />
               <Route path="/posts/:slug" element={<PostPage />} />
+              <Route path="/authors/:slug" element={<AuthorPage />} />
               <Route path="/spacing-guide" element={<SpacingGuide />} />
             </Route>
             <Route path="*" element={<NotFound />} />

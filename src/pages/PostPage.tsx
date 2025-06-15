@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { posts } from '@/data/posts';
 import NotFound from './NotFound';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { authors } from '@/data/authors';
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -12,6 +13,7 @@ export default function PostPage() {
     return <NotFound />;
   }
 
+  const author = authors.find((a) => a.id === post.authorId);
   const relatedPosts = posts.filter(p => p.id !== post.id).slice(0, 2);
 
   return (
@@ -21,7 +23,17 @@ export default function PostPage() {
           <Breadcrumbs postTitle={post.title} postCategory={post.category} />
           <header className="mb-xl">
             <h1 className="font-serif text-4xl lg:text-5xl font-bold text-white mb-md">{post.title}</h1>
-            <p className="text-gray-400">By {post.author} on {post.date}</p>
+            {author ? (
+              <p className="text-gray-400">
+                By{' '}
+                <Link to={`/authors/${author.slug}`} className="hover:text-white transition-colors hover:underline">
+                  {author.name}
+                </Link>{' '}
+                on {post.date}
+              </p>
+            ) : (
+              <p className="text-gray-400">On {post.date}</p>
+            )}
           </header>
           <div 
             className="prose prose-invert prose-lg max-w-none text-gray-300 prose-headings:font-serif prose-headings:text-white prose-a:text-[var(--color-accent)] hover:prose-a:text-white"

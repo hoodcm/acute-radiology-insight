@@ -2,6 +2,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { posts } from '@/data/posts';
 import { PostCard } from '@/components/PostCard';
+import { authors } from '@/data/authors';
 
 const Search = () => {
   const [searchParams] = useSearchParams();
@@ -9,11 +10,12 @@ const Search = () => {
 
   const filteredPosts = query
     ? posts.filter((post) => {
-        const { title, description, tags, content, author } = post;
+        const author = authors.find((a) => a.id === post.authorId);
+        const { title, description, tags, content } = post;
         return (
           title.toLowerCase().includes(query) ||
           description.toLowerCase().includes(query) ||
-          author.toLowerCase().includes(query) ||
+          (author && author.name.toLowerCase().includes(query)) ||
           tags.some((tag) => tag.toLowerCase().includes(query)) ||
           content.toLowerCase().includes(query)
         );
