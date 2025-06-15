@@ -1,12 +1,31 @@
 
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { PostCard } from '@/components/PostCard';
-import { posts } from '@/data/posts';
+import { posts, type Post } from '@/data/posts';
+import { PostCardSkeleton } from '@/components/PostCardSkeleton';
+import { Seo } from '@/components/Seo';
 
 const Index = () => {
+  const [latestPosts, setLatestPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLatestPosts(posts);
+      setLoading(false);
+    }, 1000); // Simulate network delay
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
+      <Seo
+        title="Home"
+        description="Decisive Thinking in Emergency Imaging. Essays, cases, and commentary from the frontlines of acute radiology."
+      />
       {/* Hero Section */}
       <section className="text-center py-hero">
         <div className="container mx-auto">
@@ -27,9 +46,11 @@ const Index = () => {
       {/* Main Body */}
       <section className="container mx-auto pb-cards-section">
         <div className="grid grid-cols-12 gap-md md:gap-lg">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
+          {loading
+            ? Array.from({ length: 4 }).map((_, index) => <PostCardSkeleton key={index} />)
+            : latestPosts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
         </div>
       </section>
     </>

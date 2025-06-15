@@ -1,4 +1,5 @@
 
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,31 +22,33 @@ import AuthorPage from "./pages/AuthorPage";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<Index />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/cases" element={<Cases />} />
-              <Route path="/essays" element={<Essays />} />
-              <Route path="/hindsight" element={<Hindsight />} />
-              <Route path="/tools" element={<Tools />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/posts/:slug" element={<PostPage />} />
-              <Route path="/authors/:slug" element={<AuthorPage />} />
-              <Route path="/spacing-guide" element={<SpacingGuide />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Index />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/cases" element={<Cases />} />
+                <Route path="/essays" element={<Essays />} />
+                <Route path="/hindsight" element={<Hindsight />} />
+                <Route path="/tools" element={<Tools />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/posts/:slug" element={<PostPage />} />
+                <Route path="/authors/:slug" element={<AuthorPage />} />
+                <Route path="/spacing-guide" element={<SpacingGuide />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;
