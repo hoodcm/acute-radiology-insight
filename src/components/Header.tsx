@@ -1,6 +1,5 @@
-
 import { Link } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -8,6 +7,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { DarkModeToggle } from './DarkModeToggle';
+import { SearchInput } from './SearchInput';
 
 const navLinks = [
   { name: 'Cases', href: '/cases' },
@@ -37,6 +37,7 @@ export function Header() {
               </Link>
             ))}
           </nav>
+          <SearchInput />
           <DarkModeToggle />
         </div>
 
@@ -53,6 +54,9 @@ export function Header() {
               side="right"
               className="pt-2xl"
             >
+              <div className="px-md mb-lg">
+                <SearchInput />
+              </div>
               <nav className="flex flex-col space-y-sm">
                 {navLinks.map((link) => (
                   <Link
