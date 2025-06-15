@@ -8,7 +8,7 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <Link to={`/posts/${post.slug}`} className="block group">
+    <Link to={`/posts/${post.slug}`} className="block group col-span-12 md:col-span-6 lg:col-span-3">
       <div className="bg-[#141414] p-6 rounded-lg border border-transparent group-hover:border-[var(--color-accent)] transition-all duration-300 transform group-hover:scale-[1.03]">
         <h3 className="font-serif text-xl font-bold text-white mb-2">{post.title}</h3>
         <p className="text-gray-400 text-sm mb-4 line-clamp-2">{post.description}</p>
