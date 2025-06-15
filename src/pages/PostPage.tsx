@@ -2,6 +2,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { posts } from '@/data/posts';
 import NotFound from './NotFound';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -17,6 +18,7 @@ export default function PostPage() {
     <div className="container mx-auto py-12 lg:py-16">
       <div className="grid lg:grid-cols-4 gap-12">
         <div className="lg:col-span-3">
+          <Breadcrumbs postTitle={post.title} />
           <header className="mb-8">
             <h1 className="font-serif text-4xl lg:text-5xl font-bold text-white mb-4">{post.title}</h1>
             <p className="text-gray-400">By {post.author} on {post.date}</p>
