@@ -14,7 +14,7 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <Link to={`/posts/${post.slug}`} className="block group col-span-12 md:col-span-6 lg:col-span-3">
-      <div className="bg-[#141414] rounded-lg border border-transparent group-hover:border-[var(--color-accent)] transition-all duration-300 transform group-hover:scale-[1.03] overflow-hidden">
+      <div className="bg-card rounded-lg border border-transparent group-hover:border-accent transition-all duration-300 transform group-hover:scale-[1.03] overflow-hidden">
         <div className="aspect-video">
           <LazyImage
             src={imageUrl}
@@ -24,17 +24,17 @@ export function PostCard({ post }: PostCardProps) {
           />
         </div>
         <div className="p-6">
-          <h3 className="font-serif text-xl font-bold text-white mb-2">{post.title}</h3>
-          <p className="text-gray-400 text-sm mb-4 line-clamp-2">{post.description}</p>
+          <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">{post.title}</h3>
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.description}</p>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               {post.tags.map((tag) => (
-                <span key={tag} className="text-xs font-medium text-[var(--color-accent)] bg-[#2a2116] px-2 py-1 rounded-full">
+                <span key={tag} className="text-xs font-medium text-accent-foreground bg-accent/20 px-2 py-1 rounded-full">
                   {tag}
                 </span>
               ))}
             </div>
-            <span className="text-xs text-gray-500">{post.date}</span>
+            <span className="text-xs text-muted-foreground/80">{post.date}</span>
           </div>
         </div>
       </div>
