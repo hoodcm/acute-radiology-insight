@@ -1,0 +1,28 @@
+
+import { Link } from 'react-router-dom';
+import type { Post } from '@/data/posts';
+
+interface PostCardProps {
+  post: Post;
+}
+
+export function PostCard({ post }: PostCardProps) {
+  return (
+    <Link to={`/posts/${post.slug}`} className="block group">
+      <div className="bg-[#141414] p-6 rounded-lg border border-transparent group-hover:border-[var(--color-accent)] transition-all duration-300 transform group-hover:scale-[1.03]">
+        <h3 className="font-serif text-xl font-bold text-white mb-2">{post.title}</h3>
+        <p className="text-gray-400 text-sm mb-4 line-clamp-2">{post.description}</p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            {post.tags.map((tag) => (
+              <span key={tag} className="text-xs font-medium text-[var(--color-accent)] bg-[#2a2116] px-2 py-1 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <span className="text-xs text-gray-500">{post.date}</span>
+        </div>
+      </div>
+    </Link>
+  );
+}
