@@ -11,13 +11,18 @@ import { Link } from "react-router-dom";
 
 type BreadcrumbsProps = {
   postTitle: string;
+  postCategory: string;
 };
 
-export function Breadcrumbs({ postTitle }: BreadcrumbsProps) {
-  // Hardcoding category and subcategory as they are not in the post data
-  const category = "Cases";
-  const subcategory = "Beginner";
+const categoryToPathMap: { [key: string]: string } = {
+  'Case Study': '/cases',
+  'Essay': '/essays',
+  'Hindsight': '/hindsight',
+  'Tool': '/tools',
+};
 
+export function Breadcrumbs({ postTitle, postCategory }: BreadcrumbsProps) {
+  const categoryUrl = categoryToPathMap[postCategory] || '/';
   const linkClasses = "text-xs uppercase font-sans text-gray-400 hover:text-white hover:underline";
 
   return (
@@ -31,14 +36,7 @@ export function Breadcrumbs({ postTitle }: BreadcrumbsProps) {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            {/* Assuming static category/subcategory pages for now */}
-            <Link to="#" className={linkClasses}>{category}</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link to="#" className={linkClasses}>{subcategory}</Link>
+            <Link to={categoryUrl} className={linkClasses}>{postCategory}</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />

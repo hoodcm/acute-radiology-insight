@@ -18,7 +18,7 @@ export default function PostPage() {
     <div className="container mx-auto py-12 lg:py-16">
       <div className="grid lg:grid-cols-4 gap-lg lg:gap-2xl">
         <div className="lg:col-span-3">
-          <Breadcrumbs postTitle={post.title} />
+          <Breadcrumbs postTitle={post.title} postCategory={post.category} />
           <header className="mb-xl">
             <h1 className="font-serif text-4xl lg:text-5xl font-bold text-white mb-md">{post.title}</h1>
             <p className="text-gray-400">By {post.author} on {post.date}</p>
