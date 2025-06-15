@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,14 +18,14 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="py-4 border-b border-border sticky top-0 z-40 bg-background/95 backdrop-blur-sm">
+    <header className="py-md border-b border-border sticky top-0 z-40 bg-background/95 backdrop-blur-sm">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="font-serif text-2xl font-bold text-foreground">
           Level One Radiology
         </Link>
         
-        <div className="hidden md:flex items-center gap-4">
-          <nav className="flex items-center space-x-8">
+        <div className="hidden md:flex items-center gap-md">
+          <nav className="flex items-center space-x-xl">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -51,14 +50,14 @@ export function Header() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="pt-12"
+              className="pt-2xl"
             >
-              <nav className="flex flex-col space-y-2">
+              <nav className="flex flex-col space-y-sm">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     to={link.href}
-                    className="block text-lg font-medium text-muted-foreground hover:text-foreground transition-colors px-4 py-3 rounded-md hover:bg-muted"
+                    className="block text-lg font-medium text-muted-foreground hover:text-foreground transition-colors px-md py-sm-plus rounded-md hover:bg-muted"
                   >
                     {link.name}
                   </Link>

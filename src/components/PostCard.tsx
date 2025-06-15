@@ -23,11 +23,11 @@ export function PostCard({ post }: PostCardProps) {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
-        <div className="p-6">
-          <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">{post.title}</h3>
-          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.description}</p>
+        <div className="p-lg">
+          <h3 className="font-serif text-xl font-bold text-card-foreground mb-sm">{post.title}</h3>
+          <p className="text-muted-foreground text-sm mb-md line-clamp-2">{post.description}</p>
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-sm">
               {post.tags.map((tag) => (
                 <span key={tag} className="text-xs font-medium text-accent-foreground bg-accent/20 px-2 py-1 rounded-full">
                   {tag}

@@ -21,7 +21,7 @@ export function Breadcrumbs({ postTitle }: BreadcrumbsProps) {
   const linkClasses = "text-xs uppercase font-sans text-gray-400 hover:text-white hover:underline";
 
   return (
-    <Breadcrumb className="mb-4">
+    <Breadcrumb className="mb-md">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>

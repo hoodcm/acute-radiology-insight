@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import { MainLayout } from "./components/MainLayout";
 import PostPage from "./pages/PostPage";
 import { ThemeProvider } from "./components/ThemeProvider";
+import SpacingGuide from "./pages/SpacingGuide";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
             <Route element={<MainLayout />}>
               <Route path="/" element={<Index />} />
               <Route path="/posts/:slug" element={<PostPage />} />
+              <Route path="/spacing-guide" element={<SpacingGuide />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

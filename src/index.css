@@ -25,6 +25,13 @@
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-sm-plus: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
   }
 
   .dark {
@@ -59,5 +66,34 @@
     @apply bg-background text-foreground font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .container {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+  @screen md {
+    .container {
+      padding-left: var(--space-md);
+      padding-right: var(--space-md);
+    }
+  }
+  @screen lg {
+    .container {
+      padding-left: var(--space-lg);
+      padding-right: var(--space-lg);
+    }
+  }
+}
+
+@layer utilities {
+  .py-hero {
+    padding-top: clamp(5rem, 10vw, 8rem);
+    padding-bottom: clamp(5rem, 10vw, 8rem);
+  }
+  .pb-cards-section {
+    padding-bottom: clamp(2.5rem, 8vw, 5rem);
   }
 }
