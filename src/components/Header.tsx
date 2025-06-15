@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,11 +10,11 @@ import {
 import { DarkModeToggle } from './DarkModeToggle';
 
 const navLinks = [
-  { name: 'Cases', href: '#' },
-  { name: 'Essays', href: '#' },
-  { name: 'Hindsight', href: '#' },
-  { name: 'Tools', href: '#' },
-  { name: 'About', href: '#' },
+  { name: 'Cases', href: '/cases' },
+  { name: 'Essays', href: '/essays' },
+  { name: 'Hindsight', href: '/hindsight' },
+  { name: 'Tools', href: '/tools' },
+  { name: 'About', href: '/about' },
 ];
 
 export function Header() {

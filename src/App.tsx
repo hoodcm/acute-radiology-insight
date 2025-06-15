@@ -10,6 +10,11 @@ import { MainLayout } from "./components/MainLayout";
 import PostPage from "./pages/PostPage";
 import { ThemeProvider } from "./components/ThemeProvider";
 import SpacingGuide from "./pages/SpacingGuide";
+import Cases from "./pages/Cases";
+import Essays from "./pages/Essays";
+import Hindsight from "./pages/Hindsight";
+import Tools from "./pages/Tools";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +28,11 @@ const App = () => (
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<Index />} />
+              <Route path="/cases" element={<Cases />} />
+              <Route path="/essays" element={<Essays />} />
+              <Route path="/hindsight" element={<Hindsight />} />
+              <Route path="/tools" element={<Tools />} />
+              <Route path="/about" element={<About />} />
               <Route path="/posts/:slug" element={<PostPage />} />
               <Route path="/spacing-guide" element={<SpacingGuide />} />
             </Route>

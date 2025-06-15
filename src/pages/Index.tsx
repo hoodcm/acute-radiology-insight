@@ -18,7 +18,7 @@ const Index = () => {
           </p>
           <div className="mt-xl">
             <Button asChild size="lg" className="font-bold h-12 px-8 text-base">
-              <Link to="#">Explore the Cases</Link>
+              <Link to="/cases">Explore the Cases</Link>
             </Button>
           </div>
         </div>

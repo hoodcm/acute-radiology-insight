@@ -71,19 +71,19 @@
 
 @layer components {
   .container {
-    padding-left: var(--space-sm);
-    padding-right: var(--space-sm);
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
   @screen md {
     .container {
-      padding-left: var(--space-md);
-      padding-right: var(--space-md);
+      padding-left: var(--space-lg);
+      padding-right: var(--space-lg);
     }
   }
   @screen lg {
     .container {
-      padding-left: var(--space-lg);
-      padding-right: var(--space-lg);
+      padding-left: var(--space-xl);
+      padding-right: var(--space-xl);
     }
   }
 }
