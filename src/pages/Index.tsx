@@ -26,7 +26,7 @@ const Index = () => {
 
       {/* Main Body */}
       <section className="container mx-auto pb-cards-section">
-        <div className="grid grid-cols-12 gap-lg">
+        <div className="grid grid-cols-12 gap-md md:gap-lg">
           {posts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}

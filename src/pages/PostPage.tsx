@@ -16,7 +16,7 @@ export default function PostPage() {
 
   return (
     <div className="container mx-auto py-12 lg:py-16">
-      <div className="grid lg:grid-cols-4 gap-2xl">
+      <div className="grid lg:grid-cols-4 gap-lg lg:gap-2xl">
         <div className="lg:col-span-3">
           <Breadcrumbs postTitle={post.title} />
           <header className="mb-xl">

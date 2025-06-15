@@ -23,7 +23,7 @@ export function PostCard({ post }: PostCardProps) {
             className="w-full h-full object-cover transition-transform duration-200 ease-in-out group-hover:scale-[1.04]"
           />
         </div>
-        <div className="p-lg">
+        <div className="p-md md:p-lg">
           <h3 className="font-serif text-xl font-bold text-card-foreground mb-sm">{post.title}</h3>
           <p className="text-muted-foreground text-sm mb-md line-clamp-2">{post.description}</p>
           <div className="flex items-center justify-between">
