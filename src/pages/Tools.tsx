@@ -1,9 +1,9 @@
 
-import { posts } from '@/data/posts';
+import { posts, type Post } from '@/data/posts';
 import { PostCard } from '@/components/PostCard';
 
 const Tools = () => {
-  const toolPosts = posts.filter(post => post.category === 'Tool');
+  const toolPosts = posts.filter((post: Post) => post.category === 'Tool');
 
   return (
     <div className="container mx-auto py-xl">

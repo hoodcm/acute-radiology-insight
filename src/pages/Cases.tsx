@@ -1,9 +1,9 @@
 
-import { posts } from '@/data/posts';
+import { posts, type Post } from '@/data/posts';
 import { PostCard } from '@/components/PostCard';
 
 const Cases = () => {
-  const casePosts = posts.filter(post => post.category === 'Case Study');
+  const casePosts = posts.filter((post: Post) => post.category === 'Case Study');
 
   return (
     <div className="container mx-auto py-xl">
