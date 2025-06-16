@@ -1,19 +1,18 @@
-
 import { Skeleton } from "@/components/ui/skeleton"
 
 export function PostCardSkeleton() {
   return (
     <div className="col-span-12 md:col-span-6 lg:col-span-3">
-      <div className="bg-card rounded-lg overflow-hidden border border-border">
+      <div className="bg-card rounded-lg shadow-lg dark:shadow-[0_4px_24px_rgba(31,41,55,0.6)] overflow-hidden border border-border flex flex-col justify-between">
         <Skeleton className="aspect-video w-full" />
-        <div className="p-md md:p-lg">
+        <div className="p-4 md:p-5 flex flex-col flex-1">
           <Skeleton className="h-7 w-3/4 mb-sm" />
-          <div className="space-y-2 mb-md">
+          <div className="space-y-2 mb-auto">
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-5/6" />
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-sm">
+          <div className="mt-6 flex flex-col gap-2">
+            <div className="flex gap-2">
               <Skeleton className="h-6 w-12 rounded-full" />
               <Skeleton className="h-6 w-16 rounded-full" />
             </div>

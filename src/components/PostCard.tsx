@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import type { Post } from '@/data/posts';
 import { LazyImage } from './LazyImage';
@@ -14,27 +13,32 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <Link to={`/posts/${post.slug}`} className="block group col-span-12 md:col-span-6 lg:col-span-3">
-      <div className="bg-card rounded-lg border border-transparent group-hover:border-accent transition-all duration-200 ease-in-out transform group-hover:scale-[1.02] overflow-hidden">
+      <div className="bg-card rounded-lg shadow-lg dark:shadow-[0_4px_24px_rgba(31,41,55,0.6)] border border-transparent transform transition-transform duration-150 ease-out hover:scale-[1.02] hover:-translate-y-[2px] group-hover:border-accent overflow-hidden flex flex-col justify-between">
         <div className="aspect-video">
           <LazyImage
             src={imageUrl}
             placeholderSrc={placeholderUrl}
             alt={`Featured image for ${post.title}`}
-            className="w-full h-full object-cover transition-transform duration-200 ease-in-out group-hover:scale-[1.04]"
+            className="w-full h-full object-cover"
           />
         </div>
-        <div className="p-md md:p-lg">
-          <h3 className="font-serif text-xl font-bold text-card-foreground mb-sm">{post.title}</h3>
-          <p className="text-muted-foreground text-sm mb-md line-clamp-2">{post.description}</p>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-sm">
-              {post.tags.map((tag) => (
-                <span key={tag} className="text-xs font-medium text-accent-foreground bg-accent/20 px-2 py-1 rounded-full">
-                  {tag}
-                </span>
-              ))}
+        <div className="p-4 md:p-5 flex flex-col flex-1">
+          <h3 className="font-serif text-2xl leading-snug font-semibold text-foreground mb-2">{post.title}</h3>
+          <p className="text-base leading-normal text-muted-foreground mb-4 line-clamp-2">{post.description}</p>
+          <div className="mt-4 flex flex-col items-start gap-2">
+            <div className="flex gap-2">
+              {post.tags
+                .filter((tag) => tag.toLowerCase() !== "error analysis")
+                .map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center uppercase text-[0.65rem] font-semibold tracking-tight text-accent-foreground bg-accent/10 px-1.5 py-0.5 rounded dark:bg-accent/30 dark:text-white"
+                  >
+                    {tag}
+                  </span>
+                ))}
             </div>
-            <span className="text-xs text-muted-foreground/80">{post.date}</span>
+            <span className="text-xs text-muted-foreground">{post.date}</span>
           </div>
         </div>
       </div>

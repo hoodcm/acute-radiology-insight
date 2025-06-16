@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -10,16 +9,27 @@ import { Seo } from '@/components/Seo';
 const Index = () => {
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showSkeleton, setShowSkeleton] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const delay = 200;
+    const loadDelay = setTimeout(() => {
+      setShowSkeleton(true);
+    }, delay);
+
+    const fetchData = async () => {
+      // Simulated fetch - replace with real fetch if needed
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      clearTimeout(loadDelay);
       setLatestPosts(posts);
       setLoading(false);
-    }, 1000); // Simulate network delay
+    };
 
-    return () => clearTimeout(timer);
+    fetchData();
+
+    return () => clearTimeout(loadDelay);
   }, []);
-
+console.log({ loading, showSkeleton });
   return (
     <>
       <Seo
@@ -46,8 +56,10 @@ const Index = () => {
       {/* Main Body */}
       <section className="container mx-auto pb-cards-section">
         <div className="grid grid-cols-12 gap-md md:gap-lg">
-          {loading
-            ? Array.from({ length: 4 }).map((_, index) => <PostCardSkeleton key={index} />)
+          {loading && showSkeleton
+            ? Array.from({ length: 4 }).map((_, index) => (
+                <PostCardSkeleton key={index} className="opacity-0 animate-fade-in" />
+              ))
             : latestPosts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}

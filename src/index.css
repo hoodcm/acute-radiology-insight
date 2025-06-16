@@ -97,3 +97,13 @@
     padding-bottom: clamp(2.5rem, 8vw, 5rem);
   }
 }
+
+@layer utilities {
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .animate-fade-in {
+    animation: fadeIn 300ms ease-out forwards;
+  }
+}
