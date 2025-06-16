@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light" | "system";
@@ -31,6 +30,8 @@ export function ThemeProvider({
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
 
+  const [overlayActive, setOverlayActive] = useState(false);
+
   useEffect(() => {
     const root = window.document.documentElement;
 
@@ -51,15 +52,24 @@ export function ThemeProvider({
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+    setTheme: (newTheme: Theme) => {
+      setOverlayActive(true);
+      // Apply theme mid-sweep (200ms)
+      setTimeout(() => {
+        localStorage.setItem(storageKey, newTheme);
+        setTheme(newTheme);
+      }, 200);
+      // Remove overlay after full sweep (400ms)
+      setTimeout(() => setOverlayActive(false), 400);
     },
   };
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
-      {children}
+      <>
+        <div className={`theme-sweep-overlay${overlayActive ? ' active' : ''}`} />
+        {children}
+      </>
     </ThemeProviderContext.Provider>
   );
 }

@@ -27,7 +27,7 @@ export default {
         '2xl': '48px',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
       },
 			colors: {
