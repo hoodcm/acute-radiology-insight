@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { DarkModeToggle } from './DarkModeToggle';
 import { SearchInput } from './SearchInput';
@@ -13,21 +12,23 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="py-md border-b border-border sticky top-0 z-40 bg-background/95 backdrop-blur-sm">
+    <header className="py-2 sm:py-4 lg:py-6 border-b border-border sticky top-0 z-40 bg-background/95 backdrop-blur-sm">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="font-serif text-2xl font-bold text-foreground">
+        <Link to="/" className="font-jersey text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
           Level One Radiology
         </Link>
         
-        <div className="hidden md:flex items-center gap-md">
-          <nav className="flex items-center space-x-xl">
+        <div className="hidden md:flex items-center gap-4 sm:gap-6 lg:gap-8">
+          <nav className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="relative group text-base md:text-lg lg:text-xl tracking-wide font-jersey25 text-muted-foreground hover:text-foreground transition-colors duration-75 ease-in-out"
               >
+                <span className="opacity-0 group-hover:opacity-100 mr-1 text-foreground">[</span>
                 {link.name}
+                <span className="opacity-0 group-hover:opacity-100 ml-1 text-foreground">]</span>
               </Link>
             ))}
           </nav>

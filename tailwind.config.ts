@@ -29,6 +29,8 @@ export default {
       fontFamily: {
         sans: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
+        jersey: ['"Jersey 10"', 'sans-serif'],
+        jersey25: ['"Jersey 25"', 'sans-serif'],
       },
 			colors: {
 				border: 'hsl(var(--border))',

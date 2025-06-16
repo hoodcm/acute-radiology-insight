@@ -55,7 +55,7 @@ console.log({ loading, showSkeleton });
 
       {/* Main Body */}
       <section className="container mx-auto pb-cards-section">
-        <div className="grid grid-cols-12 gap-md md:gap-lg">
+        <div className="grid grid-cols-12 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
           {loading && showSkeleton
             ? Array.from({ length: 4 }).map((_, index) => (
                 <PostCardSkeleton key={index} className="opacity-0 animate-fade-in" />
