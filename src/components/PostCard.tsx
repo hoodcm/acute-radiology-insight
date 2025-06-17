@@ -2,7 +2,7 @@ import previewEyeIcon from '@/assets/preview-eye.png';
 import { Link } from 'react-router-dom';
 import type { Post } from '@/data/posts';
 import { LazyImage } from './LazyImage';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface PostCardProps {
   post: Post;
@@ -16,9 +16,29 @@ export function PostCard({ post }: PostCardProps) {
   const [activePreviewSlug, setActivePreviewSlug] = useState<string | null>(null);
   const previewOpen = activePreviewSlug === post.slug;
 
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        setActivePreviewSlug(null);
+      }
+    }
+
+    if (previewOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [previewOpen]);
+
   return (
-    <div className="group col-span-12 md:col-span-6 lg:col-span-3" onClick={() => previewOpen && setActivePreviewSlug(null)}>
-      <div className="bg-card dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(150,60,75,1)] border-[2.5px] border-black dark:border-[#963C4B] overflow-hidden relative flex flex-col justify-between h-full" onClick={(e) => e.stopPropagation()}>
+    <div ref={cardRef} className="group col-span-12 md:col-span-6 lg:col-span-3" onClick={() => previewOpen && setActivePreviewSlug(null)}>
+      <div className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black group-hover:border-accent dark:border-[#722b37] dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-transform duration-100 ease-in group-hover:scale-[1.005]" onClick={(e) => e.stopPropagation()}>
         <Link to={`/posts/${post.slug}`} className="flex-1 flex flex-col justify-between h-full">
           <div className="aspect-[7/4] relative">
             <LazyImage
@@ -53,19 +73,19 @@ export function PostCard({ post }: PostCardProps) {
               <div className="relative inline-block transform transition-transform duration-150 ease-out">
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 translate-x-[2px] translate-y-[2px] bg-black rounded-md"
+                  className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
                 />
                 <span
                   className={`
                     relative block
-                    border-2 border-black dark:border-[#963C4B]
+                    border-2 border-black dark:border-[#722b37]
                     rounded-md w-12 h-8 flex items-center justify-center
                     transition-all duration-150 ease-out
                     flex items-center gap-1
                     ${
                       previewOpen
-                        ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#963C4B] dark:text-white'
-                        : 'bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#963C4B] dark:hover:text-white'
+                        ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#722b37] dark:text-white'
+                        : 'bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white'
                     }
                   `}
                 >
@@ -76,18 +96,13 @@ export function PostCard({ post }: PostCardProps) {
           </div>
         </Link>
         <div
-          className={`absolute left-0 right-0 bottom-0 top-[57%] bg-background dark:bg-[#1E0F13] border border-accent p-6
+          className={`absolute left-0 right-0 bottom-0 top-0 bg-background dark:bg-[#2A1B1F] p-4
+            shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)]
             transform ${previewOpen 
               ? 'translate-y-0 opacity-100 pointer-events-auto' 
               : 'translate-y-full opacity-0 pointer-events-none'}
-            transition-all duration-300 ease-out`}
+            transition-all duration-150 ease-out`}
         >
-          <button
-            onClick={() => setActivePreviewSlug(null)}
-            className="absolute top-2 right-2 text-2xl font-semibold p-2 text-muted-foreground hover:text-accent"
-          >
-            ×
-          </button>
           <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
           <p className="text-base text-muted-foreground dark:text-white">{post.description}</p>
         </div>
