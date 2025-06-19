@@ -27,8 +27,8 @@ export default {
         '2xl': '48px',
       },
       fontFamily: {
-        sans: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['"Onest"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['Adamina', 'serif'],
         jersey: ['"Jersey 10"', 'sans-serif'],
         jersey25: ['"Jersey 25"', 'sans-serif'],
       },

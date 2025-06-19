@@ -77,11 +77,7 @@ export function PostCard({ post }: PostCardProps) {
                 />
                 <span
                   className={`
-                    relative block
-                    border-2 border-black dark:border-[#722b37]
-                    rounded-md w-12 h-8 flex items-center justify-center
-                    transition-all duration-150 ease-out
-                    flex items-center gap-1
+                    relative border-2 border-black dark:border-[#722b37] rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
                     ${
                       previewOpen
                         ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#722b37] dark:text-white'

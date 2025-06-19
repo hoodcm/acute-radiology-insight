@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 export function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="border-t border-[var(--color-border)] mt-24 py-8 md:py-12">
+    <footer id="footer" className="border-t border-[var(--color-border)] mt-24 py-8 md:py-12">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
         {/* Left column */}
         <p className="text-sm text-muted-foreground">
