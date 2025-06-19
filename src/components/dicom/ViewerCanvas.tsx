@@ -1,5 +1,6 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { MeasurementTool } from './MeasurementTool';
 
 interface ViewerCanvasProps {
   imageUrl: string;
@@ -9,7 +10,7 @@ interface ViewerCanvasProps {
   windowCenter: number;
   brightness: number;
   contrast: number;
-  activeTool: 'pan' | 'zoom' | 'windowing';
+  activeTool: 'pan' | 'zoom' | 'windowing' | 'measure';
   onZoomChange: (zoom: number) => void;
   onPanChange: (pan: { x: number; y: number }) => void;
   onWindowingChange: (width: number, center: number) => void;
@@ -33,6 +34,7 @@ export function ViewerCanvas({
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [imageData, setImageData] = useState<HTMLImageElement | null>(null);
+  const [measurements, setMeasurements] = useState([]);
 
   // Load image
   useEffect(() => {
@@ -101,12 +103,14 @@ export function ViewerCanvas({
 
   // Mouse event handlers
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (activeTool === 'measure') return; // Let MeasurementTool handle this
+    
     setIsDragging(true);
     setDragStart({ x: e.clientX, y: e.clientY });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
+    if (!isDragging || activeTool === 'measure') return;
 
     const deltaX = e.clientX - dragStart.x;
     const deltaY = e.clientY - dragStart.y;
@@ -117,8 +121,9 @@ export function ViewerCanvas({
         y: pan.y + deltaY,
       });
     } else if (activeTool === 'windowing') {
-      const newWidth = Math.max(1, windowWidth + deltaX);
-      const newCenter = windowCenter + deltaY;
+      const sensitivity = 2;
+      const newWidth = Math.max(1, windowWidth + deltaX * sensitivity);
+      const newCenter = windowCenter + deltaY * sensitivity;
       onWindowingChange(newWidth, newCenter);
     }
 
@@ -132,7 +137,7 @@ export function ViewerCanvas({
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     
-    if (activeTool === 'zoom') {
+    if (activeTool === 'zoom' || e.ctrlKey) {
       const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
       const newZoom = Math.max(0.1, Math.min(10, zoom * zoomFactor));
       onZoomChange(newZoom);
@@ -140,6 +145,7 @@ export function ViewerCanvas({
   };
 
   const getCursor = () => {
+    if (activeTool === 'measure') return 'crosshair';
     switch (activeTool) {
       case 'pan': return isDragging ? 'grabbing' : 'grab';
       case 'zoom': return 'zoom-in';
@@ -164,6 +170,13 @@ export function ViewerCanvas({
         onWheel={handleWheel}
       />
       
+      {/* Measurement overlay */}
+      <MeasurementTool
+        isActive={activeTool === 'measure'}
+        zoom={zoom}
+        onMeasurementsChange={setMeasurements}
+      />
+      
       {/* Image info overlay */}
       <div className="absolute top-4 left-4 text-white text-sm bg-black/50 px-2 py-1 rounded">
         Zoom: {(zoom * 100).toFixed(0)}%
@@ -171,6 +184,11 @@ export function ViewerCanvas({
       
       <div className="absolute top-4 right-4 text-white text-sm bg-black/50 px-2 py-1 rounded">
         W: {windowWidth.toFixed(0)} | C: {windowCenter.toFixed(0)}
+      </div>
+
+      {/* Tool indicator */}
+      <div className="absolute bottom-4 left-4 text-white text-xs bg-black/50 px-2 py-1 rounded">
+        Tool: {activeTool.charAt(0).toUpperCase() + activeTool.slice(1)}
       </div>
     </div>
   );

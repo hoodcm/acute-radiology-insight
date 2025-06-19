@@ -5,6 +5,8 @@ import { ViewerCanvas } from '@/components/dicom/ViewerCanvas';
 import { ViewerToolbar } from '@/components/dicom/ViewerToolbar';
 import { ViewerControls } from '@/components/dicom/ViewerControls';
 import { ViewerSidebar } from '@/components/dicom/ViewerSidebar';
+import { ImageNavigator } from '@/components/dicom/ImageNavigator';
+import { KeyboardShortcuts } from '@/components/dicom/KeyboardShortcuts';
 import { Seo } from '@/components/Seo';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -19,8 +21,9 @@ const DicomViewer = () => {
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [brightness, setBrightness] = useState(0);
   const [contrast, setContrast] = useState(0);
-  const [activeTool, setActiveTool] = useState<'pan' | 'zoom' | 'windowing'>('pan');
+  const [activeTool, setActiveTool] = useState<'pan' | 'zoom' | 'windowing' | 'measure'>('pan');
   const [showSidebar, setShowSidebar] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Mock DICOM data - replace with real data fetching
   const dicomData = {
@@ -29,8 +32,9 @@ const DicomViewer = () => {
     modality: 'CT',
     bodyPart: 'Head',
     images: [
-      { id: 1, url: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=512&h=512&fit=crop' },
-      { id: 2, url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=512&h=512&fit=crop' },
+      { id: 1, url: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=512&h=512&fit=crop', name: 'Axial 001' },
+      { id: 2, url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=512&h=512&fit=crop', name: 'Axial 002' },
+      { id: 3, url: 'https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=512&h=512&fit=crop', name: 'Axial 003' },
     ]
   };
 
@@ -60,6 +64,46 @@ const DicomViewer = () => {
     setContrast(0);
   };
 
+  const handleImageChange =ouble (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
+  const handleNextImage = () => {
+    const nextIndex = currentImageIndex < dicomData.images.length - 1 ? currentImageIndex + 1 : 0;
+    setCurrentImageIndex(nextIndex);
+  };
+
+  const handlePrevImage = () => {
+    const prevIndex = currentImageIndex > 0 ? currentImageIndex - 1 : dicomData.images.length - 1;
+    setCurrentImageIndex(prevIndex);
+  };
+
+  const handleZoomKeyboard = (direction: 'in' | 'out') => {
+    const zoomFactor = direction === 'in' ? 1.2 : 0.8;
+    const newZoom = Math.max(0.1, Math.min(10, zoom * zoomFactor));
+    setZoom(newZoom);
+  };
+
+  const handlePresetKeyboard = (preset: string) => {
+    const presets = {
+      'soft-tissue': { width: 400, center: 40 },
+      'bone': { width: 1500, center: 300 },
+      'lung': { width: 1500, center: -600 },
+      'brain': { width: 80, center: 40 },
+    };
+    
+    const presetValues = presets[preset as keyof typeof presets];
+    if (presetValues) {
+      setWindowWidth(presetValues.width);
+      setWindowCenter(presetValues.center);
+    }
+  };
+
+  const handlePresetApply = (width: number, center: number) => {
+    setWindowWidth(width);
+    setWindowCenter(center);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -78,6 +122,17 @@ const DicomViewer = () => {
       <Seo 
         title={`DICOM Viewer - Case ${caseId}`}
         description="Professional DICOM image viewer for radiology cases"
+      />
+      
+      {/* Keyboard shortcuts handler */}
+      <KeyboardShortcuts
+        onToolChange={handleToolChange}
+        onReset={handleReset}
+        onToggleSidebar={() => setShowSidebar(!showSidebar)}
+        onNextImage={handleNextImage}
+        onPrevImage={handlePrevImage}
+        onZoom={handleZoomKeyboard}
+        onPreset={handlePresetKeyboard}
       />
       
       <div className="min-h-screen bg-black text-white flex flex-col">
@@ -115,7 +170,7 @@ const DicomViewer = () => {
           {/* Canvas area */}
           <div className="flex-1 relative">
             <ViewerCanvas
-              imageUrl={dicomData.images[0].url}
+              imageUrl={dicomData.images[currentImageIndex].url}
               zoom={zoom}
               pan={pan}
               windowWidth={windowWidth}
@@ -144,13 +199,24 @@ const DicomViewer = () => {
               onBrightnessChange={setBrightness}
               onContrastChange={setContrast}
             />
+
+            {/* Image navigation */}
+            <ImageNavigator
+              currentImageIndex={currentImageIndex}
+              totalImages={dicomData.images.length}
+              onImageChange={handleImageChange}
+              images={dicomData.images}
+            />
           </div>
 
           {/* Sidebar */}
           {showSidebar && (
             <ViewerSidebar
               patientData={dicomData}
+              currentImageIndex={currentImageIndex}
               onClose={() => setShowSidebar(false)}
+              onImageSelect={handleImageChange}
+              onPresetApply={handlePresetApply}
             />
           )}
         </div>

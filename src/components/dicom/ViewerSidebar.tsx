@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
+import { WindowingPresets } from './WindowingPresets';
 
 interface ViewerSidebarProps {
   patientData: {
@@ -9,12 +10,21 @@ interface ViewerSidebarProps {
     studyDate: string;
     modality: string;
     bodyPart: string;
-    images: Array<{ id: number; url: string }>;
+    images: Array<{ id: number; url: string; name?: string }>;
   };
+  currentImageIndex: number;
   onClose: () => void;
+  onImageSelect: (index: number) => void;
+  onPresetApply: (width: number, center: number) => void;
 }
 
-export function ViewerSidebar({ patientData, onClose }: ViewerSidebarProps) {
+export function ViewerSidebar({ 
+  patientData, 
+  currentImageIndex, 
+  onClose, 
+  onImageSelect,
+  onPresetApply 
+}: ViewerSidebarProps) {
   return (
     <div className="w-80 bg-gray-900 border-l border-gray-700 flex flex-col">
       {/* Header */}
@@ -54,13 +64,18 @@ export function ViewerSidebar({ patientData, onClose }: ViewerSidebarProps) {
       </div>
 
       {/* Series/Images */}
-      <div className="p-4 flex-1">
+      <div className="p-4 flex-1 max-h-64 overflow-y-auto border-b border-gray-700">
         <h3 className="text-sm font-semibold text-gray-300 mb-2">Image Series</h3>
         <div className="space-y-2">
           {patientData.images.map((image, index) => (
             <div
               key={image.id}
-              className="flex items-center gap-3 p-2 rounded bg-gray-800 hover:bg-gray-700 cursor-pointer"
+              onClick={() => onImageSelect(index)}
+              className={`flex items-center gap-3 p-2 rounded cursor-pointer ${
+                index === currentImageIndex 
+                  ? 'bg-orange-600 hover:bg-orange-700' 
+                  : 'bg-gray-800 hover:bg-gray-700'
+              }`}
             >
               <img
                 src={image.url}
@@ -71,43 +86,30 @@ export function ViewerSidebar({ patientData, onClose }: ViewerSidebarProps) {
                 <p className="text-white text-sm">Image {index + 1}</p>
                 <p className="text-gray-400 text-xs">512 x 512</p>
               </div>
+              {index === currentImageIndex && (
+                <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+              )}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Presets */}
-      <div className="p-4 border-t border-gray-700">
-        <h3 className="text-sm font-semibold text-gray-300 mb-2">Window Presets</h3>
-        <div className="grid grid-cols-2 gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs text-white border-gray-600 hover:bg-gray-700"
-          >
-            Soft Tissue
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs text-white border-gray-600 hover:bg-gray-700"
-          >
-            Bone
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs text-white border-gray-600 hover:bg-gray-700"
-          >
-            Lung
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs text-white border-gray-600 hover:bg-gray-700"
-          >
-            Brain
-          </Button>
+      {/* Window Presets */}
+      <div className="p-4 border-b border-gray-700">
+        <h3 className="text-sm font-semibold text-gray-300 mb-2">
+          Window Presets
+          <span className="text-xs text-gray-500 ml-2">(Press 1-6)</span>
+        </h3>
+        <WindowingPresets onPresetApply={onPresetApply} />
+      </div>
+
+      {/* Keyboard Shortcuts Help */}
+      <div className="p-4">
+        <h3 className="text-sm font-semibold text-gray-300 mb-2">Shortcuts</h3>
+        <div className="text-xs text-gray-400 space-y-1">
+          <div>P - Pan | Z - Zoom | W - Window</div>
+          <div>M - Measure | R - Reset | S - Sidebar</div>
+          <div>← → - Navigate | +/- - Zoom</div>
         </div>
       </div>
     </div>

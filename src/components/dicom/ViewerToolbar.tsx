@@ -3,8 +3,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 
 interface ViewerToolbarProps {
-  activeTool: 'pan' | 'zoom' | 'windowing';
-  onToolChange: (tool: 'pan' | 'zoom' | 'windowing') => void;
+  activeTool: 'pan' | 'zoom' | 'windowing' | 'measure';
+  onToolChange: (tool: 'pan' | 'zoom' | 'windowing' | 'measure') => void;
   onReset: () => void;
   onToggleSidebar: () => void;
   showSidebar: boolean;
@@ -18,9 +18,10 @@ export function ViewerToolbar({
   showSidebar,
 }: ViewerToolbarProps) {
   const tools = [
-    { id: 'pan' as const, label: 'Pan', icon: '✋' },
-    { id: 'zoom' as const, label: 'Zoom', icon: '🔍' },
-    { id: 'windowing' as const, label: 'Window', icon: '🎛️' },
+    { id: 'pan' as const, label: 'Pan', icon: '✋', hotkey: 'P' },
+    { id: 'zoom' as const, label: 'Zoom', icon: '🔍', hotkey: 'Z' },
+    { id: 'windowing' as const, label: 'Window', icon: '🎛️', hotkey: 'W' },
+    { id: 'measure' as const, label: 'Measure', icon: '📏', hotkey: 'M' },
   ];
 
   return (
@@ -33,14 +34,18 @@ export function ViewerToolbar({
             variant={activeTool === tool.id ? 'default' : 'ghost'}
             size="sm"
             onClick={() => onToolChange(tool.id)}
-            className={`text-xs px-3 ${
+            className={`text-xs px-3 relative ${
               activeTool === tool.id 
                 ? 'bg-accent text-black' 
                 : 'text-gray-300 hover:text-white hover:bg-gray-700'
             }`}
+            title={`${tool.label} (${tool.hotkey})`}
           >
             <span className="mr-1">{tool.icon}</span>
             {tool.label}
+            <span className="absolute -top-1 -right-1 text-[8px] text-gray-400">
+              {tool.hotkey}
+            </span>
           </Button>
         ))}
       </div>
@@ -52,6 +57,7 @@ export function ViewerToolbar({
           size="sm"
           onClick={onReset}
           className="text-white border-gray-600 hover:bg-gray-700"
+          title="Reset (R)"
         >
           Reset
         </Button>
@@ -61,6 +67,7 @@ export function ViewerToolbar({
           size="sm"
           onClick={onToggleSidebar}
           className="text-white border-gray-600 hover:bg-gray-700"
+          title="Toggle Sidebar (S)"
         >
           {showSidebar ? 'Hide Info' : 'Show Info'}
         </Button>
