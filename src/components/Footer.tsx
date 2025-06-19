@@ -1,9 +1,35 @@
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { CheckCircle, Mail, Loader2 } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [error, setError] = useState('');
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    
+    setIsSubmitting(true);
+    setError('');
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setIsSubscribed(true);
+      setEmail('');
+      console.log('Subscribe:', email);
+    } catch (err) {
+      setError('Failed to subscribe. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   return (
     <footer 
@@ -17,46 +43,59 @@ export function Footer() {
           &copy; {currentYear} Level One Radiology. All rights reserved.
         </p>
 
-        {/* Right column: subscription block */}
+        {/* Right column: enhanced subscription block */}
         <div className="w-full max-w-sm">
-          <p className="mb-2 text-sm text-muted-foreground">
-            Subscribe for concise radiology insights, no spam.
-          </p>
-          <form
-            aria-label="Subscribe to newsletter"
-            className="flex w-full max-w-sm h-12 rounded-lg overflow-hidden border border-border focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              // Handle subscription logic here
-              const formData = new FormData(e.currentTarget);
-              const email = formData.get('email');
-              console.log('Subscribe:', email);
-            }}
-          >
-            <label htmlFor="footer-email" className="sr-only">
-              Email address for newsletter subscription
-            </label>
-            <Input
-              id="footer-email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              aria-label="Email address"
-              required
-              className="flex-1 border-none rounded-none focus:ring-0 focus-visible:ring-0 placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4"
-            />
-            <Button
-              type="submit"
-              variant="default"
-              className="bg-accent text-foreground hover:bg-accent-dark focus:ring-2 focus:ring-accent focus:outline-none h-full rounded-none px-6 touch-target"
-              aria-label="Subscribe to newsletter"
-            >
-              Subscribe
-            </Button>
-          </form>
-          <p className="text-xs text-muted-foreground mt-2">
-            We respect your privacy and will never share your email.
-          </p>
+          {isSubscribed ? (
+            <div className="flex items-center gap-2 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+              <CheckCircle className="w-5 h-5 text-green-600" />
+              <p className="text-sm text-green-700 dark:text-green-400 font-medium">
+                Successfully subscribed! Check your email.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center gap-2 mb-3">
+                <Mail className="w-4 h-4 text-accent" />
+                <p className="text-sm font-medium text-foreground">
+                  Get radiology insights
+                </p>
+              </div>
+              <p className="mb-3 text-xs text-muted-foreground">
+                Weekly case studies and educational content, no spam.
+              </p>
+              <form
+                onSubmit={handleSubmit}
+                className="flex w-full max-w-sm h-12 rounded-lg overflow-hidden border-2 border-black dark:border-white focus-within:shadow-[0_0_0_2px_rgba(255,165,0,0.5)] transition-shadow"
+              >
+                <Input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={isSubmitting}
+                  className="flex-1 border-none rounded-none focus:ring-0 focus-visible:ring-0 bg-white dark:bg-gray-900 px-4 text-sm"
+                />
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !email.trim()}
+                  className="bg-accent hover:bg-accent/90 text-black font-semibold h-full rounded-none px-6 border-l-2 border-black dark:border-white disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    'Subscribe'
+                  )}
+                </Button>
+              </form>
+              {error && (
+                <p className="text-xs text-red-600 dark:text-red-400 mt-2">{error}</p>
+              )}
+              <p className="text-xs text-muted-foreground mt-2">
+                We respect your privacy. Unsubscribe anytime.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </footer>

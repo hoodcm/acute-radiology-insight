@@ -18,7 +18,6 @@ export function BottomNav() {
   }, [location.pathname]);
 
   const baseMargin = 16;
-
   const [bottomOffset, setBottomOffset] = useState(16);
 
   useEffect(() => {
@@ -27,7 +26,6 @@ export function BottomNav() {
       if (!footer) return;
       const footerRect = footer.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      // h-20 = 80px nav height, plus 16px margin
       if (footerRect.top < viewportHeight) {
         const overlap = viewportHeight - footerRect.top;
         setBottomOffset(baseMargin + overlap);
@@ -49,29 +47,50 @@ export function BottomNav() {
 
   return (
     <nav
-      className="md:hidden fixed inset-x-4 h-20 bg-[#FDFCF9] border border-black rounded-full shadow-[4px_4px_0_rgba(0,0,0,1)] px-4 z-50"
+      className="md:hidden fixed inset-x-4 h-20 bg-white dark:bg-gray-900 border-2 border-black dark:border-white rounded-full shadow-[4px_4px_0_rgba(0,0,0,1)] dark:shadow-[4px_4px_0_rgba(255,255,255,1)] px-4 z-50 backdrop-blur-sm"
       style={{ bottom: `${bottomOffset}px` }}
     >
-      <div className="grid h-full max-w-lg grid-cols-5 gap-x-4 mx-auto relative">
-        {navLinks.map((link) => {
+      <div className="grid h-full max-w-lg grid-cols-5 gap-x-2 mx-auto relative">
+        {/* Active indicator */}
+        {activeIndex >= 0 && (
+          <div 
+            className="absolute top-1/2 -translate-y-1/2 w-12 h-12 bg-accent rounded-full transition-all duration-300 ease-out"
+            style={{ 
+              left: `${20 + (activeIndex * (100 / navLinks.length))}%`,
+              transform: 'translateX(-50%) translateY(-50%)'
+            }}
+          />
+        )}
+        
+        {navLinks.map((link, index) => {
           const Icon = link.icon;
+          const isActive = activeIndex === index;
+          
           return (
             <NavLink
               key={link.name}
               to={link.href}
               aria-label={link.name}
-              className={({ isActive }) =>
-                cn(
-                  'inline-flex flex-col items-center justify-center w-full py-3 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-background transition-all duration-150 ease-in-out active:scale-[0.97]',
-                  isActive ? 'text-accent' : 'text-black'
-                )
-              }
+              className={cn(
+                'inline-flex flex-col items-center justify-center w-full py-3 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 ease-in-out active:scale-95 relative z-10',
+                isActive 
+                  ? 'text-black font-semibold' 
+                  : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white'
+              )}
             >
-              <Icon className="w-8 h-8 mb-0.5 stroke-2" />
-              <span className="text-xs">
-                <span className="opacity-0 group-hover:opacity-100 mr-1 text-foreground">[</span>
+              <Icon 
+                className={cn(
+                  "mb-0.5 stroke-2 transition-all duration-200",
+                  isActive ? "w-6 h-6" : "w-5 h-5"
+                )} 
+              />
+              <span 
+                className={cn(
+                  "text-xs transition-all duration-200",
+                  isActive ? "font-semibold" : "font-normal"
+                )}
+              >
                 {link.name}
-                <span className="opacity-0 group-hover:opacity-100 ml-1 text-foreground">]</span>
               </span>
             </NavLink>
           );
