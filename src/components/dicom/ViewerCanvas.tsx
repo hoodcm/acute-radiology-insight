@@ -1,6 +1,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { MeasurementTool } from './MeasurementTool';
+import { AnnotationTool } from './AnnotationTool';
 
 interface ViewerCanvasProps {
   imageUrl: string;
@@ -10,7 +11,7 @@ interface ViewerCanvasProps {
   windowCenter: number;
   brightness: number;
   contrast: number;
-  activeTool: 'pan' | 'zoom' | 'windowing' | 'measure';
+  activeTool: 'pan' | 'zoom' | 'windowing' | 'measure' | 'annotate';
   onZoomChange: (zoom: number) => void;
   onPanChange: (pan: { x: number; y: number }) => void;
   onWindowingChange: (width: number, center: number) => void;
@@ -35,6 +36,7 @@ export function ViewerCanvas({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [imageData, setImageData] = useState<HTMLImageElement | null>(null);
   const [measurements, setMeasurements] = useState([]);
+  const [annotations, setAnnotations] = useState([]);
 
   // Load image
   useEffect(() => {
@@ -103,14 +105,14 @@ export function ViewerCanvas({
 
   // Mouse event handlers
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (activeTool === 'measure') return; // Let MeasurementTool handle this
+    if (activeTool === 'measure' || activeTool === 'annotate') return; // Let tools handle this
     
     setIsDragging(true);
     setDragStart({ x: e.clientX, y: e.clientY });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || activeTool === 'measure') return;
+    if (!isDragging || activeTool === 'measure' || activeTool === 'annotate') return;
 
     const deltaX = e.clientX - dragStart.x;
     const deltaY = e.clientY - dragStart.y;
@@ -146,6 +148,7 @@ export function ViewerCanvas({
 
   const getCursor = () => {
     if (activeTool === 'measure') return 'crosshair';
+    if (activeTool === 'annotate') return 'crosshair';
     switch (activeTool) {
       case 'pan': return isDragging ? 'grabbing' : 'grab';
       case 'zoom': return 'zoom-in';
@@ -177,6 +180,13 @@ export function ViewerCanvas({
         onMeasurementsChange={setMeasurements}
       />
       
+      {/* Annotation overlay */}
+      <AnnotationTool
+        isActive={activeTool === 'annotate'}
+        annotations={annotations}
+        onAnnotationsChange={setAnnotations}
+      />
+      
       {/* Image info overlay */}
       <div className="absolute top-4 left-4 text-white text-sm bg-black/50 px-2 py-1 rounded">
         Zoom: {(zoom * 100).toFixed(0)}%
@@ -190,6 +200,13 @@ export function ViewerCanvas({
       <div className="absolute bottom-4 left-4 text-white text-xs bg-black/50 px-2 py-1 rounded">
         Tool: {activeTool.charAt(0).toUpperCase() + activeTool.slice(1)}
       </div>
+      
+      {/* Annotations counter */}
+      {annotations.length > 0 && (
+        <div className="absolute top-16 right-4 text-white text-xs bg-blue-600/80 px-2 py-1 rounded">
+          {annotations.length} annotation{annotations.length !== 1 ? 's' : ''}
+        </div>
+      )}
     </div>
   );
 }

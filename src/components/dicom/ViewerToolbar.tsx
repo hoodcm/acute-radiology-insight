@@ -3,8 +3,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 
 interface ViewerToolbarProps {
-  activeTool: 'pan' | 'zoom' | 'windowing' | 'measure';
-  onToolChange: (tool: 'pan' | 'zoom' | 'windowing' | 'measure') => void;
+  activeTool: 'pan' | 'zoom' | 'windowing' | '| 'annotate';
+  onToolChange: (tool: 'pan' | 'zoom' | 'windowing' | 'measure' | 'annotate') => void;
   onReset: () => void;
   onToggleSidebar: () => void;
   showSidebar: boolean;
@@ -22,6 +22,7 @@ export function ViewerToolbar({
     { id: 'zoom' as const, label: 'Zoom', icon: '🔍', hotkey: 'Z' },
     { id: 'windowing' as const, label: 'Window', icon: '🎛️', hotkey: 'W' },
     { id: 'measure' as const, label: 'Measure', icon: '📏', hotkey: 'M' },
+    { id: 'annotate' as const, label: 'Annotate', icon: '📝', hotkey: 'A' },
   ];
 
   return (

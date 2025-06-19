@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ViewerCanvas } from '@/components/dicom/ViewerCanvas';
@@ -20,7 +21,7 @@ const DicomViewer = () => {
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [brightness, setBrightness] = useState(0);
   const [contrast, setContrast] = useState(0);
-  const [activeTool, setActiveTool] = useState<'pan' | 'zoom' | 'windowing' | 'measure'>('pan');
+  const [activeTool, setActiveTool] = useState<'pan' | 'zoom' | 'windowing' | 'measure' | 'annotate'>('pan');
   const [showSidebar, setShowSidebar] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -89,6 +90,11 @@ const DicomViewer = () => {
       'bone': { width: 1500, center: 300 },
       'lung': { width: 1500, center: -600 },
       'brain': { width: 80, center: 40 },
+      'liver': { width: 150, center: 30 },
+      'abdomen': { width: 350, center: 50 },
+      'mediastinum': { width: 350, center: 50 },
+      'spine': { width: 250, center: 50 },
+      'pelvis': { width: 400, center: 40 },
     };
     
     const presetValues = presets[preset as keyof typeof presets];
@@ -120,7 +126,7 @@ const DicomViewer = () => {
     <>
       <Seo 
         title={`DICOM Viewer - Case ${caseId}`}
-        description="Professional DICOM image viewer for radiology cases"
+        description="Professional DICOM image viewer for radiology cases with advanced windowing, measurements, and annotations"
       />
       
       {/* Keyboard shortcuts handler */}
