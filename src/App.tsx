@@ -18,6 +18,7 @@ import Tools from "./pages/Tools";
 import About from "./pages/About";
 import Search from "./pages/Search";
 import AuthorPage from "./pages/AuthorPage";
+import DicomViewer from "./pages/DicomViewer";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
                 <Route path="/authors/:slug" element={<AuthorPage />} />
                 <Route path="/spacing-guide" element={<SpacingGuide />} />
               </Route>
+              <Route path="/viewer/:caseId" element={<DicomViewer />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
