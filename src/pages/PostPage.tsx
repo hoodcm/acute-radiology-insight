@@ -6,6 +6,7 @@ import NotFound from './NotFound';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { authors } from '@/data/authors';
 import { Seo } from '@/components/Seo';
+import { ImagingSection } from '@/components/ImagingSection';
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -21,6 +22,13 @@ export default function PostPage() {
   const postUrl = `${window.location.origin}/posts/${post.slug}`;
   const imageUrl = `https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&auto=format&fit=crop&q=60`;
   const publishedDate = format(new Date(post.date), 'yyyy-MM-dd');
+
+  // Check if post has imaging content
+  const hasImaging = post.tags.some(tag => 
+    ['CT', 'MRI', 'X-Ray', 'Ultrasound', 'Nuclear Medicine'].some(modality => 
+      tag.toLowerCase().includes(modality.toLowerCase())
+    )
+  );
 
   const jsonLdData = {
     '@context': 'https://schema.org',
@@ -99,6 +107,16 @@ export default function PostPage() {
               role="article"
               aria-labelledby="article-title"
             />
+
+            {/* Imaging Section */}
+            {hasImaging && (
+              <ImagingSection
+                postType={post.category as 'Case Study' | 'Essay' | 'Hindsight'}
+                postSlug={post.slug}
+                title={post.title}
+                hasInteractiveImages={true}
+              />
+            )}
           </main>
           
           <aside 
