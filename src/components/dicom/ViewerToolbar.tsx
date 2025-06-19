@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 
 interface ViewerToolbarProps {
-  activeTool: 'pan' | 'zoom' | 'windowing' | '| 'annotate';
+  activeTool: 'pan' | 'zoom' | 'windowing' | 'measure' | 'annotate';
   onToolChange: (tool: 'pan' | 'zoom' | 'windowing' | 'measure' | 'annotate') => void;
   onReset: () => void;
   onToggleSidebar: () => void;

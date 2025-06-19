@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 interface KeyboardShortcutsProps {
-  onToolChange: (tool: 'pan' | 'zoom' | 'windowing') => void;
+  onToolChange: (tool: 'pan' | 'zoom' | 'windowing' | 'measure' | 'annotate') => void;
   onReset: () => void;
   onToggleSidebar: () => void;
   onNextImage: () => void;
@@ -39,6 +39,14 @@ export function KeyboardShortcuts({
         case 'w':
           e.preventDefault();
           onToolChange('windowing');
+          break;
+        case 'm':
+          e.preventDefault();
+          onToolChange('measure');
+          break;
+        case 'a':
+          e.preventDefault();
+          onToolChange('annotate');
           break;
         case 'r':
           e.preventDefault();
@@ -80,6 +88,14 @@ export function KeyboardShortcuts({
         case '4':
           e.preventDefault();
           onPreset('brain');
+          break;
+        case '5':
+          e.preventDefault();
+          onPreset('liver');
+          break;
+        case '6':
+          e.preventDefault();
+          onPreset('abdomen');
           break;
       }
     };
