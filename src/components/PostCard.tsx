@@ -1,3 +1,4 @@
+
 import previewEyeIcon from '@/assets/preview-eye.png';
 import { Link } from 'react-router-dom';
 import type { Post } from '@/data/posts';
@@ -25,84 +26,160 @@ export function PostCard({ post }: PostCardProps) {
       }
     }
 
+    function handleEscapeKey(event: KeyboardEvent) {
+      if (event.key === 'Escape' && previewOpen) {
+        setActivePreviewSlug(null);
+      }
+    }
+
     if (previewOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [previewOpen]);
 
+  const handlePreviewToggle = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
+    
+    previewOpen ? setActivePreviewSlug(null) : setActivePreviewSlug(post.slug);
+  };
+
   return (
-    <div ref={cardRef} className="group col-span-12 md:col-span-6 lg:col-span-3" onClick={() => previewOpen && setActivePreviewSlug(null)}>
-      <div className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black group-hover:border-accent dark:border-[#722b37] dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-transform duration-100 ease-in group-hover:scale-[1.005]" onClick={(e) => e.stopPropagation()}>
-        <Link to={`/posts/${post.slug}`} className="flex-1 flex flex-col justify-between h-full">
-          <div className="aspect-[7/4] relative">
+    <div 
+      ref={cardRef} 
+      className="group col-span-12 md:col-span-6 lg:col-span-3 hover-lift" 
+      onClick={() => previewOpen && setActivePreviewSlug(null)}
+    >
+      <article 
+        className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black group-hover:border-accent dark:border-[#722b37] dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out group-hover:scale-[1.005]" 
+        onClick={(e) => e.stopPropagation()}
+        role="article"
+        aria-label={`Article: ${post.title}`}
+      >
+        <Link 
+          to={`/posts/${post.slug}`} 
+          className="flex-1 flex flex-col justify-between h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
+          aria-describedby={`post-${post.id}-description`}
+        >
+          <div className="aspect-[7/4] relative overflow-hidden">
             <LazyImage
               src={imageUrl}
               placeholderSrc={placeholderUrl}
               alt={`Featured image for ${post.title}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
-          <div className="p-4 md:p-5 flex flex-col flex-1">
-            <h3 className="font-jersey25 text-2xl md:text-3xl leading-tight tracking-tight font-semibold text-foreground mb-2">{post.title}</h3>
-            <p className="font-inter-tight text-base md:text-lg leading-snug tracking-tight text-muted-foreground mb-4 line-clamp-2">{post.description}</p>
-            <div className="mt-4 flex flex-col items-start gap-2">
-              <div className="flex gap-2">
+          
+          <div className="p-4 md:p-5 flex flex-col flex-1 space-fluid-sm">
+            <h3 className="font-jersey25 text-2xl md:text-3xl leading-tight tracking-tight font-semibold text-foreground mb-2">
+              {post.title}
+            </h3>
+            
+            <p 
+              id={`post-${post.id}-description`}
+              className="font-inter-tight text-base md:text-lg leading-snug tracking-tight text-muted-foreground mb-4 line-clamp-2"
+            >
+              {post.description}
+            </p>
+            
+            <div className="mt-auto space-y-2">
+              <div className="flex gap-2 flex-wrap">
                 {post.tags
                   .filter((tag) => tag.toLowerCase() !== "error analysis")
                   .map((tag) => (
                     <span
                       key={tag}
                       className="font-inter-tight inline-flex items-center uppercase text-[0.65rem] font-semibold tracking-tight text-accent-foreground bg-accent/10 px-1.5 py-0.5 rounded dark:bg-accent/30 dark:text-white"
+                      role="tag"
                     >
                       {tag}
                     </span>
                   ))}
               </div>
-              <span className="font-inter-tight text-xs leading-tight text-muted-foreground">{post.date}</span>
+              <time 
+                className="font-inter-tight text-xs leading-tight text-muted-foreground"
+                dateTime={post.date}
+              >
+                {post.date}
+              </time>
             </div>
-            <button
-              onClick={(e) => { e.preventDefault(); previewOpen ? setActivePreviewSlug(null) : setActivePreviewSlug(post.slug); }}
-              className="absolute bottom-3 right-3 z-10"
-            >
-              <div className="relative inline-block transform transition-transform duration-150 ease-out">
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
-                />
-                <span
-                  className={`
-                    relative border-2 border-black dark:border-[#722b37] rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
-                    ${
-                      previewOpen
-                        ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#722b37] dark:text-white'
-                        : 'bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white'
-                    }
-                  `}
-                >
-                  <img src={previewEyeIcon} alt="Preview" className="w-6 h-6 filter dark:invert" />
-                </span>
-              </div>
-            </button>
           </div>
         </Link>
+
+        <button
+          onClick={handlePreviewToggle}
+          onKeyDown={handlePreviewToggle}
+          className="absolute bottom-3 right-3 z-10 touch-target focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-md"
+          aria-label={previewOpen ? `Close preview of ${post.title}` : `Preview ${post.title}`}
+          aria-expanded={previewOpen}
+          aria-controls={`preview-${post.id}`}
+        >
+          <div className="relative inline-block transform transition-transform duration-150 ease-out">
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
+            />
+            <span
+              className={`
+                relative border-2 border-black dark:border-[#722b37] rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
+                ${
+                  previewOpen
+                    ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#722b37] dark:text-white'
+                    : 'bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white'
+                }
+              `}
+            >
+              <img 
+                src={previewEyeIcon} 
+                alt="" 
+                className="w-6 h-6 filter dark:invert" 
+                aria-hidden="true"
+              />
+            </span>
+          </div>
+        </button>
+
         <div
+          id={`preview-${post.id}`}
           className={`absolute left-0 right-0 bottom-0 top-0 bg-background dark:bg-[#2A1B1F] p-4
             shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)]
             transform ${previewOpen 
               ? 'translate-y-0 opacity-100 pointer-events-auto' 
               : 'translate-y-full opacity-0 pointer-events-none'}
-            transition-all duration-150 ease-out`}
+            transition-all duration-200 ease-out`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={`preview-title-${post.id}`}
+          aria-describedby={`preview-desc-${post.id}`}
         >
-          <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
-          <p className="text-base text-muted-foreground dark:text-white">{post.description}</p>
+          <h3 
+            id={`preview-title-${post.id}`}
+            className="text-2xl font-bold mb-2"
+          >
+            {post.title}
+          </h3>
+          <p 
+            id={`preview-desc-${post.id}`}
+            className="text-base text-muted-foreground dark:text-white"
+          >
+            {post.description}
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            Press Escape to close preview
+          </p>
         </div>
-      </div>
+      </article>
     </div>
   );
 }
