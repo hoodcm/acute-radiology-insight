@@ -4,6 +4,7 @@ import { ViewerCanvas } from './ViewerCanvas';
 import { ViewerControls } from './ViewerControls';
 import { ViewerSidebar } from './ViewerSidebar';
 import { ImageNavigator } from './ImageNavigator';
+import { ImagePreloader } from './ImagePreloader';
 
 interface DicomMainViewerProps {
   dicomData: {
@@ -56,8 +57,20 @@ export function DicomMainViewer({
   onSidebarClose,
   onPresetApply,
 }: DicomMainViewerProps) {
+  const handlePreloadComplete = (preloadedImages: any[]) => {
+    console.log(`Preloaded ${preloadedImages.length} images for better performance`);
+  };
+
   return (
     <div className="flex-1 flex">
+      {/* Image preloader for performance */}
+      <ImagePreloader
+        images={dicomData.images}
+        currentIndex={currentImageIndex}
+        preloadRange={3}
+        onPreloadComplete={handlePreloadComplete}
+      />
+      
       {/* Canvas area */}
       <div className="flex-1 relative">
         <ViewerCanvas
