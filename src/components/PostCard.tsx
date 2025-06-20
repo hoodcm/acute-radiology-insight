@@ -79,11 +79,11 @@ export function PostCard({ post, author }: PostCardProps) {
   return (
     <div 
       ref={cardRef} 
-      className="group col-span-12 md:col-span-6 lg:col-span-3 hover-lift" 
+      className="group col-span-12 md:col-span-6 lg:col-span-3 md:hover-lift" 
       onClick={() => previewOpen && setActivePreviewSlug(null)}
     >
       <article 
-        className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black group-hover:border-accent dark:border-[#722b37] dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out group-hover:scale-[1.005]" 
+        className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out md:group-hover:scale-[1.005]" 
         onClick={(e) => e.stopPropagation()}
         role="article"
         aria-label={`Article: ${post.title}`}
@@ -98,7 +98,7 @@ export function PostCard({ post, author }: PostCardProps) {
               src={imageUrl}
               placeholderSrc={placeholderUrl}
               alt={`Featured image for ${post.title}`}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-300 md:group-hover:scale-105"
             />
             {hasImaging && (
               <div className="absolute top-2 left-2 bg-accent/90 text-black px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">

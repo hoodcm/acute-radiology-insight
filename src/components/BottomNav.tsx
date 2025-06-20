@@ -25,9 +25,9 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bottom-nav md:hidden fixed left-4 right-4 h-14 max-w-[600px] mx-auto px-2 backdrop-blur-md backdrop-saturate-150 bg-white/80 dark:bg-white/10 shadow-[4px_4px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_rgba(114,43,55,1)] z-50 ease rounded-full overflow-hidden transition-none"
+      className="bottom-nav md:hidden fixed left-4 right-4 h-14 max-w-[600px] mx-auto px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 shadow-[4px_4px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_theme(colors.gray.600)] z-50 ease rounded-full overflow-hidden transition-none"
       style={{
-        bottom: `calc(env(safe-area-inset-bottom) + 1.5rem)`
+        bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)`
       }}
     >
       <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
