@@ -152,7 +152,7 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
   // Pinch-to-zoom for touch devices
   const [lastPinchDistance, setLastPinchDistance] = useState(0);
 
-  const getPinchDistance = (touches: TouchList) => {
+  const getPinchDistance = (touches: React.TouchList) => {
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
     return Math.sqrt(dx * dx + dy * dy);
