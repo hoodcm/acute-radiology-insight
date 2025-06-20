@@ -20,10 +20,10 @@ const Search = () => {
     return Array.from(tags).sort();
   }, []);
 
-  // Get all unique categories
-  const categories = useMemo(() => {
-    const cats = new Set(posts.map(post => post.category));
-    return Array.from(cats).sort();
+  // Get all unique post types
+  const postTypes = useMemo(() => {
+    const types = new Set(posts.map(post => post.type));
+    return Array.from(types).sort();
   }, []);
 
   // Enhanced filtering with performance optimization
@@ -32,7 +32,7 @@ const Search = () => {
     
     return posts.filter((post) => {
       const author = authors.find((a) => a.id === post.authorId);
-      const { title, description, tags, content, category } = post;
+      const { title, description, tags, content, type } = post;
       
       // Text search
       const matchesQuery = !query || (
@@ -46,7 +46,7 @@ const Search = () => {
       // Filter by selected categories
       const matchesFilters = selectedFilters.length === 0 || 
         selectedFilters.some(filter => 
-          tags.includes(filter) || category === filter
+          tags.includes(filter) || type === filter
         );
       
       return matchesQuery && matchesFilters;
@@ -89,20 +89,20 @@ const Search = () => {
           {/* Enhanced Filter Controls */}
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-semibold mb-2 text-foreground">Category</h3>
+              <h3 className="text-sm font-semibold mb-2 text-foreground">Content Type</h3>
               <div className="flex flex-wrap gap-2">
-                {categories.map(category => (
+                {postTypes.map(type => (
                   <Badge
-                    key={category}
-                    variant={selectedFilters.includes(category) ? "default" : "secondary"}
+                    key={type}
+                    variant={selectedFilters.includes(type) ? "default" : "secondary"}
                     className={`cursor-pointer transition-all hover:scale-105 ${
-                      selectedFilters.includes(category) 
+                      selectedFilters.includes(type) 
                         ? 'bg-accent text-black hover:bg-accent/90' 
                         : 'hover:bg-accent/20'
                     }`}
-                    onClick={() => toggleFilter(category)}
+                    onClick={() => toggleFilter(type)}
                   >
-                    {category}
+                    {type}
                   </Badge>
                 ))}
               </div>
