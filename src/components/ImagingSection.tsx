@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { ImageGallery } from './ImageGallery';
 import { Button } from './ui/button';
-import { Eye, Image, Activity, Smartphone } from 'lucide-react';
+import { Image, Activity, Smartphone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useMobile } from '@/hooks/use-mobile';
+import previewEyeIcon from '@/assets/preview-eye.png';
 
 interface ImagingSectionProps {
   postType: 'Case Study' | 'Essay' | 'Hindsight';
@@ -110,13 +112,29 @@ export function ImagingSection({ postType, postSlug, title, hasInteractiveImages
           </div>
           
           <div className="flex justify-center">
-            <Button 
+            <button
               onClick={handleOpenViewer}
-              className="bg-accent hover:bg-accent/90 text-black font-medium"
+              className="touch-target focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-md"
+              aria-label="View images in DICOM viewer"
             >
-              {isMobile ? <Smartphone className="w-4 h-4 mr-2" /> : <Eye className="w-4 h-4 mr-2" />}
-              {isMobile ? 'Open Mobile Viewer' : 'Open in DICOM Viewer'}
-            </Button>
+              <div className="relative inline-block transform transition-transform duration-150 ease-out">
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
+                />
+                <span className="relative border-2 border-black dark:border-[#722b37] rounded-md px-4 py-2 flex items-center justify-center gap-2 transition-all duration-150 ease-out bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white">
+                  <img 
+                    src={previewEyeIcon} 
+                    alt="" 
+                    className="w-6 h-6 filter dark:invert" 
+                    aria-hidden="true"
+                  />
+                  <span className="font-medium text-sm">
+                    {isMobile ? 'Open Mobile Viewer' : 'Open in DICOM Viewer'}
+                  </span>
+                </span>
+              </div>
+            </button>
           </div>
         </div>
       )}
