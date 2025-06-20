@@ -152,7 +152,8 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
   // Pinch-to-zoom for touch devices
   const [lastPinchDistance, setLastPinchDistance] = useState(0);
 
-  const getPinchDistance = (touches: TouchList) => {
+  const getPinchDistance = (touches: React.TouchList) => {
+    if (touches.length < 2) return 0;
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
     return Math.sqrt(dx * dx + dy * dy);
@@ -364,4 +365,53 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
       </div>
     </div>
   );
+
+  // Navigation
+  function handlePrevImage() {
+    setCurrentImageIndex(prev => prev > 0 ? prev - 1 : dicomData.images.length - 1);
+    resetControlsTimeout();
+  }
+
+  function handleNextImage() {
+    setCurrentImageIndex(prev => prev < dicomData.images.length - 1 ? prev + 1 : 0);
+    resetControlsTimeout();
+  }
+
+  // Zoom controls
+  function handleZoomIn() {
+    setZoom(prev => Math.min(5, prev * 1.2));
+    resetControlsTimeout();
+  }
+
+  function handleZoomOut() {
+    setZoom(prev => Math.max(0.5, prev / 1.2));
+    resetControlsTimeout();
+  }
+
+  // Reset view
+  function handleReset() {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+    setBrightness(0);
+    setContrast(0);
+    resetControlsTimeout();
+  }
+
+  function handleClose() {
+    if (onClose) {
+      onClose();
+    } else {
+      navigate(-1);
+    }
+  }
+
+  // Initialize controls timeout
+  useEffect(() => {
+    resetControlsTimeout();
+    return () => {
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, [resetControlsTimeout]);
 }
