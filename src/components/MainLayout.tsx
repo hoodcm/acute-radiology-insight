@@ -10,7 +10,7 @@ export function MainLayout() {
         Skip to main content
       </a>
       <Header />
-      <main id="main-content" className="flex-grow pb-16 md:pb-0">
+      <main id="main-content" className="flex-grow">
         <Outlet />
       </main>
       <Footer />

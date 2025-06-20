@@ -17,41 +17,17 @@ export function BottomNav() {
     return navLinks.findIndex(link => link.href === location.pathname);
   }, [location.pathname]);
 
-  const baseMargin = 16;
-  const [bottomOffset, setBottomOffset] = useState(16);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const footer = document.getElementById('footer');
-      if (!footer) return;
-      const footerRect = footer.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      if (footerRect.top < viewportHeight) {
-        const overlap = viewportHeight - footerRect.top;
-        setBottomOffset(baseMargin + overlap);
-      } else {
-        setBottomOffset(baseMargin);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  // Removed scroll-based bottomOffset state and effect
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
-    setBottomOffset(baseMargin);
   }, [location.pathname]);
 
   return (
     <nav
-      className="md:hidden fixed inset-x-6 backdrop-blur-[24px] bg-white/30 dark:bg-black/30 shadow-lg z-50 transition-all duration-300 ease rounded-full overflow-hidden"
+      className="bottom-nav md:hidden fixed left-4 right-4 h-20 max-w-[600px] mx-auto backdrop-blur-[60px] backdrop-saturate-150 bg-[rgba(255,255,255,0.04)] dark:bg-white/20 shadow-lg z-50 ease rounded-full overflow-hidden transition-none"
       style={{
-        bottom: `${bottomOffset}px`,
-        width: 'calc(100% - 1.5rem * 2)',
-        aspectRatio: 860 / 104
+        bottom: `calc(env(safe-area-inset-bottom) + 1.5rem)`
       }}
     >
       <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
@@ -60,12 +36,11 @@ export function BottomNav() {
           const idx = activeIndex;
           return (
             <div
-              className="absolute top-1/2 -translate-y-1/2 bg-accent dark:bg-accent-dark rounded-full transition-all duration-300 ease-out"
+              className="absolute inset-y-1.5 bg-accent dark:bg-accent-dark rounded-full transition-all duration-300 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
-                width: 'calc((100% / 5) * 0.9)',
-                height: 'calc(100% * 0.85)',
-                transform: 'translateX(-50%) translateY(-50%)'
+                width: 'calc(100% / 5 * 0.9)',
+                transform: 'translateX(-50%)',
               }}
             />
           );
@@ -81,7 +56,7 @@ export function BottomNav() {
               to={link.href}
               aria-label={link.name}
               className={cn(
-                'inline-flex flex-col items-center justify-center w-[36px] py-3 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 ease-in-out active:scale-95 relative z-10',
+                'flex flex-col items-center justify-center w-full h-full space-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 ease-in-out active:scale-95 relative z-10',
                 isActive 
                   ? 'text-black dark:text-white font-semibold' 
                   : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
@@ -89,14 +64,14 @@ export function BottomNav() {
             >
               <Icon 
                 className={cn(
-                  "transition-all duration-200 filter dark:invert",
-                  isActive ? "w-6 h-6" : "w-5 h-5"
+                  "transition-all duration-200 text-current",
+                  isActive ? "w-7 h-7 opacity-100" : "w-7 h-7 opacity-80"
                 )}
               />
               <span 
                 className={cn(
                   "text-xs transition-all duration-200",
-                  isActive ? "font-semibold" : "font-normal"
+                  isActive ? "font-semibold opacity-100" : "font-normal opacity-80"
                 )}
               >
                 {link.name}

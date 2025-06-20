@@ -13,7 +13,7 @@ const Index = () => {
   const featuredPosts = posts.slice(0, 6);
   
   return (
-    <React.Fragment>
+    <div>
       <Seo 
         title="Level One Radiology"
         description="Advanced radiology education and case studies for medical professionals. Explore comprehensive imaging cases, expert insights, and cutting-edge diagnostic techniques."
@@ -184,7 +184,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-    </React.Fragment>
+    </div>
   );
 };
 

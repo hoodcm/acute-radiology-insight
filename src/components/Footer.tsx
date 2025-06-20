@@ -34,7 +34,7 @@ export function Footer() {
   return (
     <footer 
       id="footer" 
-      className="border-t border-[var(--color-border)] mt-24 py-8 md:py-12"
+      className="border-t border-[var(--color-border)] mt-24 py-8 md:py-12 mb-[calc(5rem+env(safe-area-inset-bottom))] md:mb-0"
       role="contentinfo"
     >
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-fluid-lg">
