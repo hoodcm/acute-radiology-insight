@@ -1,44 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { DicomHeader } from '@/components/dicom/DicomHeader';
-import { DicomMainViewer } from '@/components/dicom/DicomMainViewer';
-import { KeyboardShortcuts } from '@/components/dicom/KeyboardShortcuts';
-import { useDicomViewerState } from '@/hooks/useDicomViewerState';
+import { useParams } from 'react-router-dom';
+import { ResponsiveDicomViewer } from '@/components/dicom/ResponsiveDicomViewer';
 import { Seo } from '@/components/Seo';
 
 const DicomViewer = () => {
   const { caseId } = useParams();
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   
-  const {
-    windowWidth,
-    windowCenter,
-    zoom,
-    pan,
-    brightness,
-    contrast,
-    activeTool,
-    showSidebar,
-    currentImageIndex,
-    setWindowWidth,
-    setWindowCenter,
-    setZoom,
-    setPan,
-    setBrightness,
-    setContrast,
-    setShowSidebar,
-    handleToolChange,
-    handleReset,
-    handleImageChange,
-    handleNextImage,
-    handlePrevImage,
-    handleZoomKeyboard,
-    handlePresetKeyboard,
-    handlePresetApply,
-  } = useDicomViewerState();
-
   // Mock DICOM data - replace with real data fetching
   const dicomData = {
     patientName: 'John Doe',
@@ -56,23 +25,19 @@ const DicomViewer = () => {
     // Simulate loading DICOM data
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 1000); // Reduced loading time for better mobile experience
 
     return () => clearTimeout(timer);
   }, [caseId]);
-
-  const handleGoBack = () => {
-    navigate(-1);
-  };
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-white text-center">
           <div className="animate-pulse mb-4">
-            <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto"></div>
+            <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto"></div>
           </div>
-          <p className="text-lg">Loading DICOM images...</p>
+          <p className="text-base">Loading images...</p>
         </div>
       </div>
     );
@@ -82,59 +47,10 @@ const DicomViewer = () => {
     <>
       <Seo 
         title={`DICOM Viewer - Case ${caseId}`}
-        description="Professional DICOM image viewer for radiology cases with advanced windowing, measurements, and annotations"
+        description="Mobile-optimized DICOM image viewer for radiology cases"
       />
       
-      {/* Keyboard shortcuts handler */}
-      <KeyboardShortcuts
-        onToolChange={handleToolChange}
-        onReset={handleReset}
-        onToggleSidebar={() => setShowSidebar(!showSidebar)}
-        onNextImage={() => handleNextImage(dicomData.images.length)}
-        onPrevImage={() => handlePrevImage(dicomData.images.length)}
-        onZoom={handleZoomKeyboard}
-        onPreset={handlePresetKeyboard}
-      />
-      
-      <div className="min-h-screen bg-black text-white flex flex-col">
-        {/* Header */}
-        <DicomHeader
-          patientData={dicomData}
-          activeTool={activeTool}
-          showSidebar={showSidebar}
-          onGoBack={handleGoBack}
-          onToolChange={handleToolChange}
-          onReset={handleReset}
-          onToggleSidebar={() => setShowSidebar(!showSidebar)}
-        />
-
-        {/* Main viewer area */}
-        <DicomMainViewer
-          dicomData={dicomData}
-          currentImageIndex={currentImageIndex}
-          zoom={zoom}
-          pan={pan}
-          windowWidth={windowWidth}
-          windowCenter={windowCenter}
-          brightness={brightness}
-          contrast={contrast}
-          activeTool={activeTool}
-          showSidebar={showSidebar}
-          onZoomChange={setZoom}
-          onPanChange={setPan}
-          onWindowingChange={(width, center) => {
-            setWindowWidth(width);
-            setWindowCenter(center);
-          }}
-          onWindowWidthChange={setWindowWidth}
-          onWindowCenterChange={setWindowCenter}
-          onBrightnessChange={setBrightness}
-          onContrastChange={setContrast}
-          onImageChange={handleImageChange}
-          onSidebarClose={() => setShowSidebar(false)}
-          onPresetApply={handlePresetApply}
-        />
-      </div>
+      <ResponsiveDicomViewer dicomData={dicomData} />
     </>
   );
 };

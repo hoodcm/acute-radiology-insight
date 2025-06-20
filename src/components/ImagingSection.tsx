@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { ImageGallery } from './ImageGallery';
 import { Button } from './ui/button';
-import { Eye, Image, Activity } from 'lucide-react';
+import { Eye, Image, Activity, Smartphone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useMobile } from '@/hooks/use-mobile';
 
 interface ImagingSectionProps {
   postType: 'Case Study' | 'Essay' | 'Hindsight';
@@ -14,6 +14,7 @@ interface ImagingSectionProps {
 
 export function ImagingSection({ postType, postSlug, title, hasInteractiveImages = false }: ImagingSectionProps) {
   const navigate = useNavigate();
+  const isMobile = useMobile();
 
   // Mock image data based on post type
   const getMockImages = () => {
@@ -113,8 +114,8 @@ export function ImagingSection({ postType, postSlug, title, hasInteractiveImages
               onClick={handleOpenViewer}
               className="bg-accent hover:bg-accent/90 text-black font-medium"
             >
-              <Eye className="w-4 h-4 mr-2" />
-              Open in DICOM Viewer
+              {isMobile ? <Smartphone className="w-4 h-4 mr-2" /> : <Eye className="w-4 h-4 mr-2" />}
+              {isMobile ? 'Open Mobile Viewer' : 'Open in DICOM Viewer'}
             </Button>
           </div>
         </div>
@@ -125,11 +126,13 @@ export function ImagingSection({ postType, postSlug, title, hasInteractiveImages
           <Image className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
           <div>
             <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
-              Advanced Imaging Features
+              {isMobile ? 'Mobile-Optimized Viewer' : 'Advanced Imaging Features'}
             </h4>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Use the DICOM viewer to adjust windowing, measure structures, and add annotations. 
-              Perfect for detailed case analysis and educational review.
+              {isMobile 
+                ? 'Touch-optimized interface with pinch-to-zoom, swipe navigation, and essential imaging controls designed for mobile devices.'
+                : 'Use the DICOM viewer to adjust windowing, measure structures, and add annotations. Perfect for detailed case analysis and educational review.'
+              }
             </p>
           </div>
         </div>
