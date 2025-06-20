@@ -1,8 +1,10 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Button } from '@/components/ui/button';
-import { X, ZoomIn, ZoomOut, RotateCw, Move, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { MobileViewerHeader } from './mobile/MobileViewerHeader';
+import { MobileViewerCanvas } from './mobile/MobileViewerCanvas';
+import { MobileViewerNavigation } from './mobile/MobileViewerNavigation';
+import { MobileViewerControls } from './mobile/MobileViewerControls';
 
 interface MobileDicomViewerProps {
   dicomData: {
@@ -25,10 +27,8 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
   const [showControls, setShowControls] = useState(true);
   const [brightness, setBrightness] = useState(0);
   const [contrast, setContrast] = useState(0);
+  const [lastPinchDistance, setLastPinchDistance] = useState(0);
   
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Auto-hide controls after inactivity
@@ -41,64 +41,6 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
       setShowControls(false);
     }, 3000);
   }, []);
-
-  // Load and render image
-  const renderImage = useCallback(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    if (!canvas || !ctx || !imageRef.current) return;
-
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Apply transformations
-    ctx.save();
-    ctx.translate(canvas.width / 2 + pan.x, canvas.height / 2 + pan.y);
-    ctx.scale(zoom, zoom);
-
-    // Apply filters for brightness and contrast
-    ctx.filter = `brightness(${100 + brightness}%) contrast(${100 + contrast}%)`;
-
-    // Draw image centered
-    ctx.drawImage(
-      imageRef.current,
-      -imageRef.current.width / 2,
-      -imageRef.current.height / 2,
-      imageRef.current.width,
-      imageRef.current.height
-    );
-
-    ctx.restore();
-  }, [zoom, pan, brightness, contrast]);
-
-  // Load current image
-  useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      imageRef.current = img;
-      renderImage();
-    };
-    img.src = dicomData.images[currentImageIndex].url;
-  }, [currentImageIndex, renderImage]);
-
-  // Setup canvas size
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
-
-    const updateSize = () => {
-      const rect = container.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-      renderImage();
-    };
-
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, [renderImage]);
 
   // Touch and mouse event handlers
   const handleStart = (clientX: number, clientY: number) => {
@@ -150,8 +92,6 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
   };
 
   // Pinch-to-zoom for touch devices
-  const [lastPinchDistance, setLastPinchDistance] = useState(0);
-
   const getPinchDistance = (touches: React.TouchList) => {
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
@@ -232,35 +172,23 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
 
   return (
     <div className="fixed inset-0 bg-black z-50 flex flex-col">
-      {/* Header - only visible when controls are shown */}
-      <div className={`absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/80 to-transparent p-4 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="flex items-center justify-between text-white">
-          <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-semibold truncate">{dicomData.patientName}</h2>
-            <p className="text-sm text-gray-300 truncate">
-              {dicomData.modality} • {dicomData.bodyPart} • {dicomData.studyDate}
-            </p>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleClose}
-            className="text-white hover:bg-white/20 ml-2"
-          >
-            <X className="w-5 h-5" />
-          </Button>
-        </div>
-      </div>
+      <MobileViewerHeader
+        patientName={dicomData.patientName}
+        modality={dicomData.modality}
+        bodyPart={dicomData.bodyPart}
+        studyDate={dicomData.studyDate}
+        showControls={showControls}
+        onClose={handleClose}
+      />
 
       {/* Main viewer area */}
-      <div 
-        ref={containerRef}
-        className="flex-1 relative overflow-hidden"
-        onClick={resetControlsTimeout}
-      >
-        <canvas
-          ref={canvasRef}
-          className="w-full h-full cursor-grab active:cursor-grabbing"
+      <div onClick={resetControlsTimeout}>
+        <MobileViewerCanvas
+          zoom={zoom}
+          pan={pan}
+          brightness={brightness}
+          contrast={contrast}
+          imageUrl={dicomData.images[currentImageIndex].url}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleEnd}
@@ -270,98 +198,27 @@ export function MobileDicomViewer({ dicomData, onClose }: MobileDicomViewerProps
           onTouchEnd={handleEnd}
         />
 
-        {/* Navigation arrows */}
-        {dicomData.images.length > 1 && (
-          <>
-            <button
-              onClick={handlePrevImage}
-              className={`absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              onClick={handleNextImage}
-              className={`absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </>
-        )}
-
-        {/* Image counter */}
-        {dicomData.images.length > 1 && (
-          <div className={`absolute top-20 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
-            {currentImageIndex + 1} / {dicomData.images.length}
-          </div>
-        )}
-
-        {/* Zoom indicator */}
-        <div className={`absolute top-20 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
-          {(zoom * 100).toFixed(0)}%
-        </div>
+        <MobileViewerNavigation
+          currentImageIndex={currentImageIndex}
+          totalImages={dicomData.images.length}
+          showControls={showControls}
+          zoom={zoom}
+          onPreviousImage={handlePrevImage}
+          onNextImage={handleNextImage}
+        />
       </div>
 
-      {/* Bottom controls */}
-      <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="flex items-center justify-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleZoomOut}
-            className="text-white hover:bg-white/20"
-            disabled={zoom <= 0.5}
-          >
-            <ZoomOut className="w-5 h-5" />
-          </Button>
-          
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleReset}
-            className="text-white hover:bg-white/20"
-          >
-            <Move className="w-5 h-5" />
-          </Button>
-          
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleZoomIn}
-            className="text-white hover:bg-white/20"
-            disabled={zoom >= 5}
-          >
-            <ZoomIn className="w-5 h-5" />
-          </Button>
-        </div>
-
-        {/* Simple brightness/contrast sliders for mobile */}
-        <div className="mt-4 space-y-2">
-          <div className="flex items-center gap-2 text-white text-sm">
-            <span className="w-16">Brightness</span>
-            <input
-              type="range"
-              min="-50"
-              max="50"
-              value={brightness}
-              onChange={(e) => setBrightness(Number(e.target.value))}
-              className="flex-1 accent-accent"
-            />
-            <span className="w-8 text-right">{brightness}%</span>
-          </div>
-          <div className="flex items-center gap-2 text-white text-sm">
-            <span className="w-16">Contrast</span>
-            <input
-              type="range"
-              min="-50"
-              max="50"
-              value={contrast}
-              onChange={(e) => setContrast(Number(e.target.value))}
-              className="flex-1 accent-accent"
-            />
-            <span className="w-8 text-right">{contrast}%</span>
-          </div>
-        </div>
-      </div>
+      <MobileViewerControls
+        zoom={zoom}
+        brightness={brightness}
+        contrast={contrast}
+        showControls={showControls}
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+        onReset={handleReset}
+        onBrightnessChange={setBrightness}
+        onContrastChange={setContrast}
+      />
     </div>
   );
 }
