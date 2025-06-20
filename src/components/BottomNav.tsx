@@ -25,7 +25,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bottom-nav md:hidden fixed left-4 right-4 h-14 max-w-[600px] mx-auto px-2 backdrop-blur-[60px] backdrop-saturate-150 bg-[rgba(255,255,255,0.04)] dark:bg-white/20 shadow-lg z-50 ease rounded-full overflow-hidden transition-none"
+      className="bottom-nav md:hidden fixed left-4 right-4 h-14 max-w-[600px] mx-auto px-2 backdrop-blur-md backdrop-saturate-150 bg-white/80 dark:bg-white/10 shadow-[4px_4px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_rgba(114,43,55,1)] z-50 ease rounded-full overflow-hidden transition-none"
       style={{
         bottom: `calc(env(safe-area-inset-bottom) + 1.5rem)`
       }}
@@ -36,10 +36,10 @@ export function BottomNav() {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-1 bg-accent dark:bg-accent-dark rounded-full transition-all duration-300 ease-out"
+              className="absolute inset-y-1 bg-accent dark:bg-accent-dark backdrop-blur-sm rounded-full transition-all duration-300 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
-                width: 'calc(100% / 5)',
+                width: 'calc(100% / 5 + 0.4rem)',
                 transform: 'translateX(-50%)',
               }}
             />
@@ -56,10 +56,10 @@ export function BottomNav() {
               to={link.href}
               aria-label={link.name}
               className={cn(
-                'flex flex-col items-center justify-center w-full h-full space-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 ease-in-out active:scale-95 relative z-10',
+                'flex flex-col items-center justify-center w-full h-full space-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-100 ease-in-out active:scale-95 relative z-10',
                 isActive 
-                  ? 'text-black dark:text-white font-semibold' 
-                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                  ? 'text-black dark:text-white font-bold' 
+                  : 'text-gray-700 dark:text-gray-100 font-semibold hover:text-black dark:hover:text-gray-100'
               )}
             >
               <Icon 
@@ -71,7 +71,7 @@ export function BottomNav() {
               <span 
                 className={cn(
                   "text-xs transition-all duration-200",
-                  isActive ? "font-semibold opacity-100" : "font-normal opacity-80"
+                  isActive ? "font-bold opacity-100" : "font-semibold opacity-80"
                 )}
               >
                 {link.name}
