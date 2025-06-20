@@ -9,6 +9,8 @@ CUSTOM_DOMAIN="leveloneradiology.com"
 echo "📦 Building project..."
 npm run build
 
+cp "$BUILD_DIR/index.html" "$BUILD_DIR/404.html"
+
 if [ ! -d "$BUILD_DIR" ]; then
   echo "❌ Error: '$BUILD_DIR' folder not found. Aborting."
   exit 1
