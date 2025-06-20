@@ -25,7 +25,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bottom-nav md:hidden fixed left-4 right-4 h-20 max-w-[600px] mx-auto backdrop-blur-[60px] backdrop-saturate-150 bg-[rgba(255,255,255,0.04)] dark:bg-white/20 shadow-lg z-50 ease rounded-full overflow-hidden transition-none"
+      className="bottom-nav md:hidden fixed left-4 right-4 h-14 max-w-[600px] mx-auto px-2 backdrop-blur-[60px] backdrop-saturate-150 bg-[rgba(255,255,255,0.04)] dark:bg-white/20 shadow-lg z-50 ease rounded-full overflow-hidden transition-none"
       style={{
         bottom: `calc(env(safe-area-inset-bottom) + 1.5rem)`
       }}
@@ -36,10 +36,10 @@ export function BottomNav() {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-1.5 bg-accent dark:bg-accent-dark rounded-full transition-all duration-300 ease-out"
+              className="absolute inset-y-1 bg-accent dark:bg-accent-dark rounded-full transition-all duration-300 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
-                width: 'calc(100% / 5 * 0.9)',
+                width: 'calc(100% / 5)',
                 transform: 'translateX(-50%)',
               }}
             />
@@ -65,7 +65,7 @@ export function BottomNav() {
               <Icon 
                 className={cn(
                   "transition-all duration-200 text-current",
-                  isActive ? "w-7 h-7 opacity-100" : "w-7 h-7 opacity-80"
+                  isActive ? "w-5 h-5 opacity-100" : "w-5 h-5 opacity-80"
                 )}
               />
               <span 
