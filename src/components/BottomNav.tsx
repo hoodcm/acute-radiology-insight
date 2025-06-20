@@ -47,20 +47,29 @@ export function BottomNav() {
 
   return (
     <nav
-      className="md:hidden fixed inset-x-4 h-20 bg-white dark:bg-gray-900 border-2 border-black dark:border-white rounded-full shadow-[4px_4px_0_rgba(0,0,0,1)] dark:shadow-[4px_4px_0_rgba(255,255,255,1)] px-4 z-50 backdrop-blur-sm"
-      style={{ bottom: `${bottomOffset}px` }}
+      className="md:hidden fixed inset-x-6 backdrop-blur-[24px] bg-white/30 dark:bg-black/30 shadow-lg z-50 transition-all duration-300 ease rounded-full overflow-hidden"
+      style={{
+        bottom: `${bottomOffset}px`,
+        width: 'calc(100% - 1.5rem * 2)',
+        aspectRatio: 860 / 104
+      }}
     >
-      <div className="grid h-full max-w-lg grid-cols-5 gap-x-2 mx-auto relative">
+      <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
         {/* Active indicator */}
-        {activeIndex >= 0 && (
-          <div 
-            className="absolute top-1/2 -translate-y-1/2 w-12 h-12 bg-accent rounded-full transition-all duration-300 ease-out"
-            style={{ 
-              left: `${20 + (activeIndex * (100 / navLinks.length))}%`,
-              transform: 'translateX(-50%) translateY(-50%)'
-            }}
-          />
-        )}
+        {activeIndex >= 0 && (() => {
+          const idx = activeIndex;
+          return (
+            <div
+              className="absolute top-1/2 -translate-y-1/2 bg-accent dark:bg-accent-dark rounded-full transition-all duration-300 ease-out"
+              style={{
+                left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
+                width: 'calc((100% / 5) * 0.9)',
+                height: 'calc(100% * 0.85)',
+                transform: 'translateX(-50%) translateY(-50%)'
+              }}
+            />
+          );
+        })()}
         
         {navLinks.map((link, index) => {
           const Icon = link.icon;
@@ -72,17 +81,17 @@ export function BottomNav() {
               to={link.href}
               aria-label={link.name}
               className={cn(
-                'inline-flex flex-col items-center justify-center w-full py-3 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 ease-in-out active:scale-95 relative z-10',
+                'inline-flex flex-col items-center justify-center w-[36px] py-3 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 ease-in-out active:scale-95 relative z-10',
                 isActive 
-                  ? 'text-black font-semibold' 
-                  : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white'
+                  ? 'text-black dark:text-white font-semibold' 
+                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
               )}
             >
               <Icon 
                 className={cn(
-                  "mb-0.5 stroke-2 transition-all duration-200",
+                  "transition-all duration-200 filter dark:invert",
                   isActive ? "w-6 h-6" : "w-5 h-5"
-                )} 
+                )}
               />
               <span 
                 className={cn(
