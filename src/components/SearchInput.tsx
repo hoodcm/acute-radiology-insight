@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
@@ -48,8 +49,8 @@ export function SearchInput() {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex items-center justify-start transition-all duration-300 ease-in-out border border-black dark:border-white rounded-full px-0.5 py-0.5 overflow-hidden focus-within:shadow-[0_0_0_2px_rgba(255,165,0,0.5)] text-xs ${
-        isExpanded ? 'w-64' : 'w-32'
+      className={`flex items-center justify-start transition-all duration-300 ease-in-out border-2 border-black dark:border-white rounded-full px-1 py-0.5 overflow-hidden focus-within:shadow-[0_0_0_2px_rgba(255,165,0,0.5)] text-xs ${
+        isExpanded ? 'w-56' : 'w-28'
       }`}
     >
       <label htmlFor="search-input" className="sr-only">
@@ -58,7 +59,7 @@ export function SearchInput() {
       <button
         type="button"
         onClick={() => inputRef.current?.focus()}
-        className="p-0.5 text-foreground flex items-center justify-center cursor-pointer hover:text-accent transition-colors"
+        className="p-1 text-foreground flex items-center justify-center cursor-pointer hover:text-accent transition-colors flex-shrink-0"
         aria-label="Focus search"
       >
         <Search size={14} />
@@ -72,13 +73,13 @@ export function SearchInput() {
         onChange={(e) => setQuery(e.target.value)}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        className="px-0 py-0 pl-0.5 h-auto min-h-0 leading-tight bg-transparent border-none font-mono text-xs placeholder:italic placeholder:text-muted-foreground focus:outline-none focus:ring-0 w-full"
+        className="px-1 py-0 h-auto min-h-0 leading-tight bg-transparent border-none font-mono text-xs placeholder:italic placeholder:text-muted-foreground focus:outline-none focus:ring-0 w-full"
       />
       {query && (
         <button
           type="button"
           onClick={handleClear}
-          className="px-1 text-muted-foreground hover:text-foreground transition-colors duration-75 flex items-center justify-center h-5"
+          className="px-1 text-muted-foreground hover:text-foreground transition-colors duration-75 flex items-center justify-center h-5 flex-shrink-0"
           aria-label="Clear search"
         >
           <X size={12} />
