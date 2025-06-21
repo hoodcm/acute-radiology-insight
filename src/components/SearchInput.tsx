@@ -62,7 +62,7 @@ export function SearchInput() {
         className="p-1 text-foreground flex items-center justify-center cursor-pointer hover:text-accent transition-colors flex-shrink-0"
         aria-label="Focus search"
       >
-        <Search size={14} />
+        <Search size={16} />
       </button>
       <Input
         id="search-input"
@@ -82,7 +82,7 @@ export function SearchInput() {
           className="px-1 text-muted-foreground hover:text-foreground transition-colors duration-75 flex items-center justify-center h-5 flex-shrink-0"
           aria-label="Clear search"
         >
-          <X size={12} />
+          <X size={24} />
         </button>
       )}
     </form>

@@ -32,15 +32,14 @@ export function BottomNav() {
 
   // Render the navigation bar UI
   return (
-      // <nav>: fixed bottom nav container, visible on mobile only
+    // <nav>: fixed bottom nav container, visible on mobile only
     <nav
-      className="bottom-nav md:hidden fixed left-4 right-4 h-16 max-w-[600px] mx-auto px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 shadow-[4px_4px_0px_theme(colors.gray.800/30)] dark:shadow-[4px_4px_0px_theme(colors.gray.500/20)] z-50 ease rounded-full overflow-hidden transition-none border-2 border-black"
-      style={{
-        bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)`
-      }}
+      className="bottom-nav md:hidden fixed left-4 right-4 h-16 max-w-[600px] mx-auto z-50 ease rounded-full overflow-hidden border-2 border-black dark:border-[rgba(107,114,128)] shadow-[4px_4px_0px_theme(colors.gray.800)] dark:shadow-[4px_4px_0px_theme(colors.gray.500)] bg-clip-padding isolate"
+      style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}
     >
-      {/* Grid container for navigation items */}
-      <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
+      <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
+        {/* Grid container for navigation items */}
+        <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
         {/* Active indicator: highlights the currently selected tab */}
         {activeIndex >= 0 && (() => {
           const idx = activeIndex;
@@ -93,6 +92,7 @@ export function BottomNav() {
             </NavLink>
           );
         })}
+        </div>
       </div>
     </nav>
   );
