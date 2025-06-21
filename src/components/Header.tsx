@@ -12,13 +12,13 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="py-2 sm:py-4 lg:py-6 border-b border-border sticky top-0 z-40 bg-background/95 backdrop-blur-sm">
+    <header className="py-1 sm:py-2 lg:py-4 border-b-4 border-black dark:border-[#222222] sticky top-0 z-40 bg-background/95 backdrop-blur-sm">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="font-jersey text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
           Level One Radiology
         </Link>
         
-        <div className="hidden md:flex items-center gap-4 sm:gap-6 lg:gap-8">
+        <div className="hidden md:flex items-start gap-4 sm:gap-6 lg:gap-8">
           <nav className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6">
             {navLinks.map((link) => (
               <Link
@@ -36,7 +36,7 @@ export function Header() {
           <DarkModeToggle />
         </div>
 
-        <div className="md:hidden flex items-center gap-x-2">
+        <div className="md:hidden flex items-start gap-x-2">
           <SearchInput />
           <DarkModeToggle />
         </div>
