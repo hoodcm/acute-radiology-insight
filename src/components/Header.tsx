@@ -12,7 +12,7 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="py-1 sm:py-1.5 lg:py-2 border-b-2 border-black dark:border-[#222222] sticky top-0 z-40 bg-background/95 backdrop-blur-sm">
+    <header className="pt-[env(safe-area-inset-top)] py-1 sm:py-1.5 lg:py-2 border-b-2 border-black dark:border-[#222222] sticky top-0 z-40 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md backdrop-saturate-150">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="font-jersey font-bold text-foreground leading-none pr-4">
           <span className="block md:hidden text-3xl sm:text-4xl">Level One Radiology</span>
