@@ -1,4 +1,3 @@
-
 // BottomNav.tsx
 // Component renders a mobile bottom navigation bar with links to main site sections.
 
@@ -35,7 +34,7 @@ export function BottomNav() {
   return (
     // <nav>: fixed bottom nav container, visible on mobile only
     <nav
-      className="md:hidden fixed left-4 right-4 h-16 max-w-[600px] mx-auto z-50 rounded-full overflow-hidden border-2 border-black dark:border-gray-500 shadow-lg bg-clip-padding isolate"
+      className="md:hidden fixed left-4 right-4 h-16 max-w-[600px] mx-auto z-50 rounded-full overflow-hidden border-2 border-black dark:border-gray-500 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#6b7280] bg-clip-padding isolate"
       style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}
     >
       <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
@@ -46,7 +45,7 @@ export function BottomNav() {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-1 bg-accent backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
+              className="absolute inset-y-1 bg-amber-400 backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
                 width: 'calc(100% / 5 + 0.4rem)',
