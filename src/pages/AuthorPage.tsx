@@ -4,7 +4,7 @@ import { authors } from '@/data/authors';
 import { posts } from '@/data/posts';
 import { PostCard } from '@/components/PostCard';
 import { Seo } from '@/components/Seo';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { AuthorBreadcrumbs } from '@/components/AuthorBreadcrumbs';
 
 const AuthorPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -19,7 +19,7 @@ const AuthorPage = () => {
     return <Navigate to="/404" replace />;
   }
 
-  const authorPosts = posts.filter(post => post.author === author.name);
+  const authorPosts = posts.filter(post => post.authorId === author.id);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -34,7 +34,7 @@ const AuthorPage = () => {
         description={author.bio}
       />
       <div className="container mx-auto py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-        <Breadcrumbs items={breadcrumbItems} />
+        <AuthorBreadcrumbs items={breadcrumbItems} />
         
         <div className="mt-6 lg:mt-8">
           <div className="flex flex-col sm:flex-row gap-6 mb-8 lg:mb-12">

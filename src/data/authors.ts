@@ -5,6 +5,8 @@ export interface Author {
   name: string;
   title: string;
   bio: string;
+  avatar: string;
+  credentials: string;
 }
 
 export const authors: Author[] = [
@@ -14,6 +16,8 @@ export const authors: Author[] = [
     name: 'Dr. Evelyn Reed',
     title: 'Chief of Emergency Radiology',
     bio: 'Dr. Evelyn Reed is a leading expert in trauma imaging and has published extensively on CT protocol optimization. She is passionate about education and mentorship, with over 15 years of experience in emergency radiology.',
+    avatar: '/placeholder.svg',
+    credentials: 'MD, FACR, Chief of Emergency Radiology',
   },
   {
     id: 2,
@@ -21,6 +25,8 @@ export const authors: Author[] = [
     name: 'Dr. Ben Carter',
     title: 'Neuroradiology Fellow',
     bio: 'Dr. Ben Carter focuses on diagnostic error analysis and cognitive biases in radiology. His work aims to improve patient safety through systemic learning and has been featured in multiple peer-reviewed journals.',
+    avatar: '/placeholder.svg',
+    credentials: 'MD, Neuroradiology Fellow',
   },
   {
     id: 3,
@@ -28,5 +34,7 @@ export const authors: Author[] = [
     name: 'Dr. Chloe Velez',
     title: 'Radiology Resident',
     bio: 'Dr. Chloe Velez has a keen interest in the intersection of artificial intelligence and medical imaging, particularly in the context of acute stroke care. She leads AI implementation initiatives at her institution.',
+    avatar: '/placeholder.svg',
+    credentials: 'MD, Radiology Resident',
   },
 ];
