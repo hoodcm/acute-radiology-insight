@@ -13,7 +13,13 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="pt-[env(safe-area-inset-top)] py-1 sm:py-1.5 lg:py-2 border-b-2 border-black dark:border-gray-700 sticky top-0 z-40 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md backdrop-saturate-150">
+    <header className="pt-[env(safe-area-inset-top)] py-1 sm:py-1.5 lg:py-2 border-b-2 border-black dark:border-gray-700 sticky top-0 z-40 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-zinc-900/60">
+      <div 
+        className="absolute inset-0 bg-white/90 dark:bg-zinc-900/80 -z-10"
+        style={{
+          top: 'calc(-1 * env(safe-area-inset-top, 0px))',
+        }}
+      />
       <div className="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
         <Link to="/" className="font-jersey font-bold text-foreground leading-none pr-4">
           <span className="block md:hidden text-2xl sm:text-3xl">Level One Radiology</span>
