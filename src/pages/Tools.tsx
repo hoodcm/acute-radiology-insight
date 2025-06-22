@@ -7,6 +7,7 @@ import { Seo } from '@/components/Seo';
 import { DicomViewerOverlay } from '@/components/dicom/DicomViewerOverlay';
 import { Button } from '@/components/ui/button';
 import { Monitor, Smartphone, Activity } from 'lucide-react';
+import { useSmartSkeleton } from '@/hooks/useSmartSkeleton';
 
 const Tools = () => {
   const [toolPosts, setToolPosts] = useState<Post[]>([]);
@@ -25,6 +26,11 @@ const Tools = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const showSkeleton = useSmartSkeleton(loading, {
+    delay: 200,
+    minDisplayTime: 300
+  });
 
   const openDicomViewer = (mode: 'desktop' | 'mobile') => {
     setDicomOverlay({ isOpen: true, mode });
@@ -98,14 +104,16 @@ const Tools = () => {
         </div>
         
         <div className="grid grid-cols-12 gap-4 md:gap-6 lg:gap-8">
-          {loading ? (
+          {showSkeleton ? (
             Array.from({ length: 4 }).map((_, index) => <PostCardSkeleton key={index} />)
           ) : toolPosts.length > 0 ? (
             toolPosts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))
           ) : (
-            <p className="col-span-12 text-muted-foreground text-base sm:text-lg">No tools have been posted yet. Check back soon!</p>
+            !loading && (
+              <p className="col-span-12 text-muted-foreground text-base sm:text-lg">No tools have been posted yet. Check back soon!</p>
+            )
           )}
         </div>
       </div>
