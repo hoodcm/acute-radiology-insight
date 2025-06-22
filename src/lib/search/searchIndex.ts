@@ -1,4 +1,4 @@
-import Fuse from 'fuse.js';
+import Fuse, { IFuseOptions, FuseResult } from 'fuse.js';
 import { posts, type Post } from '@/data/posts';
 import { ContentChunker, type SearchableContent, type ContentChunk } from './contentChunker';
 
@@ -35,7 +35,7 @@ export class SearchIndex {
   }
 
   private createPostIndex(): Fuse<SearchableContent> {
-    const options: Fuse.IFuseOptions<SearchableContent> = {
+    const options: IFuseOptions<SearchableContent> = {
       keys: [
         { name: 'title', weight: 3 },
         { name: 'description', weight: 2 },
@@ -53,7 +53,7 @@ export class SearchIndex {
   private createChunkIndex(): Fuse<ContentChunk> {
     const allChunks = this.searchableContent.flatMap(post => post.chunks);
     
-    const options: Fuse.IFuseOptions<ContentChunk> = {
+    const options: IFuseOptions<ContentChunk> = {
       keys: [
         { name: 'content', weight: 2 },
         { name: 'metadata.sectionTitle', weight: 1.5 },
@@ -114,7 +114,7 @@ export class SearchIndex {
       .slice(0, limit);
   }
 
-  private extractHighlights(matches: readonly Fuse.FuseResultMatch[]): string[] {
+  private extractHighlights(matches: readonly FuseResult<any>['matches'][0][]): string[] {
     return matches.flatMap(match => 
       match.indices.map(([start, end]) => 
         match.value?.substring(start, end + 1) || ''
