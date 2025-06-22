@@ -5,7 +5,6 @@
   }
 }
 
-
 @layer base {
   html, body, [data-theme], .dark {
     transition:
@@ -14,6 +13,7 @@
       border-color 0.3s ease;
   }
 }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,13 +40,6 @@
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-sm-plus: 12px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
-    --space-2xl: 48px;
   }
 
   .dark {
@@ -85,14 +78,12 @@
 
   /* Enhanced focus styles for accessibility */
   :focus-visible {
-    outline: 2px solid hsl(var(--accent));
-    outline-offset: 2px;
-    border-radius: 4px;
+    @apply outline-2 outline-accent outline-offset-2 rounded;
   }
 
   /* Remove default focus styles when focus-visible is supported */
   :focus:not(:focus-visible) {
-    outline: none;
+    @apply outline-none;
   }
 
   /* Ensure interactive elements have proper touch targets */
@@ -103,38 +94,14 @@
 
 @layer components {
   .container {
-    padding-left: clamp(var(--space-md), 4vw, var(--space-xl));
-    padding-right: clamp(var(--space-md), 4vw, var(--space-xl));
+    @apply px-4 sm:px-6 lg:px-8;
   }
 }
 
 @layer utilities {
-  .py-hero {
-    padding-top: clamp(3rem, 8vw, 8rem);
-    padding-bottom: clamp(3rem, 8vw, 8rem);
-  }
-  .pb-cards-section {
-    padding-bottom: clamp(2rem, 6vw, 5rem);
-  }
-
-  /* Fluid spacing utilities */
-  .space-fluid-sm {
-    gap: clamp(var(--space-sm), 2vw, var(--space-md));
-  }
-  .space-fluid-md {
-    gap: clamp(var(--space-md), 3vw, var(--space-lg));
-  }
-  .space-fluid-lg {
-    gap: clamp(var(--space-lg), 4vw, var(--space-xl));
-  }
-
   /* Improved touch targets */
   .touch-target {
-    min-height: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @apply min-h-11 min-w-11 flex items-center justify-center;
   }
 
   /* Animation utilities */
@@ -156,26 +123,16 @@
 
   /* Hover and interaction states */
   .hover-lift {
-    transition: transform 200ms ease, box-shadow 200ms ease;
-  }
-  .hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    @apply transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg;
   }
 }
 
 /* Fullscreen theme-transition overlay */
 .theme-transition-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-color: hsl(var(--background));
-  opacity: 0;
-  transition: opacity 150ms ease-in-out;
-  z-index: 9999;
+  @apply fixed inset-0 pointer-events-none bg-background opacity-0 transition-opacity duration-150 ease-in-out z-50;
 }
 .theme-transition-overlay.active {
-  opacity: 1;
+  @apply opacity-100;
 }
 
 /* Sweep animation for theme change */
@@ -185,14 +142,8 @@
   100% { transform: translateX(100%); }
 }
 .theme-sweep-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-color: hsl(var(--background));
+  @apply fixed inset-0 pointer-events-none bg-background z-50 border-none border-r-4 border-foreground;
   transform: translateX(-100%);
-  z-index: 9999;
-  border: none;
-  border-right: 4px solid hsl(var(--foreground));
   box-shadow: inset 0 0 20px hsl(var(--foreground) / 0.5);
 }
 .theme-sweep-overlay.active {

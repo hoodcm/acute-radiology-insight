@@ -1,7 +1,6 @@
 
 import { Seo } from "@/components/Seo";
 import { PostCard } from "@/components/PostCard";
-import { PostCardSkeleton } from "@/components/PostCardSkeleton";
 import { posts } from "@/data/posts";
 import { authors } from "@/data/authors";
 import { Button } from "@/components/ui/button";
@@ -35,7 +34,7 @@ const Index = () => {
           }}
         ></div>
         
-        <div className="relative container mx-auto px-4 py-24 lg:py-32">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24 lg:py-32">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex justify-center mb-8">
               <div className="flex items-center gap-2 bg-accent/20 backdrop-blur-sm px-4 py-2 rounded-full border border-accent/30">
@@ -44,12 +43,12 @@ const Index = () => {
               </div>
             </div>
             
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight">
               Level One
               <span className="block text-accent">Radiology</span>
             </h1>
             
-            <p className="text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
               Master complex imaging cases with expert-curated content, interactive DICOM viewers, 
               and comprehensive educational resources designed for radiology professionals.
             </p>
@@ -90,47 +89,47 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-slate-50 dark:bg-slate-900/50">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <BookOpen className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">500+</h3>
-              <p className="text-slate-600 dark:text-slate-400">Imaging Cases</p>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">500+</h3>
+              <p className="text-muted-foreground text-sm sm:text-base">Imaging Cases</p>
             </div>
             <div className="text-center">
               <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">10k+</h3>
-              <p className="text-slate-600 dark:text-slate-400">Medical Professionals</p>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">10k+</h3>
+              <p className="text-muted-foreground text-sm sm:text-base">Medical Professionals</p>
             </div>
             <div className="text-center">
               <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Activity className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">50+</h3>
-              <p className="text-slate-600 dark:text-slate-400">Subspecialties</p>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">50+</h3>
+              <p className="text-muted-foreground text-sm sm:text-base">Subspecialties</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Featured Cases */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-12">
+      <section className="py-12 sm:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 md:mb-12 gap-4">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-4">
                 Featured Cases
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl">
+              <p className="text-muted-foreground text-base sm:text-lg lg:text-xl max-w-2xl">
                 Dive into carefully selected imaging cases that challenge and enhance your diagnostic skills.
               </p>
             </div>
-            <Button asChild variant="outline" className="hidden sm:flex">
+            <Button asChild variant="outline" className="hidden sm:flex shrink-0">
               <Link to="/cases">
                 View All Cases
                 <ArrowRight className="ml-2 w-4 h-4" />
@@ -138,7 +137,7 @@ const Index = () => {
             </Button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {featuredPosts.map((post) => {
               const author = authors.find(a => a.id === post.authorId);
               return (
@@ -151,7 +150,7 @@ const Index = () => {
             })}
           </div>
           
-          <div className="flex justify-center mt-12 sm:hidden">
+          <div className="flex justify-center mt-8 md:mt-12 sm:hidden">
             <Button asChild variant="outline">
               <Link to="/cases">
                 View All Cases
@@ -163,12 +162,12 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-accent/5">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+      <section className="py-12 sm:py-16 lg:py-20 bg-accent/5">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-6">
             Ready to Advance Your Radiology Skills?
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of medical professionals who trust Level One Radiology for their continuing education.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

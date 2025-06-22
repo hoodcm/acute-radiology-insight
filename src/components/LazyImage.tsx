@@ -80,7 +80,7 @@ export function LazyImage({
         }
       },
       { 
-        rootMargin: '50px 0px 200px 0px', // Start loading earlier for better UX
+        rootMargin: '12 0 48 0', // Optimized for mobile-first approach
         threshold: 0.1 
       }
     );
@@ -101,7 +101,7 @@ export function LazyImage({
     return (
       <div 
         className={cn(
-          "flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-500",
+          "flex items-center justify-center bg-muted text-muted-foreground",
           className
         )}
         {...props}

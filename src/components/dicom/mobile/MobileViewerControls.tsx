@@ -33,7 +33,7 @@ export function MobileViewerControls({
           variant="ghost"
           size="sm"
           onClick={onZoomOut}
-          className="text-white hover:bg-white/20"
+          className="text-white hover:bg-white/20 min-h-11 min-w-11"
           disabled={zoom <= 0.5}
         >
           <ZoomOut className="w-5 h-5" />
@@ -43,7 +43,7 @@ export function MobileViewerControls({
           variant="ghost"
           size="sm"
           onClick={onReset}
-          className="text-white hover:bg-white/20"
+          className="text-white hover:bg-white/20 min-h-11 min-w-11"
         >
           <Move className="w-5 h-5" />
         </Button>
@@ -52,7 +52,7 @@ export function MobileViewerControls({
           variant="ghost"
           size="sm"
           onClick={onZoomIn}
-          className="text-white hover:bg-white/20"
+          className="text-white hover:bg-white/20 min-h-11 min-w-11"
           disabled={zoom >= 5}
         >
           <ZoomIn className="w-5 h-5" />
@@ -62,7 +62,7 @@ export function MobileViewerControls({
       {/* Simple brightness/contrast sliders for mobile */}
       <div className="mt-4 space-y-2">
         <div className="flex items-center gap-2 text-white text-sm">
-          <span className="w-16">Brightness</span>
+          <span className="w-16 text-xs sm:text-sm shrink-0">Brightness</span>
           <input
             type="range"
             min="-50"
@@ -71,10 +71,10 @@ export function MobileViewerControls({
             onChange={(e) => onBrightnessChange(Number(e.target.value))}
             className="flex-1 accent-accent"
           />
-          <span className="w-8 text-right">{brightness}%</span>
+          <span className="w-8 text-right text-xs sm:text-sm">{brightness}%</span>
         </div>
         <div className="flex items-center gap-2 text-white text-sm">
-          <span className="w-16">Contrast</span>
+          <span className="w-16 text-xs sm:text-sm shrink-0">Contrast</span>
           <input
             type="range"
             min="-50"
@@ -83,7 +83,7 @@ export function MobileViewerControls({
             onChange={(e) => onContrastChange(Number(e.target.value))}
             className="flex-1 accent-accent"
           />
-          <span className="w-8 text-right">{contrast}%</span>
+          <span className="w-8 text-right text-xs sm:text-sm">{contrast}%</span>
         </div>
       </div>
     </div>

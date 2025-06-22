@@ -23,10 +23,10 @@ const categoryToPathMap: { [key: string]: string } = {
 
 export function Breadcrumbs({ postTitle, postCategory }: BreadcrumbsProps) {
   const categoryUrl = categoryToPathMap[postCategory] || '/';
-  const linkClasses = "text-xs uppercase font-sans text-gray-400 hover:text-white hover:underline";
+  const linkClasses = "text-xs uppercase font-sans text-muted-foreground hover:text-foreground hover:underline transition-colors";
 
   return (
-    <Breadcrumb className="mb-md">
+    <Breadcrumb className="mb-4 md:mb-6">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
@@ -41,7 +41,7 @@ export function Breadcrumbs({ postTitle, postCategory }: BreadcrumbsProps) {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-xs uppercase font-sans text-white max-w-48 sm:max-w-96 truncate">
+          <BreadcrumbPage className="text-xs uppercase font-sans text-foreground max-w-48 sm:max-w-96 truncate">
             {postTitle}
           </BreadcrumbPage>
         </BreadcrumbItem>

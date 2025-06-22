@@ -71,12 +71,12 @@ const Search = () => {
         title={`Search results for "${query}"`}
         description={`Find posts related to ${query} on Level One Radiology.`}
       />
-      <div className="container mx-auto py-8">
-        <div className="mb-8">
-          <h1 className="font-serif text-4xl font-bold mb-4">
+      <div className="container mx-auto py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 md:mb-12">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-4">
             Search Results
           </h1>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-muted-foreground mb-6 text-base sm:text-lg">
             {query ? (
               filteredPosts.length > 0
                 ? `Found ${filteredPosts.length} result(s) for "${searchParams.get('q')}"`
@@ -97,7 +97,7 @@ const Search = () => {
                     variant={selectedFilters.includes(category) ? "default" : "secondary"}
                     className={`cursor-pointer transition-all hover:scale-105 ${
                       selectedFilters.includes(category) 
-                        ? 'bg-accent text-black hover:bg-accent/90' 
+                        ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                         : 'hover:bg-accent/20'
                     }`}
                     onClick={() => toggleFilter(category)}
@@ -117,7 +117,7 @@ const Search = () => {
                     variant={selectedFilters.includes(tag) ? "default" : "secondary"}
                     className={`cursor-pointer transition-all hover:scale-105 ${
                       selectedFilters.includes(tag) 
-                        ? 'bg-accent text-black hover:bg-accent/90' 
+                        ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                         : 'hover:bg-accent/20'
                     }`}
                     onClick={() => toggleFilter(tag)}
@@ -133,7 +133,7 @@ const Search = () => {
                 <span className="text-sm font-medium">Active filters:</span>
                 <div className="flex flex-wrap gap-1">
                   {selectedFilters.map(filter => (
-                    <Badge key={filter} variant="default" className="bg-accent text-black">
+                    <Badge key={filter} variant="default" className="bg-accent text-accent-foreground">
                       {filter}
                     </Badge>
                   ))}
@@ -152,7 +152,7 @@ const Search = () => {
         </div>
         
         {filteredPosts.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {filteredPosts.map((post) => {
               const author = authors.find(a => a.id === post.authorId);
               return (

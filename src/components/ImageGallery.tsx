@@ -46,14 +46,14 @@ export function ImageGallery({ images, caseId, title }: ImageGalleryProps) {
   };
 
   return (
-    <div className="my-8">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+    <div className="my-8 md:my-12">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
           Medical Images
         </h3>
         <Button 
           onClick={handleViewInDicom}
-          className="bg-accent hover:bg-accent/90 text-black font-medium"
+          className="bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
         >
           <Eye className="w-4 h-4 mr-2" />
           Open in DICOM Viewer
@@ -65,7 +65,7 @@ export function ImageGallery({ images, caseId, title }: ImageGalleryProps) {
         {images.map((image, index) => (
           <div 
             key={image.id}
-            className="relative cursor-pointer group overflow-hidden rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-accent transition-colors"
+            className="relative cursor-pointer group overflow-hidden rounded-lg border-2 border-border hover:border-accent transition-colors"
             onClick={() => handleImageClick(image, index)}
           >
             <img
@@ -124,7 +124,7 @@ export function ImageGallery({ images, caseId, title }: ImageGalleryProps) {
               {selectedImage.description && (
                 <p className="text-gray-300 mb-2">{selectedImage.description}</p>
               )}
-              <div className="flex gap-4 text-sm">
+              <div className="flex gap-4 text-sm flex-wrap">
                 {selectedImage.modality && (
                   <span className="text-accent">Modality: {selectedImage.modality}</span>
                 )}
@@ -135,7 +135,7 @@ export function ImageGallery({ images, caseId, title }: ImageGalleryProps) {
               <div className="mt-4">
                 <Button 
                   onClick={handleViewInDicom}
-                  className="bg-accent hover:bg-accent/90 text-black"
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground"
                 >
                   <Eye className="w-4 h-4 mr-2" />
                   Open in Advanced Viewer

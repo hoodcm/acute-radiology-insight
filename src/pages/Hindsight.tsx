@@ -25,11 +25,11 @@ const Hindsight = () => {
   return (
     <>
       <Seo title={pageTitle} description={pageDescription} />
-      <div className="container mx-auto py-xl">
-        <h1 className="font-serif text-4xl font-bold mb-lg">{pageTitle}</h1>
-        <p className="text-muted-foreground mb-xl">{pageDescription}</p>
+      <div className="container mx-auto py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-6 lg:mb-8">{pageTitle}</h1>
+        <p className="text-muted-foreground mb-8 md:mb-12 lg:mb-16 text-base sm:text-lg">{pageDescription}</p>
         
-        <div className="grid grid-cols-12 gap-md md:gap-lg">
+        <div className="grid grid-cols-12 gap-4 md:gap-6 lg:gap-8">
           {loading ? (
             Array.from({ length: 4 }).map((_, index) => <PostCardSkeleton key={index} />)
           ) : hindsightPosts.length > 0 ? (
@@ -37,7 +37,7 @@ const Hindsight = () => {
               <PostCard key={post.id} post={post} />
             ))
           ) : (
-            <p className="col-span-12 text-muted-foreground">No hindsight articles have been posted yet. Check back soon!</p>
+            <p className="col-span-12 text-muted-foreground text-base sm:text-lg">No hindsight articles have been posted yet. Check back soon!</p>
           )}
         </div>
       </div>

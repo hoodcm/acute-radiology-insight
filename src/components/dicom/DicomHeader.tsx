@@ -29,20 +29,20 @@ export function DicomHeader({
   onToggleSidebar,
 }: DicomHeaderProps) {
   return (
-    <header className="flex items-center justify-between p-4 border-b border-gray-800">
+    <header className="flex items-center justify-between p-4 border-b border-gray-800 bg-black text-white">
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
           size="sm"
           onClick={onGoBack}
-          className="text-white hover:text-accent"
+          className="text-white hover:text-accent hover:bg-gray-800"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
         <div>
-          <h1 className="text-xl font-semibold">{patientData.patientName}</h1>
-          <p className="text-sm text-gray-400">
+          <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold">{patientData.patientName}</h1>
+          <p className="text-xs sm:text-sm text-gray-400">
             {patientData.modality} • {patientData.bodyPart} • {patientData.studyDate}
           </p>
         </div>

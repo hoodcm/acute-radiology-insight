@@ -1,10 +1,11 @@
+
 import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export function PostCardSkeleton() {
   return (
-    <div className="col-span-12 md:col-span-6 lg:col-span-3">
-      <div className="bg-card rounded-lg shadow-lg dark:shadow-[0_4px_24px_rgba(31,41,55,0.6)] overflow-hidden border border-border flex flex-col justify-between">
+    <div className="col-span-12 md:col-span-6 lg:col-span-4">
+      <div className="bg-card rounded-lg shadow-lg dark:shadow-2xl overflow-hidden border border-border flex flex-col justify-between">
         <Skeleton className="aspect-video w-full" />
         <div className="p-4 md:p-5 flex flex-col flex-1">
           <Skeleton className="h-7 w-3/4 mb-2" />

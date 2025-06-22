@@ -1,3 +1,4 @@
+
 // BottomNav.tsx
 // Component renders a mobile bottom navigation bar with links to main site sections.
 
@@ -5,7 +6,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { LayoutGrid, FileText, History, Wrench, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 
 // navLinks: array of navigation items with display name, path, and icon component
 const navLinks = [
@@ -34,7 +35,7 @@ export function BottomNav() {
   return (
     // <nav>: fixed bottom nav container, visible on mobile only
     <nav
-      className="bottom-nav md:hidden fixed left-4 right-4 h-16 max-w-[600px] mx-auto z-50 ease rounded-full overflow-hidden border-2 border-black dark:border-[rgba(107,114,128)] shadow-[4px_4px_0px_theme(colors.gray.800)] dark:shadow-[4px_4px_0px_theme(colors.gray.500)] bg-clip-padding isolate"
+      className="md:hidden fixed left-4 right-4 h-16 max-w-[600px] mx-auto z-50 rounded-full overflow-hidden border-2 border-black dark:border-gray-500 shadow-lg bg-clip-padding isolate"
       style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}
     >
       <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
@@ -45,7 +46,7 @@ export function BottomNav() {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-1 bg-accent dark:bg-accent-dark backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
+              className="absolute inset-y-1 bg-accent backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
                 width: 'calc(100% / 5 + 0.4rem)',
@@ -69,8 +70,8 @@ export function BottomNav() {
               className={cn(
                 'flex flex-col items-center justify-center w-full h-full space-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-100 ease-in-out active:scale-95 relative z-10',
                 isActive 
-                  ? 'text-black dark:text-white font-weight:600' 
-                  : 'text-black dark:text-gray-100 font-weight:300 hover:text-black dark:hover:text-gray-100'
+                  ? 'text-black dark:text-white font-semibold' 
+                  : 'text-black dark:text-gray-100 font-normal hover:text-black dark:hover:text-gray-100'
               )}
             >
               {/* Icon component for the navigation item */}
@@ -84,7 +85,7 @@ export function BottomNav() {
               <span 
                 className={cn(
                   "text-xs transition-all duration-100",
-                  isActive ? "font-bold opacity-100" : "font-weight:300 opacity-70"
+                  isActive ? "font-bold opacity-100" : "font-normal opacity-70"
                 )}
               >
                 {link.name}

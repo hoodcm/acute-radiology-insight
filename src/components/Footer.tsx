@@ -34,10 +34,10 @@ export function Footer() {
   return (
     <footer 
       id="footer" 
-      className="border-t border-[var(--color-border)] mt-24 py-8 md:py-12 mb-[calc(5rem+env(safe-area-inset-bottom))] md:mb-0"
+      className="border-t border-border mt-16 sm:mt-20 lg:mt-24 py-8 md:py-12 mb-20 md:mb-0"
       role="contentinfo"
     >
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-fluid-lg">
+      <div className="container mx-auto flex flex-col md:flex-row md:justify-between md:items-center space-y-8 md:space-y-0 px-4 sm:px-6 lg:px-8">
         {/* Left column */}
         <p className="text-sm text-muted-foreground">
           &copy; {currentYear} Level One Radiology. All rights reserved.
@@ -65,7 +65,7 @@ export function Footer() {
               </p>
               <form
                 onSubmit={handleSubmit}
-                className="flex w-full max-w-sm h-12 rounded-lg overflow-hidden border-2 border-black dark:border-white focus-within:shadow-[0_0_0_2px_rgba(255,165,0,0.5)] transition-shadow"
+                className="flex w-full max-w-sm h-12 rounded-lg overflow-hidden border-2 border-black dark:border-white focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-1 transition-shadow"
               >
                 <Input
                   type="email"

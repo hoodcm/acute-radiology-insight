@@ -62,7 +62,7 @@ export function DicomMainViewer({
   };
 
   return (
-    <div className="flex-1 flex">
+    <div className="flex-1 flex bg-black">
       {/* Image preloader for performance */}
       <ImagePreloader
         images={dicomData.images}

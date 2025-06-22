@@ -49,7 +49,7 @@ export function SearchInput() {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex items-center justify-start transition-all duration-300 ease-in-out border-2 border-black dark:border-white rounded-full px-1 py-0.5 overflow-hidden focus-within:shadow-[0_0_0_2px_rgba(255,165,0,0.5)] text-xs ${
+      className={`flex items-center justify-start transition-all duration-300 ease-in-out border-2 border-black dark:border-white rounded-full px-1 py-0.5 overflow-hidden focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-1 text-xs ${
         isExpanded ? 'w-56' : 'w-28'
       }`}
     >
@@ -62,7 +62,7 @@ export function SearchInput() {
         className="p-1 text-foreground flex items-center justify-center cursor-pointer hover:text-accent transition-colors flex-shrink-0"
         aria-label="Focus search"
       >
-        <Search size={16} />
+        <Search className="h-4 w-4" />
       </button>
       <Input
         id="search-input"
@@ -82,7 +82,7 @@ export function SearchInput() {
           className="px-1 text-muted-foreground hover:text-foreground transition-colors duration-75 flex items-center justify-center h-5 flex-shrink-0"
           aria-label="Clear search"
         >
-          <X size={24} />
+          <X className="h-6 w-6" />
         </button>
       )}
     </form>

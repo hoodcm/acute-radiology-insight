@@ -1,3 +1,4 @@
+
 import { Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,7 @@ export function DarkModeToggle() {
 
   return (
     <Button
-      className="p-2 rounded-full text-xs flex items-center justify-center transition-colors duration-75 ease-in-out hover:bg-gray-200 focus:bg-gray-300 dark:hover:bg-gray-700 dark:focus:bg-gray-600"
+      className="p-2 rounded-full text-xs flex items-center justify-center transition-colors duration-75 ease-in-out hover:bg-muted focus:bg-muted/80"
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
