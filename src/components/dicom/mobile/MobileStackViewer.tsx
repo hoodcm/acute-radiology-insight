@@ -67,33 +67,46 @@ export function MobileStackViewer({
     }
   }, [currentImageIndex, loadedImages]);
 
-  // Canvas rendering
+  // Canvas rendering with improved centering
   const renderCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx || !currentImage) return;
 
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Clear canvas with black background
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Calculate scaling to fit image in viewport while maintaining aspect ratio
+    const canvasAspect = canvas.width / canvas.height;
+    const imageAspect = currentImage.width / currentImage.height;
+    
+    let baseScale;
+    if (imageAspect > canvasAspect) {
+      // Image is wider - fit to width
+      baseScale = canvas.width / currentImage.width;
+    } else {
+      // Image is taller - fit to height
+      baseScale = canvas.height / currentImage.height;
+    }
 
     // Apply transformations
     ctx.save();
     ctx.translate(canvas.width / 2 + pan.x, canvas.height / 2 + pan.y);
-    ctx.scale(zoom, zoom);
+    ctx.scale(zoom * baseScale, zoom * baseScale);
 
-    // Apply image processing
-    ctx.filter = `brightness(${100 + brightness}%) contrast(${100 + contrast}%)`;
+    // Apply image processing with windowing simulation
+    const normalizedBrightness = brightness;
+    const normalizedContrast = contrast;
+    ctx.filter = `brightness(${100 + normalizedBrightness}%) contrast(${100 + normalizedContrast}%)`;
 
     // Draw image centered
-    const imageWidth = currentImage.width;
-    const imageHeight = currentImage.height;
-    
     ctx.drawImage(
       currentImage,
-      -imageWidth / 2,
-      -imageHeight / 2,
-      imageWidth,
-      imageHeight
+      -currentImage.width / 2,
+      -currentImage.height / 2,
+      currentImage.width,
+      currentImage.height
     );
 
     ctx.restore();
@@ -122,15 +135,15 @@ export function MobileStackViewer({
     renderCanvas();
   }, [renderCanvas]);
 
-  // Touch event utilities
-  const getTouchDistance = (touches: TouchList) => {
+  // Touch event utilities - Fixed TypeScript errors
+  const getTouchDistance = (touches: React.TouchList) => {
     if (touches.length < 2) return 0;
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
     return Math.sqrt(dx * dx + dy * dy);
   };
 
-  const getTouchCenter = (touches: TouchList) => {
+  const getTouchCenter = (touches: React.TouchList) => {
     if (touches.length < 2) return { x: 0, y: 0 };
     return {
       x: (touches[0].clientX + touches[1].clientX) / 2,
@@ -184,8 +197,8 @@ export function MobileStackViewer({
       } else {
         // Horizontal pan when zoomed
         setPan(prev => ({
-          x: prev.x + deltaX * 0.5,
-          y: prev.y + deltaY * 0.5,
+          x: prev.x + deltaX * 0.8,
+          y: prev.y + deltaY * 0.8,
         }));
         setDragStart({ x: touch.clientX, y: touch.clientY });
       }
@@ -201,14 +214,15 @@ export function MobileStackViewer({
         
         // Two-finger windowing (if moving vertically)
         const deltaY = center.y - dragStart.y;
-        if (Math.abs(deltaY) > 5) {
-          const windowSensitivity = 2;
-          const newWidth = Math.max(1, windowLevel.width + deltaY * windowSensitivity);
-          const newCenter = windowLevel.center + (center.x - dragStart.x) * windowSensitivity * 0.5;
+        const deltaX = center.x - dragStart.x;
+        if (Math.abs(deltaY) > 5 || Math.abs(deltaX) > 5) {
+          const windowSensitivity = 3;
+          const newWidth = Math.max(50, Math.min(2000, windowLevel.width + deltaY * windowSensitivity));
+          const newCenter = Math.max(-1000, Math.min(3000, windowLevel.center + deltaX * windowSensitivity * 0.5));
           
           setWindowLevel({ width: newWidth, center: newCenter });
-          setBrightness(prev => Math.max(-50, Math.min(50, prev + deltaY * 0.1)));
-          setContrast(prev => Math.max(-50, Math.min(50, prev + (center.x - dragStart.x) * 0.1)));
+          setBrightness(prev => Math.max(-100, Math.min(100, prev + deltaY * 0.2)));
+          setContrast(prev => Math.max(-100, Math.min(100, prev + deltaX * 0.2)));
         }
       }
       
@@ -250,17 +264,22 @@ export function MobileStackViewer({
           style={{ touchAction: 'none' }}
         />
         
-        {/* Minimal info overlay - only visible briefly on interaction */}
-        <div className="absolute top-4 left-4 text-white text-xs bg-black/30 px-2 py-1 rounded opacity-75 pointer-events-none">
+        {/* Minimal info overlay */}
+        <div className="absolute top-4 left-4 text-white text-xs bg-black/50 px-3 py-2 rounded opacity-90 pointer-events-none">
           {currentImageIndex + 1}/{images.length}
         </div>
         
-        <div className="absolute top-4 right-4 text-white text-xs bg-black/30 px-2 py-1 rounded opacity-75 pointer-events-none">
+        <div className="absolute top-4 right-4 text-white text-xs bg-black/50 px-3 py-2 rounded opacity-90 pointer-events-none">
           {(zoom * 100).toFixed(0)}%
         </div>
         
-        {/* Patient info - minimal overlay */}
-        <div className="absolute bottom-4 left-4 text-white text-xs bg-black/30 px-2 py-1 rounded opacity-50 pointer-events-none">
+        {/* Windowing info */}
+        <div className="absolute top-16 right-4 text-white text-xs bg-black/50 px-3 py-2 rounded opacity-90 pointer-events-none">
+          W: {windowLevel.width.toFixed(0)} L: {windowLevel.center.toFixed(0)}
+        </div>
+        
+        {/* Patient info */}
+        <div className="absolute bottom-4 left-4 text-white text-xs bg-black/50 px-3 py-2 rounded opacity-75 pointer-events-none">
           {patientName} • {modality} • {bodyPart}
         </div>
         
