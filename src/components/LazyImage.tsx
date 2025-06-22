@@ -80,7 +80,7 @@ export function LazyImage({
         }
       },
       { 
-        rootMargin: '12 0 48 0', // Optimized for mobile-first approach
+        rootMargin: '12px 0px 48px 0px', // Fixed: Added proper units
         threshold: 0.1 
       }
     );
