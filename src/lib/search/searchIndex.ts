@@ -1,4 +1,4 @@
-import Fuse, { IFuseOptions, FuseResult } from 'fuse.js';
+import Fuse, { IFuseOptions } from 'fuse.js';
 import { posts, type Post } from '@/data/posts';
 import { ContentChunker, type SearchableContent, type ContentChunk } from './contentChunker';
 
@@ -114,7 +114,7 @@ export class SearchIndex {
       .slice(0, limit);
   }
 
-  private extractHighlights(matches: readonly FuseResult<any>['matches'][0][]): string[] {
+  private extractHighlights(matches: any[]): string[] {
     return matches.flatMap(match => 
       match.indices.map(([start, end]) => 
         match.value?.substring(start, end + 1) || ''
