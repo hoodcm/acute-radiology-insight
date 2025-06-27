@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Eye } from 'lucide-react';
@@ -20,6 +21,13 @@ export function CRTPreviewOverlay({
 }: CRTPreviewOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<'rect' | 'card' | 'exit'>('rect');
+
+  // Extract CRT animation values to match content container size
+  const crtFinalTransform = {
+    scaleY: 0.75,
+    scaleX: 0.7,
+    borderRadius: '1rem'
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -82,20 +90,30 @@ export function CRTPreviewOverlay({
       )}
 
       {phase === 'card' && (
-        <div className="w-full max-w-md sm:max-w-xl lg:max-w-2xl bg-background dark:bg-[#2A1B1F] rounded-lg shadow-lg p-6 opacity-0 animate-crtContentFadeIn pointer-events-auto">
-          <h3 id={`preview-title-${post.id}`} className="text-2xl font-bold mb-4">
-            {post.title}
-          </h3>
-          <p id={`preview-desc-${post.id}`} className="text-base mb-6 leading-relaxed">
-            {post.description}
-          </p>
-          {hasImaging && (
-            <Button onClick={onViewImages} className="bg-accent hover:bg-accent/90 text-black font-medium mb-4">
-              <Eye className="w-4 h-4 mr-2" />
-              Launch DICOM Viewer
-            </Button>
-          )}
-          <p className="text-sm text-muted-foreground">Press Escape to close</p>
+        <div 
+          className="fixed inset-0 flex justify-center items-center pointer-events-none"
+          style={{
+            transform: `scaleY(${crtFinalTransform.scaleY}) scaleX(${crtFinalTransform.scaleX})`,
+            borderRadius: crtFinalTransform.borderRadius
+          }}
+        >
+          <div className="w-screen h-screen bg-background dark:bg-[#2A1B1F] opacity-0 animate-crtContentFadeIn pointer-events-auto flex items-center justify-center p-6">
+            <div className="w-full max-w-md sm:max-w-xl lg:max-w-2xl">
+              <h3 id={`preview-title-${post.id}`} className="text-2xl font-bold mb-4">
+                {post.title}
+              </h3>
+              <p id={`preview-desc-${post.id}`} className="text-base mb-6 leading-relaxed">
+                {post.description}
+              </p>
+              {hasImaging && (
+                <Button onClick={onViewImages} className="bg-accent hover:bg-accent/90 text-black font-medium mb-4">
+                  <Eye className="w-4 h-4 mr-2" />
+                  Launch DICOM Viewer
+                </Button>
+              )}
+              <p className="text-sm text-muted-foreground">Press Escape to close</p>
+            </div>
+          </div>
         </div>
       )}
     </div>
