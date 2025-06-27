@@ -1,3 +1,4 @@
+
 // PostCard.tsx
 // Component displays a summary card for a blog post, including title, image, tags, date, and preview functionality.
 
@@ -35,6 +36,7 @@ export function PostCard({ post, author }: PostCardProps) {
   const previewOpen = activePreviewSlug === post.slug;
   // Ref to detect clicks outside the card for closing preview
   const cardRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   // Determine if post has interactive imaging based on category and tags
   // Check if this is a case study with imaging
@@ -48,7 +50,7 @@ export function PostCard({ post, author }: PostCardProps) {
   // Effect to add/remove global event listeners for closing preview on outside click or Escape key
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+      if (overlayRef.current && overlayRef.current === event.target) {
         setActivePreviewSlug(null);
       }
     }
@@ -97,92 +99,114 @@ export function PostCard({ post, author }: PostCardProps) {
 
   // Render the PostCard UI
   return (
-    // Wrapper div that closes preview when clicking outside
-    <div 
-      ref={cardRef} 
-      className="group col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3 2xl:col-span-2 sm:hover-lift" 
-      onClick={() => previewOpen && setActivePreviewSlug(null)}
-    >
-      {/* Main article container with hover lift and styling */}
-      <article 
-        className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out md:group-hover:-translate-y-0.5" 
-        onClick={(e) => e.stopPropagation()}
-        role="article"
-        aria-label={`Article: ${post.title}`}
+    <>
+      {/* Main card wrapper */}
+      <div 
+        ref={cardRef} 
+        className="group col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3 2xl:col-span-2 sm:hover-lift"
       >
-        {/* Link to full post page; covers the content area */}
-        <Link 
-          to={`/posts/${post.slug}`} 
-          className="flex-1 flex flex-col justify-between h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
-          aria-describedby={`post-${post.id}-description`}
+        {/* Main article container with hover lift and styling */}
+        <article 
+          className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out md:group-hover:-translate-y-0.5" 
+          role="article"
+          aria-label={`Article: ${post.title}`}
         >
-          {/* Image section with lazy loading and optional "Interactive Images" badge */}
-          <div className="aspect-[7/4] relative overflow-hidden">
-            <LazyImage
-              src={imageUrl}
-              placeholderSrc={placeholderUrl}
-              alt={`Featured image for ${post.title}`}
-              className="w-full h-full object-cover transition-transform duration-300"
-            />
-            {hasImaging && (
-              <div className="absolute top-2 left-2 bg-accent/90 text-black px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                <Image className="w-3 h-3" />
-                Interactive Images
-              </div>
-            )}
-          </div>
-          
-          {/* Text content: title, description, tags, date, author */}
-          <div className="p-4 md:p-5 flex flex-col flex-1 space-fluid-sm">
-            <h3 className="font-jersey25 text-2xl md:text-3xl leading-snug tracking-tight font-semibold text-foreground mb-2">
-              {post.title}
-            </h3>
+          {/* Link to full post page; covers the content area */}
+          <Link 
+            to={`/posts/${post.slug}`} 
+            className="flex-1 flex flex-col justify-between h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
+            aria-describedby={`post-${post.id}-description`}
+          >
+            {/* Image section with lazy loading and optional "Interactive Images" badge */}
+            <div className="aspect-[7/4] relative overflow-hidden">
+              <LazyImage
+                src={imageUrl}
+                placeholderSrc={placeholderUrl}
+                alt={`Featured image for ${post.title}`}
+                className="w-full h-full object-cover transition-transform duration-300"
+              />
+              {hasImaging && (
+                <div className="absolute top-2 left-2 bg-accent/90 text-black px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                  <Image className="w-3 h-3" />
+                  Interactive Images
+                </div>
+              )}
+            </div>
             
-            <p 
-              id={`post-${post.id}-description`}
-              className="font-inter-tight text-base md:text-lg leading-normal tracking-tight text-muted-foreground mb-4 line-clamp-2"
-            >
-              {post.description}
-            </p>
-            
-            <div className="mt-auto space-y-2">
-              <div className="flex gap-2 flex-wrap">
-                {post.tags
-                  .filter((tag) => tag.toLowerCase() !== "error analysis")
-                  .map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-inter-tight inline-flex items-center uppercase text-[0.65rem] font-semibold tracking-tight text-accent-foreground bg-accent/10 px-1.5 py-0.5 rounded dark:bg-accent/30 dark:text-white"
-                      role="tag"
-                    >
-                      {tag}
+            {/* Text content: title, description, tags, date, author */}
+            <div className="p-4 md:p-5 flex flex-col flex-1 space-fluid-sm">
+              <h3 className="font-jersey25 text-2xl md:text-3xl leading-snug tracking-tight font-semibold text-foreground mb-2">
+                {post.title}
+              </h3>
+              
+              <p 
+                id={`post-${post.id}-description`}
+                className="font-inter-tight text-base md:text-lg leading-normal tracking-tight text-muted-foreground mb-4 line-clamp-2"
+              >
+                {post.description}
+              </p>
+              
+              <div className="mt-auto space-y-2">
+                <div className="flex gap-2 flex-wrap">
+                  {post.tags
+                    .filter((tag) => tag.toLowerCase() !== "error analysis")
+                    .map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-inter-tight inline-flex items-center uppercase text-[0.65rem] font-semibold tracking-tight text-accent-foreground bg-accent/10 px-1.5 py-0.5 rounded dark:bg-accent/30 dark:text-white"
+                        role="tag"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                </div>
+                <div className="flex items-center justify-between">
+                  <time 
+                    className="font-inter-tight text-xs leading-tight text-muted-foreground"
+                    dateTime={post.date}
+                  >
+                    {post.date}
+                  </time>
+                  {author && (
+                    <span className="font-inter-tight text-xs text-muted-foreground">
+                      by {author.name}
                     </span>
-                  ))}
-              </div>
-              <div className="flex items-center justify-between">
-                <time 
-                  className="font-inter-tight text-xs leading-tight text-muted-foreground"
-                  dateTime={post.date}
-                >
-                  {post.date}
-                </time>
-                {author && (
-                  <span className="font-inter-tight text-xs text-muted-foreground">
-                    by {author.name}
-                  </span>
-                )}
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Action buttons: View Images and Preview toggle */}
-        <div className="absolute bottom-3 right-3 z-10 flex gap-2">
-          {hasImaging && (
+          {/* Action buttons: View Images and Preview toggle */}
+          <div className="absolute bottom-3 right-3 z-10 flex gap-2">
+            {hasImaging && (
+              <button
+                onClick={handleViewImages}
+                className="touch-target focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-md"
+                aria-label={`View images for ${post.title}`}
+              >
+                <div className="relative inline-block transform transition-transform duration-150 ease-out">
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
+                  />
+                  <span
+                    className="relative border-2 border-black dark:border-[#722b37] rounded-md h-8 px-3 flex items-center justify-center gap-1 transition-all duration-150 ease-out bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white"
+                  >
+                    <Eye className="w-3 h-3 mr-1" />
+                    View Images
+                  </span>
+                </div>
+              </button>
+            )}
+            
             <button
-              onClick={handleViewImages}
+              onClick={handlePreviewToggle}
+              onKeyDown={handlePreviewToggle}
               className="touch-target focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-md"
-              aria-label={`View images for ${post.title}`}
+              aria-label={previewOpen ? `Close preview of ${post.title}` : `Preview ${post.title}`}
+              aria-expanded={previewOpen}
+              aria-controls={`preview-${post.id}`}
             >
               <div className="relative inline-block transform transition-transform duration-150 ease-out">
                 <span
@@ -190,91 +214,91 @@ export function PostCard({ post, author }: PostCardProps) {
                   className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
                 />
                 <span
-                  className="relative border-2 border-black dark:border-[#722b37] rounded-md h-8 px-3 flex items-center justify-center gap-1 transition-all duration-150 ease-out bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white"
+                  className={`
+                    relative border-2 border-black dark:border-[#722b37] rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
+                    ${
+                      previewOpen
+                        ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#722b37] dark:text-white'
+                        : 'bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white'
+                    }
+                  `}
                 >
-                  <Eye className="w-3 h-3 mr-1" />
-                  View Images
+                  <img 
+                    src={previewEyeIcon} 
+                    alt="" 
+                    className="w-6 h-6 filter dark:invert" 
+                    aria-hidden="true"
+                  />
                 </span>
               </div>
             </button>
-          )}
-          
-          <button
-            onClick={handlePreviewToggle}
-            onKeyDown={handlePreviewToggle}
-            className="touch-target focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-md"
-            aria-label={previewOpen ? `Close preview of ${post.title}` : `Preview ${post.title}`}
-            aria-expanded={previewOpen}
-            aria-controls={`preview-${post.id}`}
-          >
-            <div className="relative inline-block transform transition-transform duration-150 ease-out">
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
-              />
-              <span
-                className={`
-                  relative border-2 border-black dark:border-[#722b37] rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
-                  ${
-                    previewOpen
-                      ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#722b37] dark:text-white'
-                      : 'bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white'
-                  }
-                `}
-              >
-                <img 
-                  src={previewEyeIcon} 
-                  alt="" 
-                  className="w-6 h-6 filter dark:invert" 
-                  aria-hidden="true"
-                />
-              </span>
-            </div>
-          </button>
-        </div>
+          </div>
+        </article>
+      </div>
 
-        {/* Preview panel overlay showing full description and image viewer launch */}
+      {/* CRT-style full-screen overlay */}
+      {previewOpen && (
         <div
-          id={`preview-${post.id}`}
-          className={`absolute left-0 right-0 bottom-0 top-0 bg-background dark:bg-[#2A1B1F] p-4
-            shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)]
-            transform ${previewOpen 
-              ? 'translate-y-0 opacity-100 pointer-events-auto' 
-              : 'translate-y-full opacity-0 pointer-events-none'}
-            transition-all duration-200 ease-out`}
+          ref={overlayRef}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-auto"
+          style={{
+            background: `
+              linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.85) 50%,
+                rgba(0, 0, 0, 0.8) 100%
+              ),
+              repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.03) 2px,
+                rgba(0, 255, 0, 0.03) 4px
+              )
+            `
+          }}
           role="dialog"
           aria-modal="true"
           aria-labelledby={`preview-title-${post.id}`}
           aria-describedby={`preview-desc-${post.id}`}
         >
-          <h3 
-            id={`preview-title-${post.id}`}
-            className="text-2xl font-bold mb-2"
-          >
-            {post.title}
-          </h3>
-          <p 
-            id={`preview-desc-${post.id}`}
-            className="text-base text-muted-foreground dark:text-white mb-4"
-          >
-            {post.description}
-          </p>
-          {hasImaging && (
-            <div className="mb-4">
-              <Button
-                onClick={handleViewImages}
-                className="bg-accent hover:bg-accent/90 text-black font-medium"
-              >
-                <Eye className="w-4 h-4 mr-2" />
-                Launch DICOM Viewer
-              </Button>
-            </div>
-          )}
-          <p className="text-sm text-muted-foreground">
-            Press Escape to close preview
-          </p>
+          {/* Flash animation bar */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-full max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-2xl h-px bg-accent animate-crtFlash origin-center" />
+          </div>
+
+          {/* Card container */}
+          <div className="w-full max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-2xl bg-background dark:bg-[#2A1B1F] rounded-lg p-6 shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black dark:border-[#722b37] animate-fadeIn pointer-events-auto">
+            <h3 
+              id={`preview-title-${post.id}`}
+              className="text-2xl font-bold mb-4 font-jersey25"
+            >
+              {post.title}
+            </h3>
+            <p 
+              id={`preview-desc-${post.id}`}
+              className="text-base text-muted-foreground dark:text-white mb-6 leading-relaxed"
+            >
+              {post.description}
+            </p>
+            {hasImaging && (
+              <div className="mb-6">
+                <Button
+                  onClick={handleViewImages}
+                  className="bg-accent hover:bg-accent/90 text-black font-medium"
+                >
+                  <Eye className="w-4 h-4 mr-2" />
+                  Launch DICOM Viewer
+                </Button>
+              </div>
+            )}
+            <p className="text-sm text-muted-foreground">
+              Press Escape to close preview
+            </p>
+          </div>
         </div>
-      </article>
-    </div>
+      )}
+    </>
   );
 }

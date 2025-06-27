@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -88,11 +89,33 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'crtFlash': {
+					'0%': {
+						transform: 'scaleY(0)',
+						opacity: '0.8'
+					},
+					'100%': {
+						transform: 'scaleY(1)',
+						opacity: '1'
+					}
+				},
+				'fadeIn': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.95)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'crtFlash': 'crtFlash 300ms ease-out',
+				'fadeIn': 'fadeIn 200ms ease-out 550ms both'
 			}
 		}
 	},
