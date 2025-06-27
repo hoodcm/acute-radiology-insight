@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -90,16 +89,18 @@ export default {
 						height: '0'
 					}
 				},
-				'crtFlash': {
-					'0%': {
-						transform: 'scaleY(0)',
-						opacity: '0.8'
-					},
-					'100%': {
-						transform: 'scaleY(1)',
-						opacity: '1'
-					}
-				},
+        crtRect: {
+          '0%,50%':   { transform: 'scaleY(0.01) scaleX(1)', borderRadius: '0' },
+          '70%':      { transform: 'scaleY(.7) scaleX(1)', borderRadius: '0' },
+          '80%':      { transform: 'scaleY(.8) scaleX(.6)', borderRadius: '0' },
+          '100%':     { transform: 'scaleY(0.75) scaleX(0.7)', borderRadius: '1rem' },
+        },
+        crtRectReverse: {
+          '0%':   { transform: 'scaleY(0.75) scaleX(0.7)', borderRadius: '1rem' },
+          '20%':  { transform: 'scaleY(0.8) scaleX(0.6)', borderRadius: '0' },
+          '30%':  { transform: 'scaleY(0.7) scaleX(1)',   borderRadius: '0' },
+          '80%,100%': { transform: 'scaleY(0.01) scaleX(1)', borderRadius: '0' },
+        },
 				'fadeIn': {
 					'0%': {
 						opacity: '0',
@@ -108,18 +109,6 @@ export default {
 					'100%': {
 						opacity: '1',
 						transform: 'scale(1)'
-					}
-				},
-				'crtExpand': {
-					'0%': {
-						height: '2px',
-						width: '100%',
-						borderRadius: '0px'
-					},
-					'100%': {
-						height: '100%',
-						width: '100%',
-						borderRadius: '8px'
 					}
 				},
 				'crtContentFadeIn': {
@@ -136,10 +125,10 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'crtFlash': 'crtFlash 300ms ease-out',
-				'fadeIn': 'fadeIn 200ms ease-out 550ms both',
-				'crtExpand': 'crtExpand 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
-				'crtContentFadeIn': 'crtContentFadeIn 400ms ease-out 350ms both'
+        crtRect: 'crtRect 300ms ease-out forwards',
+        crtRectReverse: 'crtRectReverse 150ms ease-in forwards',
+				'crtContentFadeIn': 'crtContentFadeIn 100ms ease-out 100ms forwards',
+				'fadeIn': 'fadeIn 200ms ease-out 550ms both'
 			}
 		}
 	},
