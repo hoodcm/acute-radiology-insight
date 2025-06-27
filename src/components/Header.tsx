@@ -22,9 +22,11 @@ export function Header() {
       />
       <div className="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
         <Link to="/" className="font-jersey font-bold text-foreground leading-none pr-4">
-          <span className="block md:hidden text-2xl sm:text-3xl">Level One Radiology</span>
-          <span className="hidden md:block text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Level One</span>
-          <span className="hidden md:block text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl md:-mt-0.5">Radiology</span>
+          <span className="block md:hidden text-2xl sm:text-3xl">LEVEL ONE Radiology</span>
+          <div className="hidden md:block leading-snug">
+            <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">LEVEL ONE</span>
+            <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-[-0.3em]">Radiology</span>
+          </div>
         </Link>
         
         <div className="hidden md:flex items-center gap-2 lg:gap-3">

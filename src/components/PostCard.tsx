@@ -100,12 +100,12 @@ export function PostCard({ post, author }: PostCardProps) {
     // Wrapper div that closes preview when clicking outside
     <div 
       ref={cardRef} 
-      className="group col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 2xl:col-span-1 sm:hover-lift" 
+      className="group col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3 2xl:col-span-2 sm:hover-lift" 
       onClick={() => previewOpen && setActivePreviewSlug(null)}
     >
       {/* Main article container with hover lift and styling */}
       <article 
-        className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out md:group-hover:scale-[1.005]" 
+        className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out md:group-hover:-translate-y-0.5" 
         onClick={(e) => e.stopPropagation()}
         role="article"
         aria-label={`Article: ${post.title}`}
@@ -134,13 +134,13 @@ export function PostCard({ post, author }: PostCardProps) {
           
           {/* Text content: title, description, tags, date, author */}
           <div className="p-4 md:p-5 flex flex-col flex-1 space-fluid-sm">
-            <h3 className="font-jersey25 text-2xl md:text-3xl leading-tight tracking-tight font-semibold text-foreground mb-2">
+            <h3 className="font-jersey25 text-2xl md:text-3xl leading-snug tracking-tight font-semibold text-foreground mb-2">
               {post.title}
             </h3>
             
             <p 
               id={`post-${post.id}-description`}
-              className="font-inter-tight text-base md:text-lg leading-snug tracking-tight text-muted-foreground mb-4 line-clamp-2"
+              className="font-inter-tight text-base md:text-lg leading-normal tracking-tight text-muted-foreground mb-4 line-clamp-2"
             >
               {post.description}
             </p>
