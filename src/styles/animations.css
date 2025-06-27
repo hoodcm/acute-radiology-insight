@@ -1,0 +1,24 @@
+
+@layer utilities {
+  /* Animation utilities */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 300ms ease-out forwards;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .animate-slide-up {
+    animation: slideUp 400ms ease-out forwards;
+  }
+
+  /* Hover and interaction states */
+  .hover-lift {
+    @apply transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg;
+  }
+}
