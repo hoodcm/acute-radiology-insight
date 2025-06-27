@@ -1,0 +1,33 @@
+
+/* Theme transitions */
+@layer base {
+  html, body, [data-theme], .dark {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+}
+
+/* Fullscreen theme-transition overlay */
+.theme-transition-overlay {
+  @apply fixed inset-0 pointer-events-none bg-background opacity-0 transition-opacity duration-150 ease-in-out z-50;
+}
+.theme-transition-overlay.active {
+  @apply opacity-100;
+}
+
+/* Sweep animation for theme change */
+@keyframes sweep {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+.theme-sweep-overlay {
+  @apply fixed inset-0 pointer-events-none bg-background z-50 border-none border-r-4 border-foreground;
+  transform: translateX(-100%);
+  box-shadow: inset 0 0 20px hsl(var(--foreground) / 0.5);
+}
+.theme-sweep-overlay.active {
+  animation: sweep 400ms ease-in-out forwards;
+}

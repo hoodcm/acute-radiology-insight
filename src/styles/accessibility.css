@@ -1,0 +1,46 @@
+
+@layer base {
+  /* Enhanced focus styles for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-accent outline-offset-2 rounded;
+  }
+
+  /* Remove default focus styles when focus-visible is supported */
+  :focus:not(:focus-visible) {
+    @apply outline-none;
+  }
+
+  /* Ensure interactive elements have proper touch targets */
+  button, a, [role="button"], [role="link"] {
+    touch-action: manipulation;
+  }
+}
+
+@layer utilities {
+  /* Improved touch targets */
+  .touch-target {
+    @apply min-h-11 min-w-11 flex items-center justify-center;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 240 100% 0%;
+    --accent: 30 100% 40%;
+  }
+  .dark {
+    --border: 0 0% 100%;
+    --accent: 30 100% 60%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
