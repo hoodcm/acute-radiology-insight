@@ -109,13 +109,37 @@ export default {
 						opacity: '1',
 						transform: 'scale(1)'
 					}
+				},
+				'crtExpand': {
+					'0%': {
+						height: '2px',
+						width: '100%',
+						borderRadius: '0px'
+					},
+					'100%': {
+						height: '100%',
+						width: '100%',
+						borderRadius: '8px'
+					}
+				},
+				'crtContentFadeIn': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.9) translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1) translateY(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'crtFlash': 'crtFlash 300ms ease-out',
-				'fadeIn': 'fadeIn 200ms ease-out 550ms both'
+				'fadeIn': 'fadeIn 200ms ease-out 550ms both',
+				'crtExpand': 'crtExpand 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+				'crtContentFadeIn': 'crtContentFadeIn 400ms ease-out 350ms both'
 			}
 		}
 	},
