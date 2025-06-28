@@ -91,14 +91,14 @@ export default {
 				},
         crtRect: {
           '0%,50%':   { transform: 'scaleY(0.01) scaleX(1)', borderRadius: '0' },
-          '70%':      { transform: 'scaleY(.7) scaleX(1)', borderRadius: '0' },
-          '80%':      { transform: 'scaleY(.8) scaleX(.6)', borderRadius: '0' },
+          '70%':      { transform: 'scaleY(.7) scaleX(1)', borderRadius: '1rem' },
+          '80%':      { transform: 'scaleY(.8) scaleX(.6)', borderRadius: '1rem' },
           '100%':     { transform: 'scaleY(0.75) scaleX(0.7)', borderRadius: '1rem' },
         },
         crtRectReverse: {
           '0%':   { transform: 'scaleY(0.75) scaleX(0.7)', borderRadius: '1rem' },
-          '20%':  { transform: 'scaleY(0.8) scaleX(0.6)', borderRadius: '0' },
-          '30%':  { transform: 'scaleY(0.7) scaleX(1)',   borderRadius: '0' },
+          '20%':  { transform: 'scaleY(0.8) scaleX(0.6)', borderRadius: '1rem' },
+          '30%':  { transform: 'scaleY(0.7) scaleX(1)',   borderRadius: '1rem' },
           '80%,100%': { transform: 'scaleY(0.01) scaleX(1)', borderRadius: '0' },
         },
 				'fadeIn': {
@@ -111,25 +111,33 @@ export default {
 						transform: 'scale(1)'
 					}
 				},
-				'crtContentFadeIn': {
-					'0%': {
-						opacity: '0',
-						transform: 'scale(0.9) translateY(10px)'
-					},
-					'100%': {
-						opacity: '1',
-						transform: 'scale(1) translateY(0)'
-					}
-				}
+				crtContentFadeIn: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(-10px)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)'
+          }
+        },
+        scan: {
+          '0%':   { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '0 4px' },
+        },
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-        crtRect: 'crtRect 300ms ease-out forwards',
-        crtRectReverse: 'crtRectReverse 150ms ease-in forwards',
-				'crtContentFadeIn': 'crtContentFadeIn 100ms ease-out 100ms forwards',
-				'fadeIn': 'fadeIn 200ms ease-out 550ms both'
-			}
+        		crtRect: 'crtRect 300ms ease-out forwards',
+        		crtRectReverse: 'crtRectReverse 150ms ease-out forwards',
+				'crtContentFadeIn': 'crtContentFadeIn 150ms cubic-bezier(0.8, 0, 1, 1) forwards',
+				'fadeIn': 'fadeIn 200ms ease-out 550ms both',
+        scan: 'scan 1s linear infinite',
+			},
+      backgroundImage: {
+        scanlines: 'repeating-linear-gradient(0deg, rgba(255,255,0,0.08) 0px, rgba(255,255,0,0.08) 2px, transparent 2px, transparent 4px)',
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

@@ -9,12 +9,12 @@ CUSTOM_DOMAIN="leveloneradiology.com"
 echo "📦 Building project..."
 npm run build
 
-cp "$BUILD_DIR/index.html" "$BUILD_DIR/404.html"
-
 if [ ! -d "$BUILD_DIR" ]; then
   echo "❌ Error: '$BUILD_DIR' folder not found. Aborting."
   exit 1
 fi
+
+cp "$BUILD_DIR/index.html" "$BUILD_DIR/404.html"
 
 echo "🧹 Cleaning '$PUBLISH_DIR' folder..."
 rm -rf "$PUBLISH_DIR"
@@ -28,7 +28,11 @@ echo "$CUSTOM_DOMAIN" > "$PUBLISH_DIR"/CNAME
 
 echo "🔄 Committing and pushing to GitHub..."
 git add "$PUBLISH_DIR"
-git commit -m "chore(deploy): $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-git push
+if ! git diff --cached --quiet; then
+  git commit -m "chore(deploy): $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+  git push
+else
+  echo "ℹ️ No changes to commit."
+fi
 
 echo "✅ Deployment complete. Your site will update in ~1–2 minutes."

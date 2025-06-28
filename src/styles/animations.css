@@ -1,4 +1,3 @@
-
 @layer utilities {
   /* Animation utilities */
   @keyframes fadeIn {
@@ -16,6 +15,7 @@
   .animate-slide-up {
     animation: slideUp 400ms ease-out forwards;
   }
+
 
   /* Hover and interaction states */
   .hover-lift {

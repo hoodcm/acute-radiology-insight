@@ -1,4 +1,4 @@
-
+import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
 import type { Post } from '@/data/posts';
 import { useState } from 'react';
@@ -54,9 +54,22 @@ export function PostCard({ post, author }: PostCardProps) {
 
   return (
     <>
-      <div className="group col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3 2xl:col-span-2 sm:hover-lift">
+      <div
+        className={clsx(
+          "col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3 2xl:col-span-2",
+          { "group sm:hover-lift": !previewOpen }
+        )}
+      >
         <article 
-          className="bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out md:group-hover:-translate-y-0.5" 
+          className={clsx(
+            "bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out",
+            {
+              "!-translate-y-0.5": previewOpen,
+              "!border-accent": previewOpen,
+              "!dark:border-[#722b37]": previewOpen,
+              "md:group-hover:-translate-y-0.5": !previewOpen
+            }
+          )} 
           role="article"
           aria-label={`Article: ${post.title}`}
         >

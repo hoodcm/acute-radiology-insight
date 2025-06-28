@@ -1,4 +1,3 @@
-
 import { useRef, useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Eye } from 'lucide-react';
@@ -56,9 +55,6 @@ export function CRTPreviewOverlay({
     };
   }, [isOpen, onClose]);
 
-  const handleRectEnd = () => {
-    setPhase('card');
-  };
 
   if (!isOpen) return null;
 
@@ -71,34 +67,36 @@ export function CRTPreviewOverlay({
       aria-labelledby={`preview-title-${post.id}`}
       aria-describedby={`preview-desc-${post.id}`}
     >
-      {phase === 'rect' && (
-        <div className="fixed inset-0 flex justify-center items-center pointer-events-none">
+      <div className="pointer-events-none fixed inset-0 z-10 bg-scanlines bg-[length:100%_4px] animate-scan" />
+      {phase !== 'exit' && (
+        <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
-            className="w-screen h-screen bg-white dark:bg-white origin-center animate-crtRect"
-            onAnimationEnd={() => setTimeout(handleRectEnd, 200)}
+            className="w-screen h-screen bg-neutral-100 dark:bg-neutral-800 origin-center animate-crtRect"
+            onAnimationEnd={() => setPhase('card')}
           />
         </div>
       )}
 
       {phase === 'exit' && (
-        <div className="fixed inset-0 flex justify-center items-center pointer-events-none">
+        <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
-            className="w-screen h-screen bg-white dark:bg-white origin-center scale-y-75 scale-x-[0.7] rounded-xl animate-crtRectReverse"
-            onAnimationEnd={() => setTimeout(onClose, 200)}
+            className="w-screen h-screen bg-neutral-100 dark:bg-neutral-800 origin-center scale-y-75 scale-x-[0.7] rounded-xl animate-crtRectReverse"
+            onAnimationEnd={onClose}
           />
         </div>
       )}
 
       {phase === 'card' && (
-        <div 
-          className="fixed inset-0 flex justify-center items-center pointer-events-none"
-          style={{
-            transform: `scaleY(${crtFinalTransform.scaleY}) scaleX(${crtFinalTransform.scaleX})`,
-            borderRadius: crtFinalTransform.borderRadius
-          }}
-        >
-          <div className="w-screen h-screen bg-background dark:bg-[#2A1B1F] opacity-0 animate-crtContentFadeIn pointer-events-auto flex items-center justify-center p-6">
-            <div className="w-full max-w-md sm:max-w-xl lg:max-w-2xl">
+        <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
+          <div
+            className="bg-transparent overflow-hidden opacity-0 animate-crtContentFadeIn pointer-events-auto"
+            style={{
+              width: `${crtFinalTransform.scaleX * 100}vw`,
+              height: `${crtFinalTransform.scaleY * 100}vh`,
+              borderRadius: crtFinalTransform.borderRadius
+            }}
+          >
+            <div className="w-full h-full flex flex-col justify-center items-center p-6">
               <h3 id={`preview-title-${post.id}`} className="text-2xl font-bold mb-4">
                 {post.title}
               </h3>
