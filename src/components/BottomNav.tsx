@@ -5,7 +5,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { LayoutGrid, FileText, History, Wrench, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState, useRef } from 'react';
 
 // navLinks: array of navigation items with display name, path, and icon component
 const navLinks = [
@@ -20,6 +20,20 @@ const navLinks = [
 export function BottomNav() {
   // Hook: access current route location
   const location = useLocation();
+  const [isShrunk, setIsShrunk] = useState(false);
+  const prevScrollY = useRef(window.scrollY);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      // Shrink when scrolling down, expand on scroll up
+      setIsShrunk(currentY > prevScrollY.current);
+      prevScrollY.current = currentY;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Determine index of the active link based on current path
   const activeIndex = useMemo(() => {
     return navLinks.findIndex(link => link.href === location.pathname);
@@ -34,10 +48,15 @@ export function BottomNav() {
   return (
     // <nav>: fixed bottom nav container, visible on mobile only
     <nav
-      className="md:hidden fixed left-4 right-4 h-16 max-w-[600px] mx-auto z-50 rounded-full overflow-hidden border-2 border-black dark:border-gray-500 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#6b7280] bg-clip-padding isolate"
+      className={cn(
+        'md:hidden fixed left-4 right-4 max-w-[600px] mx-auto z-50 rounded-full overflow-hidden border-2 border-black dark:border-gray-500 bg-clip-padding isolate transition-all duration-150 ease-out transform',
+        isShrunk
+          ? 'scale-[0.62] origin-bottom shadow-none'
+          : 'scale-100 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#6b7280]'
+      )}
       style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}
     >
-      <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
+      <div className="h-full w-full px-2 py-1 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
         {/* Grid container for navigation items */}
         <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
         {/* Active indicator: highlights the currently selected tab */}
@@ -45,7 +64,7 @@ export function BottomNav() {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-1 bg-amber-400 backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
+              className="absolute inset-y-0 bg-amber-400 backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
                 width: 'calc(100% / 5 + 0.4rem)',
@@ -83,8 +102,10 @@ export function BottomNav() {
               {/* Text label for the navigation item */}
               <span 
                 className={cn(
-                  "text-xs transition-all duration-100",
-                  isActive ? "font-bold opacity-100" : "font-normal opacity-70"
+                  "transition-all duration-100",
+                  isShrunk
+                    ? "hidden"
+                    : "text-xs " + (isActive ? "font-bold opacity-100" : "font-normal opacity-70")
                 )}
               >
                 {link.name}
