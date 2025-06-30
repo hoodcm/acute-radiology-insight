@@ -10,6 +10,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-primary { color: theme('colors.text-primary'); }
+  .text-secondary { color: theme('colors.text-secondary'); }
+  .bg-surface-bg { background-color: theme('colors.surface-bg'); }
+  .bg-surface-card { background-color: theme('colors.surface-card'); }
+  .bg-accent { background-color: theme('colors.accent'); }
+  .bg-accent-hover { background-color: theme('colors.accent-hover'); }
+  .border-border { border-color: theme('colors.border'); }
+  .text-success { color: theme('colors.success'); }
+  .text-error { color: theme('colors.error'); }
+  .text-warning { color: theme('colors.warning'); }
+  .text-info { color: theme('colors.info'); }
+  .shadow-hard { box-shadow: 0 0 0 1px theme('colors.shadow-hard'); }
+  .bg-success { background-color: theme('colors.success'); }
+  .bg-error { background-color: theme('colors.error'); }
+  .bg-warning { background-color: theme('colors.warning'); }
+  .bg-info { background-color: theme('colors.info'); }
+}
+
 @layer base {
   * {
     @apply border-border;
