@@ -13,7 +13,7 @@ export function DarkModeToggle() {
 
   return (
     <Button
-      className="p-2 rounded-full text-xs flex items-center justify-center transition-colors duration-75 ease-in-out hover:bg-muted focus:bg-muted/80"
+      className="p-2 rounded-full text-xs flex items-center justify-center transition-colors duration-75 ease-in-out hover:bg-surface-card focus:bg-surface-card/80"
       variant="ghost"
       size="icon"
       onClick={toggleTheme}

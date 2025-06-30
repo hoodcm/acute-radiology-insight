@@ -32,8 +32,8 @@ const DicomViewer = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="text-white text-center">
+      <div className="min-h-screen bg-surface-bg flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="text-text-primary text-center">
           <div className="animate-pulse mb-4">
             <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto"></div>
           </div>

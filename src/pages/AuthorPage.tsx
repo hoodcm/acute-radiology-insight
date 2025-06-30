@@ -46,16 +46,16 @@ const AuthorPage = () => {
               />
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-4">{author.name}</h1>
-              <p className="text-muted-foreground text-base sm:text-lg mb-4">{author.bio}</p>
-              <p className="text-sm text-muted-foreground">{author.credentials}</p>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-4 text-text-primary">{author.name}</h1>
+              <p className="text-text-secondary text-base sm:text-lg mb-4">{author.bio}</p>
+              <p className="text-sm text-text-secondary">{author.credentials}</p>
             </div>
           </div>
 
           <div className="mb-8">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-6">Articles by {author.name}</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-6 text-text-primary">Articles by {author.name}</h2>
             {authorPosts.length === 0 ? (
-              <p className="text-muted-foreground">No articles found for this author.</p>
+              <p className="text-text-secondary">No articles found for this author.</p>
             ) : (
               <div className="grid grid-cols-12 gap-6 lg:gap-8">
                 {authorPosts.map((post) => (
@@ -69,5 +69,4 @@ const AuthorPage = () => {
     </>
   );
 };
-
 export default AuthorPage;

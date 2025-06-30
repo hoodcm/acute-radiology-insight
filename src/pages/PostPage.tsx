@@ -65,24 +65,24 @@ export default function PostPage() {
             <Breadcrumbs postTitle={post.title} postCategory={post.category} />
             
             <header className="mb-8 md:mb-12 lg:mb-16">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-bold text-foreground mb-4 md:mb-6">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-bold text-text-primary mb-4 md:mb-6">
                 {post.title}
               </h1>
               
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
                 {author ? (
-                  <p className="text-muted-foreground text-sm sm:text-base">
+                  <p className="text-text-secondary text-sm sm:text-base">
                     By{' '}
                     <Link 
                       to={`/authors/${author.slug}`} 
-                      className="hover:text-foreground transition-colors hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+                      className="hover:text-text-primary transition-colors hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
                     >
                       {author.name}
                     </Link>{' '}
                     on <time dateTime={post.date}>{post.date}</time>
                   </p>
                 ) : (
-                  <p className="text-muted-foreground text-sm sm:text-base">
+                  <p className="text-text-secondary text-sm sm:text-base">
                     On <time dateTime={post.date}>{post.date}</time>
                   </p>
                 )}
@@ -102,7 +102,7 @@ export default function PostPage() {
             </header>
             
             <article 
-              className="prose prose-slate dark:prose-invert prose-base sm:prose-lg lg:prose-xl max-w-none text-muted-foreground prose-headings:font-serif prose-headings:text-foreground prose-a:text-accent hover:prose-a:text-foreground prose-a:focus-visible:ring-2 prose-a:focus-visible:ring-accent prose-a:focus-visible:ring-offset-2"
+              className="prose prose-slate dark:prose-invert prose-base sm:prose-lg lg:prose-xl max-w-none text-text-secondary prose-headings:font-serif prose-headings:text-text-primary prose-a:text-accent hover:prose-a:text-text-primary prose-a:focus-visible:ring-2 prose-a:focus-visible:ring-accent prose-a:focus-visible:ring-offset-2"
               dangerouslySetInnerHTML={{ __html: post.content }}
               role="article"
               aria-labelledby="article-title"
@@ -125,7 +125,7 @@ export default function PostPage() {
             aria-label="Article sidebar"
           >
             <section aria-labelledby="tags-heading">
-              <h3 id="tags-heading" className="text-xl sm:text-2xl font-serif font-bold text-foreground mb-4 md:mb-6">
+              <h3 id="tags-heading" className="text-xl sm:text-2xl font-serif font-bold text-text-primary mb-4 md:mb-6">
                 Tags
               </h3>
               <div className="flex flex-wrap gap-2 mb-8 md:mb-12 lg:mb-16" role="list">
@@ -142,7 +142,7 @@ export default function PostPage() {
             </section>
             
             <section aria-labelledby="related-heading">
-              <h3 id="related-heading" className="text-xl sm:text-2xl font-serif font-bold text-foreground mb-4 md:mb-6">
+              <h3 id="related-heading" className="text-xl sm:text-2xl font-serif font-bold text-text-primary mb-4 md:mb-6">
                 Related Posts
               </h3>
               <nav className="space-y-4 md:space-y-6" aria-label="Related articles">
@@ -152,17 +152,17 @@ export default function PostPage() {
                     key={related.id} 
                     className="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded p-2 -m-2"
                   >
-                    <h4 className="font-serif font-bold text-foreground group-hover:text-accent transition-colors text-base sm:text-lg">
+                    <h4 className="font-serif font-bold text-text-primary group-hover:text-accent transition-colors text-base sm:text-lg">
                       {related.title}
                     </h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-text-secondary">
                       <time dateTime={related.date}>{related.date}</time>
                     </p>
                   </Link>
                 ))}
                 
                 {relatedPosts.length === 0 && (
-                  <p className="text-sm text-muted-foreground">No related posts found.</p>
+                  <p className="text-sm text-text-secondary">No related posts found.</p>
                 )}
               </nav>
             </section>

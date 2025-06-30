@@ -67,7 +67,7 @@ const Search = () => {
       <Seo title={pageTitle} description={pageDescription} />
       <div className="container mx-auto py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-6 lg:mb-8">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-6 lg:mb-8 text-text-primary">
             Search
           </h1>
           
@@ -82,7 +82,7 @@ const Search = () => {
                   className="pr-10"
                   autoFocus
                 />
-                <SearchIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <SearchIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-secondary" />
               </div>
               <Button type="submit" disabled={!localQuery.trim()}>
                 Search
@@ -105,7 +105,7 @@ const Search = () => {
             <div className="lg:col-span-3">
               {query && (
                 <div className="mb-4 flex items-center justify-between">
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-text-secondary text-sm">
                     {isSearching 
                       ? 'Searching...' 
                       : `${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"`
@@ -114,7 +114,7 @@ const Search = () => {
                 </div>
               )}
 
-              <div className="bg-card rounded-lg border border-border overflow-hidden">
+              <div className="bg-surface-card rounded-lg border border-border overflow-hidden">
                 <SearchResults
                   results={results}
                   isSearching={isSearching}
