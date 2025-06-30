@@ -7,7 +7,7 @@ PUBLISH_DIR="docs"
 CUSTOM_DOMAIN="leveloneradiology.com"
 
 echo "📦 Building project..."
-npm run build
+pnpm run build
 
 if [ ! -d "$BUILD_DIR" ]; then
   echo "❌ Error: '$BUILD_DIR' folder not found. Aborting."
@@ -26,8 +26,11 @@ cp -r "$BUILD_DIR"/* "$PUBLISH_DIR"/
 echo "🔒 Writing CNAME for custom domain..."
 echo "$CUSTOM_DOMAIN" > "$PUBLISH_DIR"/CNAME
 
+echo "📥 Staging all pending changes..."
+git add -A
+
 echo "🔄 Committing and pushing to GitHub..."
-git add "$PUBLISH_DIR"
+# git add "$PUBLISH_DIR"  # Now handled by 'git add -A'
 if ! git diff --cached --quiet; then
   git commit -m "chore(deploy): $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
   git push
