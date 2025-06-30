@@ -17,7 +17,7 @@ const navLinks = [
 ];
 
 // BottomNav component definition
-export function BottomNav() {
+export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
   // Hook: access current route location
   const location = useLocation();
   const [isShrunk, setIsShrunk] = useState(false);
@@ -49,14 +49,15 @@ export function BottomNav() {
     // <nav>: fixed bottom nav container, visible on mobile only
     <nav
       className={cn(
-        'md:hidden fixed left-4 right-4 max-w-[600px] mx-auto z-50 rounded-full overflow-hidden border-2 border-black dark:border-gray-500 bg-clip-padding isolate transition-all duration-150 ease-out transform',
+        'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-black dark:border-gray-500 bg-clip-padding isolate transition-all duration-150 ease-out transform',
+        isPreviewOpen ? 'z-0' : 'z-50',
         isShrunk
-          ? 'scale-[0.62] origin-bottom shadow-none'
+          ? 'scale-[0.7] origin-bottom shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#6b7280]'
           : 'scale-100 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#6b7280]'
       )}
       style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}
     >
-      <div className="h-full w-full px-2 py-1 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
+      <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
         {/* Grid container for navigation items */}
         <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
         {/* Active indicator: highlights the currently selected tab */}
@@ -64,7 +65,7 @@ export function BottomNav() {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-0 bg-amber-400 backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
+              className="absolute inset-y-1 bg-accent backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
                 width: 'calc(100% / 5 + 0.4rem)',
@@ -96,7 +97,8 @@ export function BottomNav() {
               <Icon 
                 className={cn(
                   "transition-all duration-100 text-current",
-                  isActive ? "w-6 h-6 opacity-100" : "w-6 h-6 opacity-70"
+                  isShrunk ? "w-8 h-8" : "w-7 h-7",
+                  isActive ? "opacity-100" : "opacity-70"
                 )}
               />
               {/* Text label for the navigation item */}
