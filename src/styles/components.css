@@ -1,15 +1,102 @@
 
-@layer components {
-  .container {
-    @apply px-4 sm:px-6 lg:px-8;
-  }
+/* Component-specific styles */
+
+/* Touch targets for mobile */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Remove native search clear button in WebKit browsers */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  appearance: none;
+/* Hover lift effect */
+.hover-lift {
+  @apply transition-transform duration-200 ease-out;
+}
+
+.hover-lift:hover {
+  @apply -translate-y-0.5;
+}
+
+/* Focus styles */
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2;
+}
+
+/* Fluid spacing utilities */
+.space-fluid-xs > * + * {
+  margin-top: 0.25rem;
+}
+
+.space-fluid-sm > * + * {
+  margin-top: 0.5rem;
+}
+
+.space-fluid-md > * + * {
+  margin-top: 1rem;
+}
+
+.space-fluid-lg > * + * {
+  margin-top: 1.5rem;
+}
+
+/* Button shadow styles */
+.btn-shadow {
+  @apply shadow-[2px_2px_0px_theme(colors.shadow-hard)] border-2 border-border;
+}
+
+.btn-shadow:hover {
+  @apply -translate-y-0.5 shadow-[3px_3px_0px_theme(colors.shadow-hard)];
+}
+
+.btn-shadow:active {
+  @apply translate-y-0 shadow-[1px_1px_0px_theme(colors.shadow-hard)];
+}
+
+/* Card styles */
+.card-shadow {
+  @apply shadow-[6px_6px_0px_theme(colors.shadow-hard)] border-2 border-border;
+}
+
+/* Text utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Scrollbar styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--text-secondary)) hsl(var(--surface-bg));
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  @apply bg-surface-bg;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  @apply bg-text-secondary rounded-full;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  @apply bg-text-primary;
 }

@@ -32,8 +32,8 @@ const Cases = () => {
     <>
       <Seo title={pageTitle} description={pageDescription} />
       <div className="container mx-auto py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-6 lg:mb-8">{pageTitle}</h1>
-        <p className="text-muted-foreground mb-8 md:mb-12 lg:mb-16 text-base sm:text-lg">{pageDescription}</p>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-6 lg:mb-8 text-text-primary">{pageTitle}</h1>
+        <p className="text-text-secondary mb-8 md:mb-12 lg:mb-16 text-base sm:text-lg">{pageDescription}</p>
         
         <div className="grid grid-cols-12 gap-4 md:gap-6 lg:gap-8">
           {showSkeleton ? (
@@ -44,7 +44,7 @@ const Cases = () => {
             ))
           ) : (
             !loading && (
-              <p className="col-span-12 text-muted-foreground text-base sm:text-lg">No cases have been posted yet. Check back soon!</p>
+              <p className="col-span-12 text-text-secondary text-base sm:text-lg">No cases have been posted yet. Check back soon!</p>
             )
           )}
         </div>
