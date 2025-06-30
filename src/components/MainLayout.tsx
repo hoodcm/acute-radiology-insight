@@ -15,7 +15,7 @@ export function MainLayout() {
         <Outlet />
       </main>
       <Footer />
-      <BottomNav />
+      <BottomNav isPreviewOpen={false} />
     </div>
   );
 }
