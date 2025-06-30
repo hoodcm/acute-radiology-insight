@@ -33,11 +33,31 @@ export default {
         jersey25: ['"Jersey 25"', 'sans-serif'],
       },
 			colors: {
-				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
+				// New centralized color tokens
+				'surface-bg': 'hsl(var(--surface-bg))',
+				'surface-card': 'hsl(var(--surface-card))',
+				'text-primary': 'hsl(var(--text-primary))',
+				'text-secondary': 'hsl(var(--text-secondary))',
+				'accent': 'hsl(var(--accent))',
+				'accent-hover': 'hsl(var(--accent-hover))',
+				'border': 'hsl(var(--border))',
+				'shadow-hard': 'hsl(var(--shadow-hard))',
+				'success': 'hsl(var(--success))',
+				'error': 'hsl(var(--error))',
+				'warning': 'hsl(var(--warning))',
+				'info': 'hsl(var(--info))',
+				
+				// Keep existing shadcn/ui tokens for compatibility
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				card: {
+					DEFAULT: 'hsl(var(--card))',
+					foreground: 'hsl(var(--card-foreground))'
+				},
+				popover: {
+					DEFAULT: 'hsl(var(--popover))',
+					foreground: 'hsl(var(--popover-foreground))'
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -46,26 +66,16 @@ export default {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
 				},
-				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
-				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
 					foreground: 'hsl(var(--muted-foreground))'
 				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+				destructive: {
+					DEFAULT: 'hsl(var(--destructive))',
+					foreground: 'hsl(var(--destructive-foreground))'
 				},
-				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
-				},
-				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
-				},
+				input: 'hsl(var(--input))',
+				ring: 'hsl(var(--ring))',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

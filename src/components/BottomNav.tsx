@@ -1,3 +1,4 @@
+
 // BottomNav.tsx
 // Component renders a mobile bottom navigation bar with links to main site sections.
 
@@ -49,15 +50,15 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
     // <nav>: fixed bottom nav container, visible on mobile only
     <nav
       className={cn(
-        'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-black dark:border-gray-500 bg-clip-padding isolate transition-all duration-150 ease-out transform',
+        'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-border bg-clip-padding isolate transition-all duration-150 ease-out transform',
         isPreviewOpen ? 'z-0' : 'z-50',
         isShrunk
-          ? 'scale-[0.7] origin-bottom shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#6b7280]'
-          : 'scale-100 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#6b7280]'
+          ? 'scale-[0.7] origin-bottom shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
+          : 'scale-100 shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
       )}
       style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}
     >
-      <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-white/90 dark:bg-zinc-900/80 transition-none">
+      <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-surface-card/90 transition-none">
         {/* Grid container for navigation items */}
         <div className="grid h-full grid-cols-5 justify-items-center items-center w-full relative">
         {/* Active indicator: highlights the currently selected tab */}
@@ -89,8 +90,8 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
               className={cn(
                 'flex flex-col items-center justify-center w-full h-full space-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-100 ease-in-out active:scale-95 relative z-10',
                 isActive 
-                  ? 'text-black dark:text-white font-semibold' 
-                  : 'text-black dark:text-gray-100 font-normal hover:text-black dark:hover:text-gray-100'
+                  ? 'text-text-primary font-semibold' 
+                  : 'text-text-primary font-normal hover:text-text-primary'
               )}
             >
               {/* Icon component for the navigation item */}
