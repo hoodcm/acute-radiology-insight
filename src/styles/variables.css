@@ -21,6 +21,20 @@
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;
+
+    /* New centralized color tokens */
+    --surface-bg: 37 66% 97%;
+    --surface-card: 0 0% 100%;
+    --text-primary: 240 10% 3.9%;
+    --text-secondary: 240 3.8% 46.1%;
+    --accent: 30 79% 51%;
+    --accent-hover: 30 79% 45%;
+    --border: 240 5.9% 90%;
+    --shadow-hard: 0 0% 0%;
+    --success: 142 76% 36%;
+    --error: 0 84.2% 60.2%;
+    --warning: 38 92% 50%;
+    --info: 221 83% 53%;
   }
 
   .dark {
@@ -43,6 +57,20 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 30 79% 51%;
+
+    /* Dark mode color tokens */
+    --surface-bg: 240 10% 3.9%;
+    --surface-card: 240 10% 3.9%;
+    --text-primary: 0 0% 98%;
+    --text-secondary: 240 5% 64.9%;
+    --accent: 30 79% 51%;
+    --accent-hover: 30 79% 45%;
+    --border: 240 3.7% 15.9%;
+    --shadow-hard: 114 43% 21%;
+    --success: 142 76% 36%;
+    --error: 0 62.8% 30.6%;
+    --warning: 38 92% 50%;
+    --info: 221 83% 53%;
   }
 }
 

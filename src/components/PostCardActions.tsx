@@ -29,10 +29,10 @@ export function PostCardActions({
           <div className="relative inline-block transform transition-transform duration-150 ease-out">
             <span
               aria-hidden="true"
-              className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
+              className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-shadow-hard"
             />
             <span
-              className="relative border-2 border-black dark:border-[#722b37] rounded-md h-8 px-3 flex items-center justify-center gap-1 transition-all duration-150 ease-out bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white"
+              className="relative border-2 border-border rounded-md h-8 px-3 flex items-center justify-center gap-1 transition-all duration-150 ease-out bg-surface-card text-text-primary hover:-translate-y-[1px] hover:bg-accent hover:text-background"
             >
               <Eye className="w-3 h-3 mr-1" />
               View Images
@@ -52,15 +52,15 @@ export function PostCardActions({
         <div className="relative inline-block transform transition-transform duration-150 ease-out">
           <span
             aria-hidden="true"
-            className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-black dark:bg-[#722b37]"
+            className="absolute inset-0 translate-x-[2px] translate-y-[2px] rounded-md bg-shadow-hard"
           />
           <span
             className={`
-              relative border-2 border-black dark:border-[#722b37] rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
+              relative border-2 border-border rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
               ${
                 previewOpen
-                  ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background dark:bg-[#722b37] dark:text-white'
-                  : 'bg-card dark:bg-[#1E0F13] text-black dark:text-white hover:-translate-y-[1px] hover:bg-accent hover:text-background dark:hover:bg-[#722b37] dark:hover:text-white'
+                  ? 'translate-x-[2px] translate-y-[2px] bg-accent text-background'
+                  : 'bg-surface-card text-text-primary hover:-translate-y-[1px] hover:bg-accent hover:text-background'
               }
             `}
           >

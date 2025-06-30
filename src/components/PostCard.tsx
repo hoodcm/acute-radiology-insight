@@ -1,3 +1,4 @@
+
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
 import type { Post } from '@/data/posts';
@@ -62,11 +63,10 @@ export function PostCard({ post, author }: PostCardProps) {
       >
         <article 
           className={clsx(
-            "bg-[#fdfcfb] dark:bg-[#1E0F13] rounded-lg shadow-[6px_6px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_rgba(114,43,55,1)] border-[2.5px] border-black md:group-hover:border-accent dark:border-[#722b37] md:dark:group-hover:border-[#722b37] overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out",
+            "bg-surface-card rounded-lg shadow-[6px_6px_0px_theme(colors.shadow-hard)] border-[2.5px] border-border md:group-hover:border-accent overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out",
             {
               "!-translate-y-0.5": previewOpen,
               "!border-accent": previewOpen,
-              "!dark:border-[#722b37]": previewOpen,
               "md:group-hover:-translate-y-0.5": !previewOpen
             }
           )} 

@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Eye } from 'lucide-react';
@@ -61,7 +62,7 @@ export function CRTPreviewOverlay({
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 pointer-events-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-shadow-hard/80 pointer-events-auto"
       role="dialog"
       aria-modal="true"
       aria-labelledby={`preview-title-${post.id}`}
@@ -71,7 +72,7 @@ export function CRTPreviewOverlay({
       {phase !== 'exit' && (
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
-            className="w-screen h-screen bg-neutral-100 dark:bg-neutral-800 origin-center animate-crtRect"
+            className="w-screen h-screen bg-surface-card origin-center animate-crtRect"
             onAnimationEnd={() => setPhase('card')}
           />
         </div>
@@ -80,7 +81,7 @@ export function CRTPreviewOverlay({
       {phase === 'exit' && (
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
-            className="w-screen h-screen bg-neutral-100 dark:bg-neutral-800 origin-center scale-y-75 scale-x-[0.7] rounded-xl animate-crtRectReverse"
+            className="w-screen h-screen bg-surface-card origin-center scale-y-75 scale-x-[0.7] rounded-xl animate-crtRectReverse"
             onAnimationEnd={onClose}
           />
         </div>
@@ -97,19 +98,19 @@ export function CRTPreviewOverlay({
             }}
           >
             <div className="w-full h-full flex flex-col justify-center items-center p-6">
-              <h3 id={`preview-title-${post.id}`} className="text-2xl font-bold mb-4">
+              <h3 id={`preview-title-${post.id}`} className="text-2xl font-bold mb-4 text-text-primary">
                 {post.title}
               </h3>
-              <p id={`preview-desc-${post.id}`} className="text-base mb-6 leading-relaxed">
+              <p id={`preview-desc-${post.id}`} className="text-base mb-6 leading-relaxed text-text-secondary">
                 {post.description}
               </p>
               {hasImaging && (
-                <Button onClick={onViewImages} className="bg-accent hover:bg-accent/90 text-black font-medium mb-4">
+                <Button onClick={onViewImages} className="bg-accent hover:bg-accent-hover text-text-primary font-medium mb-4">
                   <Eye className="w-4 h-4 mr-2" />
                   Launch DICOM Viewer
                 </Button>
               )}
-              <p className="text-sm text-muted-foreground">Press Escape to close</p>
+              <p className="text-sm text-text-secondary">Press Escape to close</p>
             </div>
           </div>
         </div>
