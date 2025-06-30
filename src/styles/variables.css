@@ -22,19 +22,19 @@
     --ring: 240 10% 3.9%;
     --radius: 0.5rem;
 
-    /* New centralized color tokens */
-    --surface-bg: 37 66% 97%;
-    --surface-card: 0 0% 100%;
-    --text-primary: 240 10% 3.9%;
-    --text-secondary: 240 3.8% 46.1%;
-    --accent: 30 79% 51%;
-    --accent-hover: 30 79% 45%;
-    --border: 240 5.9% 90%;
-    --shadow-hard: 0 0% 0%;
-    --success: 142 76% 36%;
-    --error: 0 84.2% 60.2%;
-    --warning: 38 92% 50%;
-    --info: 221 83% 53%;
+    /* New centralized color tokens - Light Mode */
+    --surface-bg: 40 61% 91%;        /* #F4E8D2 */
+    --surface-card: 40 65% 97%;      /* #FCF8F2 */
+    --text-primary: 40 45% 12%;      /* #2D210B */
+    --text-secondary: 40 23% 29%;    /* #5A4B37 */
+    --accent: 338 88% 35%;           /* #9F1239 */
+    --accent-hover: 338 88% 31%;     /* #8B0F34 */
+    --border: 40 45% 12%;            /* #2D210B */
+    --shadow-hard: 40 45% 12%;       /* #2D210B */
+    --success: 152 47% 31%;          /* #276749 */
+    --error: 0 60% 39%;              /* #9B2C2C */
+    --warning: 32 85% 31%;           /* #92400E */
+    --info: 217 91% 60%;             /* #1C64F2 */
   }
 
   .dark {
@@ -59,18 +59,18 @@
     --ring: 30 79% 51%;
 
     /* Dark mode color tokens */
-    --surface-bg: 240 10% 3.9%;
-    --surface-card: 240 10% 3.9%;
-    --text-primary: 0 0% 98%;
-    --text-secondary: 240 5% 64.9%;
-    --accent: 30 79% 51%;
-    --accent-hover: 30 79% 45%;
-    --border: 240 3.7% 15.9%;
-    --shadow-hard: 114 43% 21%;
-    --success: 142 76% 36%;
-    --error: 0 62.8% 30.6%;
-    --warning: 38 92% 50%;
-    --info: 221 83% 53%;
+    --surface-bg: 40 20% 8%;         /* #1A1610 */
+    --surface-card: 40 20% 14%;      /* #2A241C */
+    --text-primary: 40 36% 88%;      /* #EDE5DB */
+    --text-secondary: 40 14% 66%;    /* #B0A699 */
+    --accent: 347 100% 62%;          /* #FF3A6B */
+    --accent-hover: 347 75% 58%;     /* #E6375F */
+    --border: 0 0% 0% / 0.6;         /* rgba(0, 0, 0, 0.6) */
+    --shadow-hard: 0 0% 0% / 0.6;    /* rgba(0, 0, 0, 0.6) */
+    --success: 145 54% 56%;          /* #38A169 */
+    --error: 0 76% 74%;              /* #FC8181 */
+    --warning: 32 88% 66%;           /* #F6AD55 */
+    --info: 206 83% 67%;             /* #63B3ED */
   }
 }
 
