@@ -11,7 +11,7 @@
 
 /* Fullscreen theme-transition overlay */
 .theme-transition-overlay {
-  @apply fixed inset-0 pointer-events-none bg-background opacity-0 transition-opacity duration-150 ease-in-out z-50;
+  @apply fixed inset-0 pointer-events-none bg-surface-bg opacity-0 transition-opacity duration-150 ease-in-out z-50;
 }
 .theme-transition-overlay.active {
   @apply opacity-100;
@@ -24,9 +24,9 @@
   100% { transform: translateX(100%); }
 }
 .theme-sweep-overlay {
-  @apply fixed inset-0 pointer-events-none bg-background z-50 border-none border-r-4 border-foreground;
+  @apply fixed inset-0 pointer-events-none bg-surface-bg z-50 border-none border-r-4 border-text-primary;
   transform: translateX(-100%);
-  box-shadow: inset 0 0 20px hsl(var(--foreground) / 0.5);
+  box-shadow: inset 0 0 20px hsl(var(--text-primary) / 0.5);
 }
 .theme-sweep-overlay.active {
   animation: sweep 400ms ease-in-out forwards;
