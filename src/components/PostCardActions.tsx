@@ -1,6 +1,5 @@
 
-import { Eye } from 'lucide-react';
-import previewEyeIcon from '@/assets/preview-eye.png';
+import { Eye, View } from 'lucide-react';
 import type { Post } from '@/data/posts';
 
 interface PostCardActionsProps {
@@ -56,7 +55,7 @@ export function PostCardActions({
           />
           <span
             className={`
-              relative border-2 border-border rounded-md w-12 h-8 flex items-center justify-center gap-1 transition-all duration-150 ease-out
+              relative border-2 border-border rounded-md min-w-[44px] min-h-[44px] w-11 h-11 flex items-center justify-center p-2 transition-all duration-150 ease-out
               ${
                 previewOpen
                   ? 'translate-x-[2px] translate-y-[2px] bg-accent text-surface-card'
@@ -64,12 +63,7 @@ export function PostCardActions({
               }
             `}
           >
-            <img 
-              src={previewEyeIcon} 
-              alt="" 
-              className="w-6 h-6 filter dark:invert" 
-              aria-hidden="true"
-            />
+            <View className="w-5 h-5" aria-hidden="true" />
           </span>
         </div>
       </button>
