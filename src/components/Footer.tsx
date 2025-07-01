@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { CheckCircle, Mail, Loader2 } from 'lucide-react';
+import { useKeyboardAware } from '@/hooks/useKeyboardAware';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,6 +11,7 @@ export function Footer() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState('');
+  const { isKeyboardVisible } = useKeyboardAware();
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +36,9 @@ export function Footer() {
   return (
     <footer 
       id="footer" 
-      className="border-t border-border mt-16 sm:mt-20 lg:mt-24 py-8 md:py-12 mb-20 md:mb-0"
+      className={`border-t border-border mt-16 sm:mt-20 lg:mt-24 py-8 md:py-12 mb-20 md:mb-0 ${
+        isKeyboardVisible ? 'keyboard-aware-bottom' : 'safe-area-inset-bottom'
+      }`}
       role="contentinfo"
     >
       <div className="container mx-auto flex flex-col md:flex-row md:justify-between md:items-center space-y-8 md:space-y-0 px-4 sm:px-6 lg:px-8">

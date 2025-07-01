@@ -13,11 +13,11 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="pt-[env(safe-area-inset-top)] py-1 sm:py-1.5 lg:py-2 border-b-2 border-border sticky top-0 z-40 bg-surface-card backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface-card/60">
+    <header className="safe-area-inset-top py-1 sm:py-1.5 lg:py-2 border-b-2 border-border sticky top-0 z-40 bg-surface-card backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface-card/60">
       <div 
         className="absolute inset-0 bg-surface-card/90 -z-10"
         style={{
-          top: 'calc(-1 * env(safe-area-inset-top, 0px))',
+          top: 'calc(-1 * var(--safe-area-inset-top, 0px))',
         }}
       />
       <div className="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">

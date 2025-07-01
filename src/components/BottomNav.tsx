@@ -7,6 +7,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { LayoutGrid, FileText, History, Wrench, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useMemo, useEffect, useState, useRef } from 'react';
+import { useKeyboardAware } from '@/hooks/useKeyboardAware';
 
 // navLinks: array of navigation items with display name, path, and icon component
 const navLinks = [
@@ -23,6 +24,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
   const location = useLocation();
   const [isShrunk, setIsShrunk] = useState(false);
   const prevScrollY = useRef(window.scrollY);
+  const { isKeyboardVisible } = useKeyboardAware();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +47,11 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
     window.scrollTo({ top: 0, left: 0 });
   }, [location.pathname]);
 
+  // Hide navigation when keyboard is visible on mobile
+  if (isKeyboardVisible) {
+    return null;
+  }
+
   // Render the navigation bar UI
   return (
     // <nav>: fixed bottom nav container, visible on mobile only
@@ -56,7 +63,9 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
           ? 'scale-[0.7] origin-bottom shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
           : 'scale-100 shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
       )}
-      style={{ bottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}
+      style={{ 
+        bottom: `calc(var(--safe-area-inset-bottom, 0px) + 0.5rem)` 
+      }}
     >
       <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-surface-card/90 transition-none">
         {/* Grid container for navigation items */}

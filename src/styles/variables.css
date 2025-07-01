@@ -15,6 +15,21 @@
     --warning: 32 85% 31%;           /* #92400E – burnt orange */
     --info: 217 91% 60%;             /* #1C64F2 – bright blue */
     --radius: 0.5rem;
+
+    /* iOS Safe Area Support */
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
+    
+    /* Fallback spacing with safe area support */
+    --spacing-safe-top: max(env(safe-area-inset-top), 1rem);
+    --spacing-safe-right: max(env(safe-area-inset-right), 1rem);
+    --spacing-safe-bottom: max(env(safe-area-inset-bottom), 1rem);
+    --spacing-safe-left: max(env(safe-area-inset-left), 1rem);
+    
+    /* Keyboard height for iOS */
+    --keyboard-height: 0px;
   }
 
   .dark {
@@ -37,5 +52,43 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  
+  /* iOS Safe Area Classes */
+  .safe-area-inset-top {
+    padding-top: var(--safe-area-inset-top);
+  }
+  
+  .safe-area-inset-right {
+    padding-right: var(--safe-area-inset-right);
+  }
+  
+  .safe-area-inset-bottom {
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+  
+  .safe-area-inset-left {
+    padding-left: var(--safe-area-inset-left);
+  }
+  
+  .safe-spacing-top {
+    padding-top: var(--spacing-safe-top);
+  }
+  
+  .safe-spacing-right {
+    padding-right: var(--spacing-safe-right);
+  }
+  
+  .safe-spacing-bottom {
+    padding-bottom: var(--spacing-safe-bottom);
+  }
+  
+  .safe-spacing-left {
+    padding-left: var(--spacing-safe-left);
+  }
+  
+  /* Keyboard aware bottom spacing */
+  .keyboard-aware-bottom {
+    padding-bottom: calc(var(--spacing-safe-bottom) - var(--keyboard-height));
   }
 }
