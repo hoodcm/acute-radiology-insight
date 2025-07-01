@@ -57,7 +57,7 @@ export function PostCard({ post, author }: PostCardProps) {
     <>
       <div
         className={clsx(
-          "col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3 2xl:col-span-2",
+          "col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-4 xl:col-span-3 2xl:col-span-2",
           { "group sm:hover-lift": !previewOpen }
         )}
       >

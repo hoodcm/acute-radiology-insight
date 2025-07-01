@@ -55,7 +55,7 @@ export function PostCardActions({
           />
           <span
             className={`
-              relative border-2 border-border rounded-md min-w-[44px] min-h-[44px] w-11 h-11 flex items-center justify-center p-2 transition-all duration-150 ease-out
+              relative border-2 border-border rounded-md min-w-[44px] min-h-[44px] w-12 h-12 flex items-center justify-center p-1.5 transition-all duration-150 ease-out
               ${
                 previewOpen
                   ? 'translate-x-[2px] translate-y-[2px] bg-accent text-surface-card'
@@ -63,7 +63,7 @@ export function PostCardActions({
               }
             `}
           >
-            <View className="w-5 h-5" aria-hidden="true" />
+            <View className="w-20 h-20" aria-hidden="true" />
           </span>
         </div>
       </button>
