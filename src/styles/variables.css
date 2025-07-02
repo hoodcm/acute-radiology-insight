@@ -16,20 +16,17 @@
     --info: 217 91% 60%;             /* #1C64F2 – bright blue */
     --radius: 0.5rem;
 
-    /* iOS Safe Area Support with enhanced reflow handling */
+    /* iOS Safe Area Support */
     --safe-area-inset-top: env(safe-area-inset-top, 0px);
     --safe-area-inset-right: env(safe-area-inset-right, 0px);
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
     --safe-area-inset-left: env(safe-area-inset-left, 0px);
     
-    /* Enhanced safe area variables for post-bounce consistency */
-    --effective-safe-bottom: env(safe-area-inset-bottom, 0px);
-    
     /* Fallback spacing with safe area support */
-    --spacing-safe-top: max(var(--safe-area-inset-top), 1rem);
-    --spacing-safe-right: max(var(--safe-area-inset-right), 1rem);
-    --spacing-safe-bottom: max(var(--effective-safe-bottom), 1rem);
-    --spacing-safe-left: max(var(--safe-area-inset-left), 1rem);
+    --spacing-safe-top: max(env(safe-area-inset-top), 1rem);
+    --spacing-safe-right: max(env(safe-area-inset-right), 1rem);
+    --spacing-safe-bottom: max(env(safe-area-inset-bottom), 1rem);
+    --spacing-safe-left: max(env(safe-area-inset-left), 1rem);
     
     /* Keyboard height for iOS */
     --keyboard-height: 0px;
@@ -57,7 +54,7 @@
     @apply border-border;
   }
   
-  /* Enhanced iOS Safe Area Classes with bounce-through support */
+  /* iOS Safe Area Classes */
   .safe-area-inset-top {
     padding-top: var(--safe-area-inset-top);
   }
@@ -67,7 +64,7 @@
   }
   
   .safe-area-inset-bottom {
-    padding-bottom: var(--effective-safe-bottom);
+    padding-bottom: var(--safe-area-inset-bottom);
   }
   
   .safe-area-inset-left {
@@ -90,19 +87,8 @@
     padding-left: var(--spacing-safe-left);
   }
   
-  /* Enhanced keyboard aware bottom spacing */
+  /* Keyboard aware bottom spacing */
   .keyboard-aware-bottom {
-    padding-bottom: var(--spacing-safe-bottom);
-  }
-
-  /* Safe area reflow helper class */
-  .safe-area-reflow {
-    /* Temporary class to trigger reflow - no styles needed */
-  }
-
-  /* Prevent fixed elements from occluding safe areas during bounce */
-  .safe-area-respect {
-    /* Ensure fixed/sticky elements respect safe areas even during bounce */
-    bottom: var(--effective-safe-bottom);
+    padding-bottom: calc(var(--spacing-safe-bottom) - var(--keyboard-height));
   }
 }

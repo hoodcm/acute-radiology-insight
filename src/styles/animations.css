@@ -43,33 +43,14 @@
   @apply bg-text-secondary/20 animate-pulse rounded;
 }
 
-/* Smooth scroll with safe area bounce-through support */
+/* Smooth scroll */
 html {
   scroll-behavior: smooth;
-  /* Ensure overscroll behavior maintains safe area */
-  overscroll-behavior-y: contain;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-}
-
-/* Enhanced bounce-through support for iOS */
-@supports (-webkit-touch-callout: none) {
-  /* iOS specific styles */
-  html {
-    /* Allow bounce but maintain safe area calculations */
-    overscroll-behavior-y: auto;
-  }
-  
-  body {
-    /* Ensure body maintains proper positioning during bounce */
-    position: relative;
-    min-height: 100vh;
-    /* Prevent safe area collapse during overscroll */
-    min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -89,18 +70,4 @@ body.crt-active {
   position: fixed !important;
   width: 100% !important;
   height: 100% !important;
-}
-
-/* Safe area reflow animations */
-@keyframes safeAreaReflow {
-  0% { 
-    transform: translateZ(0);
-  }
-  100% { 
-    transform: translateZ(0);
-  }
-}
-
-.safe-area-reflow {
-  animation: safeAreaReflow 0.1s ease-out;
 }

@@ -1,13 +1,9 @@
 
 import { useEffect, useState } from 'react';
-import { useSafeAreaReflow } from './useSafeAreaReflow';
 
 export function useKeyboardAware() {
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
-
-  // Use the safe area reflow hook
-  useSafeAreaReflow();
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,19 +23,6 @@ export function useKeyboardAware() {
           '--keyboard-height',
           `${keyboardHeight}px`
         );
-
-        // Ensure safe area bottom is maintained when keyboard is visible
-        if (isVisible) {
-          document.documentElement.style.setProperty(
-            '--effective-safe-bottom',
-            `max(env(safe-area-inset-bottom, 0px), ${keyboardHeight}px)`
-          );
-        } else {
-          document.documentElement.style.setProperty(
-            '--effective-safe-bottom',
-            'env(safe-area-inset-bottom, 0px)'
-          );
-        }
       }
     };
 

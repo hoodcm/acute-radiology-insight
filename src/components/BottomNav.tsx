@@ -57,14 +57,14 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
     // <nav>: fixed bottom nav container, visible on mobile only
     <nav
       className={cn(
-        'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-border bg-clip-padding isolate transition-all duration-150 ease-out transform safe-area-respect',
+        'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-border bg-clip-padding isolate transition-all duration-150 ease-out transform',
         isPreviewOpen ? 'z-0' : 'z-50',
         isShrunk
           ? 'scale-[0.7] origin-bottom shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
           : 'scale-100 shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
       )}
       style={{ 
-        bottom: `calc(var(--effective-safe-bottom, env(safe-area-inset-bottom, 0px)) + 0.5rem)` 
+        bottom: `calc(var(--safe-area-inset-bottom, 0px) + 0.5rem)` 
       }}
     >
       <div className="h-full w-full px-2 backdrop-blur-md backdrop-saturate-150 bg-surface-card/90 transition-none">
