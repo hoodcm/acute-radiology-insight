@@ -63,7 +63,9 @@ export function PostCard({ post, author }: PostCardProps) {
       >
         <article 
           className={clsx(
-            "bg-surface-card rounded-lg shadow-[6px_6px_0px_theme(colors.shadow-hard)] border-[2.5px] border-border md:group-hover:border-accent overflow-hidden relative flex flex-col justify-between h-full transform transition-all duration-200 ease-out",
+            "bg-surface-card rounded-lg shadow-[6px_6px_0px_theme(colors.shadow-hard)] border-[2.5px] border-border md:group-hover:border-accent overflow-hidden relative h-full transform transition-all duration-200 ease-out",
+            // Mobile layout: horizontal flex
+            "flex sm:flex-col",
             {
               "!-translate-y-0.5": previewOpen,
               "!border-accent": previewOpen,
@@ -75,16 +77,21 @@ export function PostCard({ post, author }: PostCardProps) {
         >
           <Link 
             to={`/posts/${post.slug}`} 
-            className="flex-1 flex flex-col justify-between h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
+            className="flex-1 flex sm:flex-col h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
             aria-describedby={`post-${post.id}-description`}
           >
-            <PostCardImage post={post} hasImaging={hasImaging} />
-            <PostCardContent post={post} author={author} />
+            {/* Mobile: Content on left, Image on right */}
+            <div className="flex-1 flex flex-col justify-between sm:order-1">
+              <PostCardContent post={post} />
+            </div>
+            <div className="w-1/3 sm:w-full sm:order-0">
+              <PostCardImage post={post} hasImaging={hasImaging} />
+            </div>
           </Link>
 
           <PostCardActions
             post={post}
-            hasImaging={hasImaging}
+            hasImaging={false}
             previewOpen={previewOpen}
             onViewImages={handleViewImages}
             onPreviewToggle={handlePreviewToggle}

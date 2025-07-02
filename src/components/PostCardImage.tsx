@@ -13,7 +13,7 @@ export function PostCardImage({ post, hasImaging }: PostCardImageProps) {
   const placeholderUrl = `https://images.unsplash.com/photo-1518770660439-4636190af475?w=20&blur=10&auto=format&fit=crop&q=20`;
 
   return (
-    <div className="aspect-[7/4] relative overflow-hidden">
+    <div className="aspect-square sm:aspect-[7/4] relative overflow-hidden h-full">
       <LazyImage
         src={imageUrl}
         placeholderSrc={placeholderUrl}
