@@ -63,3 +63,122 @@ html {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px hsl(var(--shadow-hard) / 0.15);
 }
+
+/* CRT Preview Animations */
+@keyframes crtRect {
+  0% {
+    transform: scaleY(0.001) scaleX(1);
+    border-radius: 0;
+  }
+  50% {
+    transform: scaleY(0.1) scaleX(1);
+    border-radius: 0;
+  }
+  100% {
+    transform: scaleY(0.75) scaleX(0.7);
+    border-radius: 1rem;
+  }
+}
+
+@keyframes crtRectMobile {
+  0% {
+    transform: scaleY(0.001) scaleX(1);
+    border-radius: 0;
+  }
+  50% {
+    transform: scaleY(0.1) scaleX(1);
+    border-radius: 0;
+  }
+  100% {
+    transform: scaleY(0.85) scaleX(0.9);
+    border-radius: 0.5rem;
+  }
+}
+
+@keyframes crtRectReverse {
+  0% {
+    transform: scaleY(0.75) scaleX(0.7);
+    border-radius: 1rem;
+  }
+  50% {
+    transform: scaleY(0.1) scaleX(1);
+    border-radius: 0;
+  }
+  100% {
+    transform: scaleY(0.001) scaleX(1);
+    border-radius: 0;
+  }
+}
+
+@keyframes crtRectReverseMobile {
+  0% {
+    transform: scaleY(0.85) scaleX(0.9);
+    border-radius: 0.5rem;
+  }
+  50% {
+    transform: scaleY(0.1) scaleX(1);
+    border-radius: 0;
+  }
+  100% {
+    transform: scaleY(0.001) scaleX(1);
+    border-radius: 0;
+  }
+}
+
+@keyframes crtContentFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scan {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100vh;
+  }
+}
+
+.animate-crtRect {
+  animation: crtRect 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-crtRectReverse {
+  animation: crtRectReverse 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+}
+
+.animate-crtContentFadeIn {
+  animation: crtContentFadeIn 0.3s ease-out 0.2s forwards;
+}
+
+.animate-scan {
+  animation: scan 2s linear infinite;
+}
+
+/* Mobile specific CRT animations */
+@media (max-width: 767px) {
+  .animate-crtRect {
+    animation: crtRectMobile 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  
+  .animate-crtRectReverse {
+    animation: crtRectReverseMobile 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+  }
+}
+
+/* Scanline effect */
+.bg-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+}
