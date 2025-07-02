@@ -4,9 +4,11 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { BottomNav } from './BottomNav';
 import { useKeyboardAware } from '@/hooks/useKeyboardAware';
+import { useState } from 'react';
 
 export function MainLayout() {
   const { isKeyboardVisible } = useKeyboardAware();
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-bg safe-area-inset-left safe-area-inset-right">
@@ -15,10 +17,10 @@ export function MainLayout() {
       </a>
       <Header />
       <main id="main-content" className="flex-grow">
-        <Outlet />
+        <Outlet context={{ setIsPreviewOpen }} />
       </main>
       <Footer />
-      <BottomNav isPreviewOpen={false} />
+      <BottomNav isPreviewOpen={isPreviewOpen} />
     </div>
   );
 }

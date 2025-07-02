@@ -63,3 +63,11 @@ html {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px hsl(var(--shadow-hard) / 0.15);
 }
+
+/* CRT Effect - Prevent scroll interference */
+body.crt-active {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+}

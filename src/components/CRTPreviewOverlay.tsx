@@ -29,6 +29,30 @@ export function CRTPreviewOverlay({
     borderRadius: '1rem'
   };
 
+  // Lock scroll when overlay is open
+  useEffect(() => {
+    if (isOpen) {
+      // Prevent scroll on body and html
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      
+      // Prevent touch events that could cause scrolling
+      const preventTouch = (e: TouchEvent) => {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      };
+      
+      document.addEventListener('touchmove', preventTouch, { passive: false });
+      
+      return () => {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        document.removeEventListener('touchmove', preventTouch);
+      };
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (isOpen) {
       setPhase('rect');
@@ -56,19 +80,41 @@ export function CRTPreviewOverlay({
     };
   }, [isOpen, onClose]);
 
-
   if (!isOpen) return null;
 
   return (
     <div
       ref={overlayRef}
       className="fixed inset-0 z-50 flex items-center justify-center bg-shadow-hard/80 pointer-events-auto"
+      style={{
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+        height: '100vh',
+        width: '100vw'
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby={`preview-title-${post.id}`}
       aria-describedby={`preview-desc-${post.id}`}
     >
-      <div className="pointer-events-none fixed inset-0 z-10 bg-scanlines bg-[length:100%_4px] animate-scan" />
+      {/* Full screen scan line effect covering system areas */}
+      <div 
+        className="pointer-events-none fixed z-10 bg-scanlines bg-[length:100%_4px] animate-scan" 
+        style={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          right: '0',
+          bottom: '0',
+          height: '100vh',
+          width: '100vw',
+          zIndex: 10
+        }}
+      />
+      
       {phase !== 'exit' && (
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
