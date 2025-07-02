@@ -76,30 +76,6 @@ export function CRTPreviewOverlay({
     };
   }, [isOpen, isMobile]);
 
-  // Calculate mobile-optimized CRT dimensions
-  const getMobileCRTTransform = () => {
-    if (!isMobile) {
-      return {
-        scaleY: 0.75,
-        scaleX: 0.7,
-        borderRadius: '1rem'
-      };
-    }
-    
-    // Mobile: match screen proportions and fill majority of screen
-    const screenRatio = window.innerHeight / window.innerWidth;
-    const targetWidth = 0.9; // 90% of screen width
-    const targetHeight = 0.85; // 85% of screen height
-    
-    return {
-      scaleY: targetHeight,
-      scaleX: targetWidth,
-      borderRadius: '0.5rem'
-    };
-  };
-
-  const crtFinalTransform = getMobileCRTTransform();
-
   useEffect(() => {
     if (isOpen) {
       setPhase('rect');
@@ -174,10 +150,6 @@ export function CRTPreviewOverlay({
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
             className="w-screen h-screen bg-surface-card origin-center animate-crtRectReverse"
-            style={{
-              transform: `scaleY(${crtFinalTransform.scaleY}) scaleX(${crtFinalTransform.scaleX})`,
-              borderRadius: crtFinalTransform.borderRadius
-            }}
             onAnimationEnd={onClose}
           />
         </div>
@@ -188,9 +160,9 @@ export function CRTPreviewOverlay({
           <div
             className="bg-transparent overflow-hidden opacity-0 animate-crtContentFadeIn pointer-events-auto"
             style={{
-              width: `${crtFinalTransform.scaleX * 100}${isMobile ? 'vw' : 'vw'}`,
-              height: `${crtFinalTransform.scaleY * 100}${isMobile ? 'vh' : 'vh'}`,
-              borderRadius: crtFinalTransform.borderRadius
+              width: isMobile ? '90vw' : '70vw',
+              height: isMobile ? '85vh' : '75vh',
+              borderRadius: isMobile ? '0.5rem' : '1rem'
             }}
           >
             <div className="w-full h-full flex flex-col justify-center items-center p-6">
