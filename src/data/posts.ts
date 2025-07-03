@@ -81,6 +81,3 @@ loadPosts().then(loadedPosts => {
 }).catch(error => {
   console.error('Failed to load posts:', error);
 });
-
-// Export the loadPosts function for components that need async loading
-export { loadPosts };

@@ -1,6 +1,9 @@
 
 import { getAllPosts, getPostsByCategory, getPostBySlug, type ProcessedPost } from '@/lib/content';
 
+// Export ProcessedPost type for use in other files
+export type { ProcessedPost };
+
 // Cache for processed posts to avoid repeated file system operations
 let postsCache: ProcessedPost[] | null = null;
 let lastCacheUpdate = 0;

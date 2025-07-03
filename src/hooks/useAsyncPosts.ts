@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { loadPosts, loadPostsByCategory, loadPostBySlug } from '@/data/contentLoader';
+import { loadAllPosts, loadPostsByCategory, loadPostBySlug } from '@/data/contentLoader';
 import type { ProcessedPost } from '@/lib/content';
 
 export function useAllPosts() {
@@ -12,7 +12,7 @@ export function useAllPosts() {
     async function fetchPosts() {
       try {
         setLoading(true);
-        const loadedPosts = await loadPosts();
+        const loadedPosts = await loadAllPosts();
         setPosts(loadedPosts);
         setError(null);
       } catch (err) {
