@@ -2,16 +2,11 @@
 import { Link } from 'react-router-dom';
 import { DarkModeToggle } from './DarkModeToggle';
 import { SearchInput } from './SearchInput';
-
-const navLinks = [
-  { name: 'Cases', href: '/cases' },
-  { name: 'Essays', href: '/essays' },
-  { name: 'Hindsight', href: '/hindsight' },
-  { name: 'Tools', href: '/tools' },
-  { name: 'About', href: '/about' },
-];
+import { getNavigationItems } from '@/config/navigation';
 
 export function Header() {
+  const navLinks = getNavigationItems();
+
   return (
     <header className="safe-area-inset-top py-1 sm:py-1.5 lg:py-2 border-b-2 border-border sticky top-0 z-40 bg-surface-card backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-surface-card/60">
       <div 

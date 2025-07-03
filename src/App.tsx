@@ -19,6 +19,10 @@ import About from "./pages/About";
 import Search from "./pages/Search";
 import AuthorPage from "./pages/AuthorPage";
 import DicomViewer from "./pages/DicomViewer";
+import Learn from "./pages/Learn";
+import Atlas from "./pages/Atlas";
+import Signal from "./pages/Signal";
+import LevelUp from "./pages/LevelUp";
 
 const queryClient = new QueryClient();
 
@@ -34,10 +38,15 @@ const App = () => (
               <Route element={<MainLayout />}>
                 <Route path="/" element={<Index />} />
                 <Route path="/search" element={<Search />} />
+                <Route path="/learn" element={<Learn />} />
                 <Route path="/cases" element={<Cases />} />
-                <Route path="/essays" element={<Essays />} />
-                <Route path="/hindsight" element={<Hindsight />} />
-                <Route path="/tools" element={<Tools />} />
+                <Route path="/atlas" element={<Atlas />} />
+                <Route path="/signal" element={<Signal />} />
+                <Route path="/level-up" element={<LevelUp />} />
+                {/* Legacy routes for backward compatibility */}
+                <Route path="/essays" element={<Learn />} />
+                <Route path="/hindsight" element={<Signal />} />
+                <Route path="/tools" element={<LevelUp />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/posts/:slug" element={<PostPage />} />
                 <Route path="/authors/:slug" element={<AuthorPage />} />

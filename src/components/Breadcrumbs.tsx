@@ -8,21 +8,18 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Link } from "react-router-dom";
+import { getSectionByCategory } from "@/config/navigation";
 
 type BreadcrumbsProps = {
   postTitle: string;
   postCategory: string;
 };
 
-const categoryToPathMap: { [key: string]: string } = {
-  'Case Study': '/cases',
-  'Essay': '/essays',
-  'Hindsight': '/hindsight',
-  'Tool': '/tools',
-};
-
 export function Breadcrumbs({ postTitle, postCategory }: BreadcrumbsProps) {
-  const categoryUrl = categoryToPathMap[postCategory] || '/';
+  const section = getSectionByCategory(postCategory);
+  const categoryUrl = section?.href || '/';
+  const categoryName = section?.name || postCategory;
+  
   const linkClasses = "text-xs uppercase font-sans text-muted-foreground hover:text-foreground hover:underline transition-colors";
 
   return (
@@ -36,7 +33,7 @@ export function Breadcrumbs({ postTitle, postCategory }: BreadcrumbsProps) {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link to={categoryUrl} className={linkClasses}>{postCategory}</Link>
+            <Link to={categoryUrl} className={linkClasses}>{categoryName}</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />

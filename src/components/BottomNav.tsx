@@ -8,15 +8,16 @@ import { LayoutGrid, FileText, History, Wrench, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useMemo, useEffect, useState, useRef } from 'react';
 import { useKeyboardAware } from '@/hooks/useKeyboardAware';
+import { getNavigationItems } from '@/config/navigation';
 
-// navLinks: array of navigation items with display name, path, and icon component
-const navLinks = [
-  { name: 'Cases', href: '/cases', icon: LayoutGrid },
-  { name: 'Essays', href: '/essays', icon: FileText },
-  { name: 'Hindsight', href: '/hindsight', icon: History },
-  { name: 'Tools', href: '/tools', icon: Wrench },
-  { name: 'About', href: '/about', icon: Info },
-];
+// Icon mapping for navigation items
+const iconMap = {
+  'Learn': FileText,
+  'Cases': LayoutGrid, 
+  'Atlas': History,
+  'Signal': History,
+  'Level Up': Wrench
+};
 
 // BottomNav component definition
 export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
@@ -25,6 +26,13 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
   const [isShrunk, setIsShrunk] = useState(false);
   const prevScrollY = useRef(window.scrollY);
   const { isKeyboardVisible } = useKeyboardAware();
+
+  // Get navigation items from config
+  const navLinks = getNavigationItems().map(item => ({
+    name: item.name,
+    href: item.href,
+    icon: iconMap[item.name as keyof typeof iconMap] || Info
+  }));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +48,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
   // Determine index of the active link based on current path
   const activeIndex = useMemo(() => {
     return navLinks.findIndex(link => link.href === location.pathname);
-  }, [location.pathname]);
+  }, [location.pathname, navLinks]);
 
   // Effect: scroll to top whenever the route changes
   useEffect(() => {
