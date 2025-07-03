@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
-import { posts, type Post } from '@/data/posts';
+import React from 'react';
+import { usePostsByCategory } from '@/hooks/useAsyncPosts';
 import { PostCard } from '@/components/PostCard';
 import { PostCardSkeleton } from '@/components/PostCardSkeleton';
 import { Seo } from '@/components/Seo';
@@ -8,20 +8,8 @@ import { useSmartSkeleton } from '@/hooks/useSmartSkeleton';
 import { navigationConfig } from '@/config/navigation';
 
 const Learn = () => {
-  const [learnPosts, setLearnPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-
   const sectionConfig = navigationConfig.sections.learn;
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const filteredPosts = posts.filter((post: Post) => post.category === sectionConfig.category);
-      setLearnPosts(filteredPosts);
-      setLoading(false);
-    }, 1000); // Simulate network delay
-
-    return () => clearTimeout(timer);
-  }, [sectionConfig.category]);
+  const { posts: learnPosts, loading, error } = usePostsByCategory(sectionConfig.category);
 
   const showSkeleton = useSmartSkeleton(loading, {
     delay: 200,
@@ -38,14 +26,35 @@ const Learn = () => {
         <div className="grid grid-cols-12 gap-4 md:gap-6 lg:gap-8">
           {showSkeleton ? (
             Array.from({ length: 4 }).map((_, index) => <PostCardSkeleton key={index} />)
+          ) : error ? (
+            <p className="col-span-12 text-red-500 text-base sm:text-lg">Error loading content: {error}</p>
           ) : learnPosts.length > 0 ? (
             learnPosts.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <PostCard 
+                key={post.id} 
+                post={{
+                  id: parseInt(post.id) || 1,
+                  slug: post.slug,
+                  title: post.title,
+                  description: post.description,
+                  category: post.category,
+                  tags: post.tags,
+                  date: post.date,
+                  authorId: post.authorId,
+                  content: post.content,
+                  readTime: post.readTime || '5 min',
+                  outline: post.outline,
+                  thumbnailUrl: post.thumbnailUrl,
+                  micrographics: post.micrographics || {
+                    topLeft: '',
+                    topRight: '',
+                    bottomLeft: '',
+                  },
+                }}
+              />
             ))
           ) : (
-            !loading && (
-              <p className="col-span-12 text-text-secondary text-base sm:text-lg">No {sectionConfig.name.toLowerCase()} content has been posted yet. Check back soon!</p>
-            )
+            <p className="col-span-12 text-text-secondary text-base sm:text-lg">No {sectionConfig.name.toLowerCase()} content has been posted yet. Check back soon!</p>
           )}
         </div>
       </div>

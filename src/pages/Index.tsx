@@ -1,7 +1,7 @@
 
 import { Seo } from "@/components/Seo";
 import { PostCard } from "@/components/PostCard";
-import { posts } from "@/data/posts";
+import { useAllPosts } from "@/hooks/useAsyncPosts";
 import { authors } from "@/data/authors";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Activity, Users, BookOpen, Search } from "lucide-react";
@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import React from 'react';
 
 const Index = () => {
+  const { posts, loading } = useAllPosts();
   const featuredPosts = posts.slice(0, 6);
   
   return (
@@ -138,16 +139,45 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {featuredPosts.map((post) => {
-              const author = authors.find(a => a.id === post.authorId);
-              return (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  author={{ ...author!, id: author!.id.toString() }}
-                />
-              );
-            })}
+            {loading ? (
+              // Show loading skeleton
+              Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                </div>
+              ))
+            ) : (
+              featuredPosts.map((post) => {
+                const author = authors.find(a => a.id === post.authorId);
+                return (
+                  <PostCard
+                    key={post.id}
+                    post={{
+                      id: parseInt(post.id) || 1,
+                      slug: post.slug,
+                      title: post.title,
+                      description: post.description,
+                      category: post.category,
+                      tags: post.tags,
+                      date: post.date,
+                      authorId: post.authorId,
+                      content: post.content,
+                      readTime: post.readTime || '5 min',
+                      outline: post.outline,
+                      thumbnailUrl: post.thumbnailUrl,
+                      micrographics: post.micrographics || {
+                        topLeft: '',
+                        topRight: '',
+                        bottomLeft: '',
+                      },
+                    }}
+                    author={{ ...author!, id: author!.id.toString() }}
+                  />
+                );
+              })
+            )}
           </div>
           
           <div className="flex justify-center mt-8 md:mt-12 sm:hidden">
