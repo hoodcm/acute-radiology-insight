@@ -9,7 +9,7 @@ import { navigationConfig } from '@/config/navigation';
 
 const Atlas = () => {
   const sectionConfig = navigationConfig.sections.atlas;
-  const { posts: atlasPosts, loading, error } = usePostsByCategory('Case Study');
+  const { posts: atlasPosts, loading, error } = usePostsByCategory(sectionConfig.category);
 
   const showSkeleton = useSmartSkeleton(loading, {
     delay: 200,
