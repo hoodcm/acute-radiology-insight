@@ -23,7 +23,6 @@ export async function loadAllPosts(): Promise<ProcessedPost[]> {
     return postsCache;
   } catch (error) {
     console.error('Error loading posts:', error);
-    // Return empty array if content loading fails
     return [];
   }
 }

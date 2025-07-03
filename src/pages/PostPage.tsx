@@ -1,7 +1,8 @@
 
 import { useParams, Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { posts } from '@/data/posts';
+import { useState, useEffect } from 'react';
+import { loadPosts, type Post } from '@/data/posts';
 import NotFound from './NotFound';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { authors } from '@/data/authors';
@@ -10,14 +11,53 @@ import { ImagingSection } from '@/components/ImagingSection';
 
 export default function PostPage() {
   const { slug } = useParams();
-  const post = posts.find((p) => p.slug === slug);
+  const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [relatedPosts, setRelatedPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    async function fetchPost() {
+      try {
+        const allPosts = await loadPosts();
+        const foundPost = allPosts.find((p) => p.slug === slug);
+        setPost(foundPost || null);
+        
+        if (foundPost) {
+          const related = allPosts.filter(p => p.id !== foundPost.id).slice(0, 2);
+          setRelatedPosts(related);
+        }
+      } catch (error) {
+        console.error('Error loading post:', error);
+        setPost(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPost();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2 mb-8"></div>
+          <div className="space-y-4">
+            <div className="h-4 bg-gray-200 rounded"></div>
+            <div className="h-4 bg-gray-200 rounded"></div>
+            <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!post) {
     return <NotFound />;
   }
 
   const author = authors.find((a) => a.id === post.authorId);
-  const relatedPosts = posts.filter(p => p.id !== post.id).slice(0, 2);
 
   const postUrl = `${window.location.origin}/posts/${post.slug}`;
   const imageUrl = `https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&auto=format&fit=crop&q=60`;

@@ -55,29 +55,27 @@ function hashCode(str: string): number {
   return Math.abs(hash);
 }
 
-// Load posts from content files
-let cachedPosts: Post[] | null = null;
-
-export async function loadPosts(): Promise<Post[]> {
-  if (!cachedPosts) {
-    try {
-      const processedPosts = await loadAllPosts();
-      cachedPosts = processedPosts.map(convertToLegacyFormat);
-    } catch (error) {
-      console.error('Error loading posts from content files:', error);
-      cachedPosts = [];
-    }
-  }
-  return cachedPosts;
-}
-
-// For immediate use (will be empty initially until posts are loaded)
+// Initialize with empty array, will be populated by loadPosts
 export let posts: Post[] = [];
 
 // Load posts and update the posts array
-loadPosts().then(loadedPosts => {
-  posts.length = 0;
-  posts.push(...loadedPosts);
-}).catch(error => {
-  console.error('Failed to load posts:', error);
+export async function loadPosts(): Promise<Post[]> {
+  try {
+    const processedPosts = await loadAllPosts();
+    const convertedPosts = processedPosts.map(convertToLegacyFormat);
+    
+    // Update the exported posts array
+    posts.length = 0;
+    posts.push(...convertedPosts);
+    
+    return convertedPosts;
+  } catch (error) {
+    console.error('Error loading posts from content files:', error);
+    return [];
+  }
+}
+
+// Initialize posts on module load
+loadPosts().catch(error => {
+  console.error('Failed to initialize posts:', error);
 });
