@@ -1,14 +1,13 @@
 
 import { LazyImage } from './LazyImage';
 import { Image } from 'lucide-react';
-import type { Post } from '@/lib/postConversion';
 
 interface PostCardImageProps {
-  post: Post;
+  title: string;
   hasImaging: boolean;
 }
 
-export function PostCardImage({ post, hasImaging }: PostCardImageProps) {
+export function PostCardImage({ title, hasImaging }: PostCardImageProps) {
   const imageUrl = `https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&auto=format&fit=crop&q=60`;
   const placeholderUrl = `https://images.unsplash.com/photo-1518770660439-4636190af475?w=20&blur=10&auto=format&fit=crop&q=20`;
 
@@ -17,7 +16,7 @@ export function PostCardImage({ post, hasImaging }: PostCardImageProps) {
       <LazyImage
         src={imageUrl}
         placeholderSrc={placeholderUrl}
-        alt={`Featured image for ${post.title}`}
+        alt={`Featured image for ${title}`}
         className="w-full h-full object-cover transition-transform duration-300"
       />
       {hasImaging && (

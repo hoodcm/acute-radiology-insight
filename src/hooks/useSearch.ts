@@ -39,20 +39,15 @@ export function useSearch(debounceDelay: number = 300): UseSearchReturn {
 
     setIsSearching(true);
     
-    // Simulate async search (for future backend integration)
-    const performSearch = async () => {
-      try {
-        const searchResults = searchIndex.search(debouncedQuery, options);
-        setResults(searchResults);
-      } catch (error) {
-        console.error('Search error:', error);
-        setResults([]);
-      } finally {
-        setIsSearching(false);
-      }
-    };
-
-    performSearch();
+    try {
+      const searchResults = searchIndex.search(debouncedQuery, options);
+      setResults(searchResults);
+    } catch (error) {
+      console.error('Search error:', error);
+      setResults([]);
+    } finally {
+      setIsSearching(false);
+    }
   }, [debouncedQuery, options]);
 
   const categories = useMemo(() => searchIndex.getCategories(), []);

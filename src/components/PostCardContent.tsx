@@ -1,32 +1,29 @@
 
-import type { Post } from '@/lib/postConversion';
-
 interface PostCardContentProps {
-  post: Post;
-  author?: {
-    id: string;
-    name: string;
-    slug: string;
-  };
+  title: string;
+  description: string;
+  tags: string[];
+  date: string;
+  id: string;
 }
 
-export function PostCardContent({ post }: PostCardContentProps) {
+export function PostCardContent({ title, description, tags, date, id }: PostCardContentProps) {
   return (
     <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1 space-fluid-sm">
       <h3 className="font-jersey25 text-lg sm:text-2xl md:text-3xl leading-snug tracking-tight font-semibold text-text-primary mb-1 sm:mb-2">
-        {post.title}
+        {title}
       </h3>
       
       <p 
-        id={`post-${post.id}-description`}
+        id={`post-${id}-description`}
         className="font-inter-tight text-sm sm:text-base md:text-lg leading-normal tracking-tight text-text-secondary mb-2 sm:mb-4 line-clamp-2 sm:line-clamp-2"
       >
-        {post.description}
+        {description}
       </p>
       
       <div className="mt-auto space-y-1 sm:space-y-2">
         <div className="flex gap-1 sm:gap-2 flex-wrap">
-          {post.tags
+          {tags
             .filter((tag) => tag.toLowerCase() !== "error analysis")
             .slice(0, 2) // Limit tags on mobile
             .map((tag) => (
@@ -42,9 +39,9 @@ export function PostCardContent({ post }: PostCardContentProps) {
         <div className="flex items-center justify-between">
           <time 
             className="font-inter-tight text-xs leading-tight text-text-secondary"
-            dateTime={post.date}
+            dateTime={date}
           >
-            {post.date}
+            {date}
           </time>
         </div>
       </div>

@@ -11,9 +11,6 @@ import { MainLayout } from "./components/MainLayout";
 import PostPage from "./pages/PostPage";
 import { ThemeProvider } from "./components/ThemeProvider";
 import SpacingGuide from "./pages/SpacingGuide";
-import Cases from "./pages/Cases";
-import Essays from "./pages/Essays";
-import Hindsight from "./pages/Hindsight";
 import Tools from "./pages/Tools";
 import About from "./pages/About";
 import Search from "./pages/Search";
@@ -39,14 +36,10 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/learn" element={<Learn />} />
-                <Route path="/cases" element={<Cases />} />
                 <Route path="/atlas" element={<Atlas />} />
                 <Route path="/signal" element={<Signal />} />
                 <Route path="/level-up" element={<LevelUp />} />
-                {/* Legacy routes for backward compatibility */}
-                <Route path="/essays" element={<Learn />} />
-                <Route path="/hindsight" element={<Signal />} />
-                <Route path="/tools" element={<LevelUp />} />
+                <Route path="/tools" element={<Tools />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/posts/:slug" element={<PostPage />} />
                 <Route path="/authors/:slug" element={<AuthorPage />} />

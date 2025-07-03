@@ -1,17 +1,16 @@
 
 import { View } from 'lucide-react';
-import type { Post } from '@/lib/postConversion';
 
 interface PostCardActionsProps {
-  post: Post;
-  hasImaging: boolean;
+  title: string;
+  id: string;
   previewOpen: boolean;
-  onViewImages: (e: React.MouseEvent) => void;
   onPreviewToggle: (e: React.MouseEvent | React.KeyboardEvent) => void;
 }
 
 export function PostCardActions({ 
-  post, 
+  title, 
+  id,
   previewOpen, 
   onPreviewToggle 
 }: PostCardActionsProps) {
@@ -21,9 +20,9 @@ export function PostCardActions({
         onClick={onPreviewToggle}
         onKeyDown={onPreviewToggle}
         className="touch-target focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-md"
-        aria-label={previewOpen ? `Close preview of ${post.title}` : `Preview ${post.title}`}
+        aria-label={previewOpen ? `Close preview of ${title}` : `Preview ${title}`}
         aria-expanded={previewOpen}
-        aria-controls={`preview-${post.id}`}
+        aria-controls={`preview-${id}`}
       >
         <div className="relative inline-block transform transition-transform duration-150 ease-out">
           <span
