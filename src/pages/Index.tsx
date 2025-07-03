@@ -155,7 +155,7 @@ const Index = () => {
                   <PostCard
                     key={post.id}
                     post={{
-                      id: parseInt(post.id) || 1,
+                      id: post.id,
                       slug: post.slug,
                       title: post.title,
                       description: post.description,
@@ -173,7 +173,7 @@ const Index = () => {
                         bottomLeft: '',
                       },
                     }}
-                    author={{ ...author!, id: author!.id.toString() }}
+                    author={author}
                   />
                 );
               })

@@ -1,6 +1,5 @@
-
 export interface Author {
-  id: number;
+  id: string;
   slug: string;
   name: string;
   title: string;
@@ -11,7 +10,7 @@ export interface Author {
 
 export const authors: Author[] = [
   {
-    id: 1,
+    id: '1',
     slug: 'evelyn-reed',
     name: 'Dr. Evelyn Reed',
     title: 'Chief of Emergency Radiology',
@@ -20,7 +19,7 @@ export const authors: Author[] = [
     credentials: 'MD, FACR, Chief of Emergency Radiology',
   },
   {
-    id: 2,
+    id: '2',
     slug: 'ben-carter',
     name: 'Dr. Ben Carter',
     title: 'Neuroradiology Fellow',
@@ -29,7 +28,7 @@ export const authors: Author[] = [
     credentials: 'MD, Neuroradiology Fellow',
   },
   {
-    id: 3,
+    id: '3',
     slug: 'chloe-velez',
     name: 'Dr. Chloe Velez',
     title: 'Radiology Resident',

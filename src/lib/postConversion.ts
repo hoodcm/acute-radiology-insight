@@ -1,6 +1,5 @@
-
 export interface Post {
-  id: number;
+  id: string;
   slug: string;
   title: string;
   description: string;
@@ -41,7 +40,7 @@ export interface ProcessedPost {
 
 export function convertProcessedPostToPost(processedPost: ProcessedPost): Post {
   return {
-    id: parseInt(processedPost.id) || 1,
+    id: processedPost.id,
     slug: processedPost.slug,
     title: processedPost.title,
     description: processedPost.description,

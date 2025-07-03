@@ -102,7 +102,7 @@ const Tools = () => {
               <PostCard 
                 key={post.id} 
                 post={{
-                  id: parseInt(post.id) || 1,
+                  id: post.id,
                   slug: post.slug,
                   title: post.title,
                   description: post.description,

@@ -35,7 +35,7 @@ export default function PostPage() {
   }
 
   const author = authors.find((a) => a.id === post.authorId);
-  const relatedPosts = !postsLoading ? allPosts.filter(p => p.id !== post.id).slice(0, 2) : [];
+  const relatedPosts = !postsLoading ? allPosts.filter(p => p.slug !== post.slug).slice(0, 2) : [];
 
   const postUrl = `${window.location.origin}/posts/${post.slug}`;
   const imageUrl = `https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&auto=format&fit=crop&q=60`;
