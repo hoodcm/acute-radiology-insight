@@ -1,13 +1,13 @@
 
+import type { Post } from '@/lib/postConversion';
+
 interface PostCardContentProps {
-  title: string;
-  description: string;
-  tags: string[];
-  date: string;
-  id: string;
+  post: Post;
 }
 
-export function PostCardContent({ title, description, tags, date, id }: PostCardContentProps) {
+export function PostCardContent({ post }: PostCardContentProps) {
+  const { title, description, tags, date, id } = post;
+  
   return (
     <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1 space-fluid-sm">
       <h3 className="font-jersey25 text-lg sm:text-2xl md:text-3xl leading-snug tracking-tight font-semibold text-text-primary mb-1 sm:mb-2">
@@ -23,7 +23,7 @@ export function PostCardContent({ title, description, tags, date, id }: PostCard
       
       <div className="mt-auto space-y-1 sm:space-y-2">
         <div className="flex gap-1 sm:gap-2 flex-wrap">
-          {tags
+          {tags && tags
             .filter((tag) => tag.toLowerCase() !== "error analysis")
             .slice(0, 2) // Limit tags on mobile
             .map((tag) => (

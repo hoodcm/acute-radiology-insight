@@ -39,15 +39,19 @@ export function useSearch(debounceDelay: number = 300): UseSearchReturn {
 
     setIsSearching(true);
     
-    try {
-      const searchResults = searchIndex.search(debouncedQuery, options);
-      setResults(searchResults);
-    } catch (error) {
-      console.error('Search error:', error);
-      setResults([]);
-    } finally {
-      setIsSearching(false);
-    }
+    const performSearch = async () => {
+      try {
+        const searchResults = await searchIndex.search(debouncedQuery, options);
+        setResults(searchResults);
+      } catch (error) {
+        console.error('Search error:', error);
+        setResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+
+    performSearch();
   }, [debouncedQuery, options]);
 
   const categories = useMemo(() => searchIndex.getCategories(), []);
