@@ -10,7 +10,7 @@ export const navigationConfig = {
     },
     cases: {
       name: 'Cases', 
-      href: '/cases',
+      href: '/atlas',
       description: 'Analysis of notable and educational cases in emergency radiology.',
       category: 'Case Study'
     },
@@ -18,7 +18,7 @@ export const navigationConfig = {
       name: 'Atlas',
       href: '/atlas', 
       description: 'Visual reference and imaging atlas.',
-      category: 'Atlas'
+      category: 'Case Study'
     },
     signal: {
       name: 'Signal',
