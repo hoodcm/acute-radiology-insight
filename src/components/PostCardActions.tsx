@@ -1,6 +1,6 @@
 
 import { View } from 'lucide-react';
-import type { Post } from '@/data/posts';
+import type { Post } from '@/lib/postConversion';
 
 interface PostCardActionsProps {
   post: Post;

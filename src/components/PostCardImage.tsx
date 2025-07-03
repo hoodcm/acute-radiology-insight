@@ -1,7 +1,7 @@
 
 import { LazyImage } from './LazyImage';
 import { Image } from 'lucide-react';
-import type { Post } from '@/data/posts';
+import type { Post } from '@/lib/postConversion';
 
 interface PostCardImageProps {
   post: Post;

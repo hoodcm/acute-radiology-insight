@@ -2,7 +2,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Eye } from 'lucide-react';
-import type { Post } from '@/data/posts';
+import type { Post } from '@/lib/postConversion';
 
 interface CRTPreviewOverlayProps {
   post: Post;

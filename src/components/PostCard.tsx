@@ -1,7 +1,7 @@
 
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
-import type { Post } from '@/data/posts';
+import type { Post } from '@/lib/postConversion';
 import { useState } from 'react';
 import { PostCardImage } from './PostCardImage';
 import { PostCardContent } from './PostCardContent';

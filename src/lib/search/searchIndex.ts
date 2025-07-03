@@ -1,5 +1,6 @@
 import Fuse, { IFuseOptions, FuseResultMatch } from 'fuse.js';
-import { posts, type Post } from '@/data/posts';
+import { loadAllPosts } from '@/data/contentLoader';
+import { convertProcessedPostToPost, type Post } from '@/lib/postConversion';
 import { ContentChunker, type SearchableContent, type ContentChunk } from './contentChunker';
 
 export interface SearchResult {
@@ -25,12 +26,18 @@ export class SearchIndex {
   private searchableContent: SearchableContent[];
 
   constructor() {
-    this.searchableContent = this.buildSearchableContent();
+    this.init();
+  }
+
+  private async init() {
+    this.searchableContent = await this.buildSearchableContent();
     this.postIndex = this.createPostIndex();
     this.chunkIndex = this.createChunkIndex();
   }
 
-  private buildSearchableContent(): SearchableContent[] {
+  private async buildSearchableContent(): Promise<SearchableContent[]> {
+    const processedPosts = await loadAllPosts();
+    const posts = processedPosts.map(convertProcessedPostToPost);
     return posts.map(post => ContentChunker.chunkPost(post));
   }
 
@@ -66,7 +73,11 @@ export class SearchIndex {
     return new Fuse(allChunks, options);
   }
 
-  search(query: string, options: SearchOptions = {}): SearchResult[] {
+  async search(query: string, options: SearchOptions = {}): Promise<SearchResult[]> {
+    // Ensure initialization is complete
+    if (!this.searchableContent) {
+      await this.init();
+    }
     if (!query.trim()) return [];
 
     const { category, tags, limit = 10, includeContent = false } = options;
@@ -170,3 +181,8 @@ export class SearchIndex {
 
 // Singleton instance
 export const searchIndex = new SearchIndex();
+
+// Convenience function for backward compatibility
+export const searchPosts = async (query: string, maxResults: number = 10): Promise<SearchResult[]> => {
+  return await searchIndex.search(query, { limit: maxResults, includeContent: true });
+};

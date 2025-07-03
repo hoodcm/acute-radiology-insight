@@ -1,13 +1,15 @@
 
 import { useParams, Navigate } from 'react-router-dom';
 import { authors } from '@/data/authors';
-import { posts } from '@/data/posts';
+import { useAllPosts } from '@/hooks/useAsyncPosts';
 import { PostCard } from '@/components/PostCard';
 import { Seo } from '@/components/Seo';
 import { AuthorBreadcrumbs } from '@/components/AuthorBreadcrumbs';
+import { convertProcessedPostToPost } from '@/lib/postConversion';
 
 const AuthorPage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { posts, loading } = useAllPosts();
   
   if (!slug) {
     return <Navigate to="/404" replace />;
@@ -19,7 +21,9 @@ const AuthorPage = () => {
     return <Navigate to="/404" replace />;
   }
 
-  const authorPosts = posts.filter(post => post.authorId === author.id);
+  const authorPosts = posts
+    .filter(post => post.authorId === author.id)
+    .map(convertProcessedPostToPost);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -54,7 +58,9 @@ const AuthorPage = () => {
 
           <div className="mb-8">
             <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-6 text-text-primary">Articles by {author.name}</h2>
-            {authorPosts.length === 0 ? (
+            {loading ? (
+              <p className="text-text-secondary">Loading articles...</p>
+            ) : authorPosts.length === 0 ? (
               <p className="text-text-secondary">No articles found for this author.</p>
             ) : (
               <div className="grid grid-cols-12 gap-6 lg:gap-8">

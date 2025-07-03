@@ -1,6 +1,6 @@
+import type { ProcessedPost } from './content';
 
-import { loadAllPosts, type ProcessedPost } from './contentLoader';
-
+// Legacy Post type for backward compatibility with components
 export interface Post {
   id: number;
   slug: string;
@@ -21,8 +21,8 @@ export interface Post {
   };
 }
 
-// Convert ProcessedPost to Post format for backward compatibility
-function convertToLegacyFormat(processedPost: ProcessedPost): Post {
+// Utility function to convert ProcessedPost to legacy Post format
+export function convertProcessedPostToPost(processedPost: ProcessedPost): Post {
   return {
     id: parseInt(processedPost.id) || Math.abs(hashCode(processedPost.slug)),
     slug: processedPost.slug,
@@ -54,28 +54,3 @@ function hashCode(str: string): number {
   }
   return Math.abs(hash);
 }
-
-// Initialize with empty array, will be populated by loadPosts
-export let posts: Post[] = [];
-
-// Load posts and update the posts array
-export async function loadPosts(): Promise<Post[]> {
-  try {
-    const processedPosts = await loadAllPosts();
-    const convertedPosts = processedPosts.map(convertToLegacyFormat);
-    
-    // Update the exported posts array
-    posts.length = 0;
-    posts.push(...convertedPosts);
-    
-    return convertedPosts;
-  } catch (error) {
-    console.error('Error loading posts from content files:', error);
-    return [];
-  }
-}
-
-// Initialize posts on module load
-loadPosts().catch(error => {
-  console.error('Failed to initialize posts:', error);
-});

@@ -1,5 +1,5 @@
 
-import type { Post } from '@/data/posts';
+import type { Post } from '@/lib/postConversion';
 
 interface PostCardContentProps {
   post: Post;
