@@ -17,6 +17,7 @@ import Search from "./pages/Search";
 import AuthorPage from "./pages/AuthorPage";
 import DicomViewer from "./pages/DicomViewer";
 import Learn from "./pages/Learn";
+import Cases from "./pages/Cases";
 import Atlas from "./pages/Atlas";
 import Signal from "./pages/Signal";
 import LevelUp from "./pages/LevelUp";
@@ -36,6 +37,7 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/learn" element={<Learn />} />
+                <Route path="/cases" element={<Cases />} />
                 <Route path="/atlas" element={<Atlas />} />
                 <Route path="/signal" element={<Signal />} />
                 <Route path="/level-up" element={<LevelUp />} />
