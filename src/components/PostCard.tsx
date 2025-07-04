@@ -36,7 +36,11 @@ export function PostCard({ post, author }: PostCardProps) {
     
     if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
     
-    previewOpen ? setActivePreviewSlug(null) : setActivePreviewSlug(post.slug);
+    if (previewOpen) {
+      setActivePreviewSlug(null);
+    } else {
+      setActivePreviewSlug(post.slug);
+    }
     if (e.currentTarget instanceof HTMLElement) {
       e.currentTarget.blur();
     }

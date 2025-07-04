@@ -8,6 +8,7 @@ import { authors } from '@/data/authors';
 import { Seo } from '@/components/Seo';
 import { ImagingSection } from '@/components/ImagingSection';
 import type { ProcessedPost } from '@/lib/content';
+import ReactMarkdown from 'react-markdown';
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -119,12 +120,13 @@ export default function PostPage() {
               </div>
             </header>
             
-            <article 
+            <article
               className="prose prose-slate dark:prose-invert prose-base sm:prose-lg lg:prose-xl max-w-none text-text-secondary prose-headings:font-serif prose-headings:text-text-primary prose-a:text-accent hover:prose-a:text-text-primary prose-a:focus-visible:ring-2 prose-a:focus-visible:ring-accent prose-a:focus-visible:ring-offset-2"
-              dangerouslySetInnerHTML={{ __html: post.content }}
               role="article"
               aria-labelledby="article-title"
-            />
+            >
+              <ReactMarkdown>{post.content}</ReactMarkdown>
+            </article>
 
             {/* Imaging Section */}
             {hasImaging && (

@@ -1,7 +1,7 @@
 import type { ProcessedPost } from '@/lib/postConversion';
 
 // Markdown file imports
-const markdownFiles = import.meta.glob('/content/*.md', { as: 'raw', eager: true });
+const markdownFiles = import.meta.glob('/content/*.md', { query: '?raw', import: 'default', eager: true });
 
 function parseMarkdownFrontMatter(content: string): { frontMatter: any; content: string } {
   const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;

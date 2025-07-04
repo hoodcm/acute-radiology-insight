@@ -1,10 +1,9 @@
-
 ---
 title: "Case Study: Acute Appendicitis"
 description: "A classic case of acute appendicitis on CT, with key imaging findings and differential diagnoses."
 category: "Case Study"
 tags: ["Abdomen", "CT", "Case Study"]
-date: "June 1, 2025"
+date: "2025-06-01"
 authorId: 2
 readTime: "5 min"
 ---
@@ -16,6 +15,7 @@ readTime: "5 min"
 A 28-year-old male presents to the emergency department with a 12-hour history of periumbilical pain that has migrated to the right lower quadrant. He reports nausea, vomiting, and low-grade fever.
 
 ### Vital Signs
+
 - Temperature: 100.8°F (38.2°C)
 - Heart rate: 95 bpm
 - Blood pressure: 125/78 mmHg
@@ -26,12 +26,14 @@ A 28-year-old male presents to the emergency department with a 12-hour history o
 CT abdomen and pelvis with IV contrast demonstrates:
 
 ### Primary Findings
+
 - **Appendiceal wall thickening**: Measuring 8mm (normal <3mm)
 - **Periappendiceal fat stranding**: Moderate inflammatory changes
 - **Appendicolith**: 5mm calcified deposit within the appendiceal lumen
 - **Fluid collection**: Small amount of free fluid in the pelvis
 
 ### Additional Observations
+
 - No evidence of perforation or abscess formation
 - Normal appearance of adjacent bowel loops
 - No alternative explanation for symptoms
