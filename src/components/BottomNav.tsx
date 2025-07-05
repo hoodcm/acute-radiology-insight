@@ -3,7 +3,7 @@
 
 // External dependencies: React hooks, router, icons, and utility functions
 import { NavLink, useLocation } from 'react-router-dom';
-import { LayoutGrid, Brain, BookOpenText, RadioTower, Zap, Info } from 'lucide-react';
+import { LayoutGrid, Brain, BookKey, RadioTower, Zap, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useMemo, useEffect, useState, useRef } from 'react';
 import { useKeyboardAware } from '@/hooks/useKeyboardAware';
@@ -13,7 +13,7 @@ import { getNavigationItems } from '@/config/navigation';
 const iconMap = {
   'Learn': Brain,
   'Cases': LayoutGrid,
-  'Atlas': BookOpenText,
+  'Atlas': BookKey,
   'Signal': RadioTower,
   'Level Up': Zap
 };
@@ -85,7 +85,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-1 bg-accent backdrop-blur-sm rounded-full border border-black/20 transition-all duration-150 ease-out"
+              className="absolute inset-y-1 bg-accent backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
                 width: 'calc(100% / 5 + 0.4rem)',
@@ -116,7 +116,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
               {/* Icon component for the navigation item */}
               <Icon 
                 className={cn(
-                  "transition-all duration-100 text-current",
+                  "transition-all duration-0 text-current",
                   isNavShrunk ? "w-8 h-8" : "w-7 h-7",
                   isActive ? "opacity-100" : "opacity-70"
                 )}
