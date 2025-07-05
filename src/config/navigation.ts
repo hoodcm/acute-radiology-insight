@@ -18,7 +18,7 @@ export const navigationConfig = {
       name: 'Atlas',
       href: '/atlas', 
       description: 'Visual reference and imaging atlas.',
-      category: 'Case Study'
+      category: 'Atlas'
     },
     signal: {
       name: 'Signal',

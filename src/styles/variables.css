@@ -6,8 +6,9 @@
     --surface-card: 40 65% 97%;      /* #FCF8F2 – off-white */
     --text-primary: 40 45% 12%;      /* #2D210B – deep brown */
     --text-secondary: 40 23% 29%;    /* #5A4B37 – medium brown */
-    --accent: 338 88% 35%;           /* #9F1239 – deep magenta */
-    --accent-hover: 338 88% 31%;     /* #8B0F34 – dark magenta */
+    --accent-highlight-text: 40 44% 94%;        /* #FDF6EC – warm ivory (text on accent) */
+    --accent: 338 88% 51%;           /* #EC407A – bright rose magenta */
+    --accent-hover: 338 88% 47%;     /* #E0316F – slightly darker hover */
     --border: 40 45% 12%;            /* #2D210B – deep brown */
     --shadow-hard: 40 45% 12%;       /* #2D210B – deep brown */
     --success: 152 47% 31%;          /* #276749 – dark green */
@@ -38,6 +39,7 @@
     --surface-card: 340 5% 14%;      /* #2A241C – dark brown */
     --text-primary: 340 3% 80%;      /* #EDE5DB – light beige */
     --text-secondary: 340 3% 62%;    /* #B0A699 – soft taupe */
+    --accent-highlight-text: 340 5% 7%;         /* #26201D – warm charcoal (text on accent) */
     --accent: 347 100% 62%;          /* #FF3A6B – vivid pink */
     --accent-hover: 347 75% 58%;     /* #E6375F – deep pink */
     --border: 0 0% 0%;               /* rgba(0, 0, 0) – black */

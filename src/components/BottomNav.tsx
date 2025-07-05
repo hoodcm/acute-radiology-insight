@@ -1,10 +1,9 @@
-
 // BottomNav.tsx
 // Component renders a mobile bottom navigation bar with links to main site sections.
 
 // External dependencies: React hooks, router, icons, and utility functions
 import { NavLink, useLocation } from 'react-router-dom';
-import { LayoutGrid, FileText, History, Wrench, Info } from 'lucide-react';
+import { LayoutGrid, Brain, BookOpenText, RadioTower, Zap, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useMemo, useEffect, useState, useRef } from 'react';
 import { useKeyboardAware } from '@/hooks/useKeyboardAware';
@@ -12,11 +11,11 @@ import { getNavigationItems } from '@/config/navigation';
 
 // Icon mapping for navigation items
 const iconMap = {
-  'Learn': FileText,
-  'Cases': LayoutGrid, 
-  'Atlas': History,
-  'Signal': History,
-  'Level Up': Wrench
+  'Learn': Brain,
+  'Cases': LayoutGrid,
+  'Atlas': BookOpenText,
+  'Signal': RadioTower,
+  'Level Up': Zap
 };
 
 // BottomNav component definition
@@ -26,6 +25,9 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
   const [isShrunk, setIsShrunk] = useState(false);
   const prevScrollY = useRef(window.scrollY);
   const { isKeyboardVisible } = useKeyboardAware();
+
+  // Combine scroll and preview states to shrink nav
+  const isNavShrunk = isShrunk || isPreviewOpen;
 
   // Get navigation items from config
   const navLinks = getNavigationItems().map(item => ({
@@ -66,10 +68,10 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
     <nav
       className={cn(
         'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-border bg-clip-padding isolate transition-all duration-150 ease-out transform',
-        isPreviewOpen ? 'z-0' : 'z-50',
-        isShrunk
+        isNavShrunk
           ? 'scale-[0.7] origin-bottom shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
-          : 'scale-100 shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
+          : 'scale-100 shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]',
+        isPreviewOpen ? 'z-0' : 'z-10'
       )}
       style={{ 
         bottom: `calc(var(--safe-area-inset-bottom, 0px) + 0.5rem)` 
@@ -83,7 +85,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
           const idx = activeIndex;
           return (
             <div
-              className="absolute inset-y-1 bg-accent backdrop-blur-sm rounded-full transition-all duration-150 ease-out"
+              className="absolute inset-y-1 bg-accent backdrop-blur-sm rounded-full border border-black/20 transition-all duration-150 ease-out"
               style={{
                 left: `${(idx + 0.5) * (100 / navLinks.length)}%`,
                 width: 'calc(100% / 5 + 0.4rem)',
@@ -107,7 +109,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
               className={cn(
                 'flex flex-col items-center justify-center w-full h-full space-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-100 ease-in-out active:scale-95 relative z-10',
                 isActive 
-                  ? 'text-text-primary font-semibold' 
+                  ? 'text-white font-semibold' 
                   : 'text-text-primary font-normal hover:text-text-primary'
               )}
             >
@@ -115,17 +117,16 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
               <Icon 
                 className={cn(
                   "transition-all duration-100 text-current",
-                  isShrunk ? "w-8 h-8" : "w-7 h-7",
+                  isNavShrunk ? "w-8 h-8" : "w-7 h-7",
                   isActive ? "opacity-100" : "opacity-70"
                 )}
               />
               {/* Text label for the navigation item */}
               <span 
                 className={cn(
-                  "transition-all duration-100",
-                  isShrunk
+                  isNavShrunk
                     ? "hidden"
-                    : "text-xs " + (isActive ? "font-bold opacity-100" : "font-normal opacity-70")
+                    : "text-xs " + (isActive ? "font-bold text-accent-highlight-text opacity-100" : "font-normal opacity-70")
                 )}
               >
                 {link.name}

@@ -1,4 +1,3 @@
-
 import { Outlet } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -17,7 +16,7 @@ export function MainLayout() {
       </a>
       <Header />
       <main id="main-content" className="flex-grow">
-        <Outlet context={{ setIsPreviewOpen }} />
+        <Outlet context={{ isPreviewOpen, setIsPreviewOpen }} />
       </main>
       <Footer />
       <BottomNav isPreviewOpen={isPreviewOpen} />

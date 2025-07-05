@@ -1,12 +1,16 @@
-
 import { useRef, useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Eye } from 'lucide-react';
 import type { Post } from '@/lib/postConversion';
+import { useOutletContext } from 'react-router-dom';
+
+interface PreviewContext {
+  isPreviewOpen: boolean;
+  setIsPreviewOpen: (open: boolean) => void;
+}
 
 interface CRTPreviewOverlayProps {
   post: Post;
-  isOpen: boolean;
   hasImaging: boolean;
   onClose: () => void;
   onViewImages: (e: React.MouseEvent) => void;
@@ -14,11 +18,11 @@ interface CRTPreviewOverlayProps {
 
 export function CRTPreviewOverlay({
   post,
-  isOpen,
   hasImaging,
   onClose,
   onViewImages,
 }: CRTPreviewOverlayProps) {
+  const { isPreviewOpen, setIsPreviewOpen } = useOutletContext<PreviewContext>();
   const overlayRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<'rect' | 'card' | 'exit'>('rect');
 
@@ -31,7 +35,7 @@ export function CRTPreviewOverlay({
 
   // Lock scroll when overlay is open
   useEffect(() => {
-    if (isOpen) {
+    if (isPreviewOpen) {
       // Prevent scroll on body and html
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
@@ -51,13 +55,13 @@ export function CRTPreviewOverlay({
         document.removeEventListener('touchmove', preventTouch);
       };
     }
-  }, [isOpen]);
+  }, [isPreviewOpen]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isPreviewOpen) {
       setPhase('rect');
     }
-  }, [isOpen]);
+  }, [isPreviewOpen]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -66,11 +70,11 @@ export function CRTPreviewOverlay({
       }
     }
     function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === 'Escape' && isPreviewOpen) {
         setPhase('exit');
       }
     }
-    if (isOpen) {
+    if (isPreviewOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('keydown', handleEscape);
     }
@@ -78,9 +82,9 @@ export function CRTPreviewOverlay({
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
-  }, [isOpen, onClose]);
+  }, [isPreviewOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isPreviewOpen) return null;
 
   return (
     <div
@@ -118,7 +122,7 @@ export function CRTPreviewOverlay({
       {phase !== 'exit' && (
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
-            className="w-screen h-screen bg-surface-card origin-center animate-crtRect"
+            className="w-screen h-screen bg-surface-card origin-center animate-crtRectMobile md:animate-crtRect"
             onAnimationEnd={() => setPhase('card')}
           />
         </div>
@@ -127,8 +131,11 @@ export function CRTPreviewOverlay({
       {phase === 'exit' && (
         <div className="fixed inset-0 flex justify-center items-center pointer-events-none z-30">
           <div
-            className="w-screen h-screen bg-surface-card origin-center scale-y-75 scale-x-[0.7] rounded-xl animate-crtRectReverse"
-            onAnimationEnd={onClose}
+            className="w-screen h-screen bg-surface-card origin-center scale-y-75 scale-x-[0.7] rounded-xl animate-crtRectReverseMobile md:animate-crtRectReverse"
+            onAnimationEnd={() => {
+              setIsPreviewOpen(false);
+              onClose();
+            }}
           />
         </div>
       )}

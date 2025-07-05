@@ -69,7 +69,22 @@ const config: Config = {
           "80%": { transform: "scaleY(.8) scaleX(.6)", borderRadius: "1rem" },
           "100%": { transform: "scaleY(0.75) scaleX(0.7)", borderRadius: "1rem" }
         },
+        crtRectMobile: {
+          "0%,50%": { transform: "scaleY(0.01) scaleX(1)", borderRadius: "0" },
+          "70%": { transform: "scaleY(.7) scaleX(1)", borderRadius: "1rem" },
+          "80%": { transform: "scaleY(.95) scaleX(.8)", borderRadius: "1rem" },
+          "100%": { transform: "scaleY(0.9) scaleX(0.9)", borderRadius: "1rem" }
+        },
         crtRectReverse: {
+          "0%": { transform: "scaleY(0.75) scaleX(0.7)", borderRadius: "1rem" },
+          "20%": { transform: "scaleY(0.8) scaleX(0.6)", borderRadius: "1rem" },
+          "30%": { transform: "scaleY(0.7) scaleX(1)", borderRadius: "1rem" },
+          "80%,100%": {
+            transform: "scaleY(0.01) scaleX(1)",
+            borderRadius: "0"
+          }
+        },
+        crtRectReverseMobile: {
           "0%": { transform: "scaleY(0.75) scaleX(0.7)", borderRadius: "1rem" },
           "20%": { transform: "scaleY(0.8) scaleX(0.6)", borderRadius: "1rem" },
           "30%": { transform: "scaleY(0.7) scaleX(1)", borderRadius: "1rem" },
@@ -95,7 +110,9 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         crtRect: "crtRect 300ms ease-out forwards",
+        crtRectMobile: "crtRectMobile 300ms ease-out forwards",
         crtRectReverse: "crtRectReverse 150ms ease-out forwards",
+        crtRectReverseMobile: "crtRectReverseMobile 150ms ease-out forwards",
         crtContentFadeIn: "crtContentFadeIn 150ms cubic-bezier(0.8, 0, 1, 1) forwards",
         fadeIn: "fadeIn 200ms ease-out 550ms both",
         scan: "scan 1s linear infinite"

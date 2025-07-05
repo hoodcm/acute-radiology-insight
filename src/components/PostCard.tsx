@@ -95,17 +95,14 @@ export function PostCard({ post, author }: PostCardProps) {
 
           <PostCardActions
             post={post}
-            hasImaging={false}
-            previewOpen={previewOpen}
+            hasImaging={hasImaging}
             onViewImages={handleViewImages}
-            onPreviewToggle={handlePreviewToggle}
           />
         </article>
       </div>
 
       <CRTPreviewOverlay
         post={post}
-        isOpen={previewOpen}
         hasImaging={hasImaging}
         onClose={handleClosePreview}
         onViewImages={handleViewImages}
