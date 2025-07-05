@@ -29,6 +29,12 @@ const config: Config = {
         xl: "32px",
         "2xl": "48px"
       },
+      inset: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      },
       fontFamily: {
         sans: ['"Onest"', "ui-sans-serif", "system-ui", "sans-serif"],
         serif: ["Adamina", "serif"],

@@ -105,18 +105,19 @@ export function CRTPreviewOverlay({
       aria-describedby={`preview-desc-${post.id}`}
     >
       {/* Full screen scan line effect covering system areas */}
-      <div 
-        className="pointer-events-none fixed z-10 bg-scanlines bg-[length:100%_4px] animate-scan" 
-        style={{
-          position: 'fixed',
-          top: '0',
-          left: '0',
-          right: '0',
-          bottom: '0',
-          height: '100vh',
-          width: '100vw',
-          zIndex: 10
-        }}
+      <div
+        className="
+          pointer-events-none
+          fixed
+          z-10
+          bg-scanlines
+          bg-[length:100%_4px]
+          animate-scan
+          top-safe-top
+          bottom-safe-bottom
+          left-safe-left
+          right-safe-right
+        "
       />
       
       {phase !== 'exit' && (
