@@ -14,11 +14,11 @@ export const navigationConfig = {
       description: 'Analysis of notable and educational cases in emergency radiology.',
       category: 'Case Study'
     },
-    atlas: {
-      name: 'Atlas',
-      href: '/atlas', 
-      description: 'Visual reference and imaging atlas.',
-      category: 'Atlas'
+    codex: {
+      name: 'Codex',
+      href: '/codex', 
+      description: 'Visual reference and imaging codex.',
+      category: 'Codex'
     },
     signal: {
       name: 'Signal',

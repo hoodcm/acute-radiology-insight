@@ -13,7 +13,7 @@ import { getNavigationItems } from '@/config/navigation';
 const iconMap = {
   'Learn': Brain,
   'Cases': LayoutGrid,
-  'Atlas': BookKey,
+  'Codex': BookKey,
   'Signal': RadioTower,
   'Level Up': Zap
 };

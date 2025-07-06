@@ -7,9 +7,9 @@ import { Seo } from '@/components/Seo';
 import { useSmartSkeleton } from '@/hooks/useSmartSkeleton';
 import { navigationConfig } from '@/config/navigation';
 
-const Atlas = () => {
-  const sectionConfig = navigationConfig.sections.atlas;
-  const { posts: atlasPosts, loading, error } = usePostsByCategory(sectionConfig.category);
+const Codex = () => {
+  const sectionConfig = navigationConfig.sections.codex;
+  const { posts: codexPosts, loading, error } = usePostsByCategory(sectionConfig.category);
 
   const showSkeleton = useSmartSkeleton(loading, {
     delay: 200,
@@ -28,8 +28,8 @@ const Atlas = () => {
             Array.from({ length: 4 }).map((_, index) => <PostCardSkeleton key={index} />)
           ) : error ? (
             <p className="col-span-12 text-red-500 text-base sm:text-lg">Error loading content: {error}</p>
-          ) : atlasPosts.length > 0 ? (
-            atlasPosts.map((post) => (
+          ) : codexPosts.length > 0 ? (
+            codexPosts.map((post) => (
               <PostCard 
                 key={post.id} 
                 post={{
@@ -62,4 +62,4 @@ const Atlas = () => {
   );
 };
 
-export default Atlas;
+export default Codex;
