@@ -1,4 +1,3 @@
-
 ---
 title: "Hindsight: The Unseen Aortic Dissection"
 description: "An analysis of a missed case of aortic dissection and the cognitive biases that played a role."
@@ -18,6 +17,7 @@ Root cause analysis of diagnostic errors is crucial for improving patient safety
 The patient's initial complaint was atypical, described as a sharp, intermittent pain radiating to the back. The clinical team was primarily concerned about pulmonary embolism given the patient's recent long-distance travel.
 
 ### Clinical Context
+
 - **Age**: 45 years old
 - **Symptoms**: Chest pain, back pain
 - **Risk factors**: Hypertension, smoking history
@@ -39,6 +39,7 @@ A subtle intimal flap in the ascending aorta was missed on the initial review. T
 The dissection was identified on a follow-up study performed 6 hours later when the patient's pain worsened and became more typical for aortic pathology.
 
 ### Key Imaging Findings (Retrospective)
+
 - **Intimal flap**: Subtle linear hypodensity in ascending aorta
 - **False lumen**: Minimally dilated at time of initial scan
 - **Pericardial effusion**: Small amount, easily overlooked
@@ -46,12 +47,15 @@ The dissection was identified on a follow-up study performed 6 hours later when 
 ## Cognitive Biases at Play
 
 ### Anchoring Bias
+
 The initial clinical impression of PE created a mental framework that influenced the radiological interpretation. Once this anchor was set, it became difficult to consider alternative diagnoses.
 
 ### Premature Closure
+
 After ruling out PE, the search for other pathology was curtailed. This is a common error pattern in emergency medicine.
 
 ### Availability Heuristic
+
 Recent cases of PE in similar patients may have increased the perceived likelihood of this diagnosis.
 
 ## Lessons Learned

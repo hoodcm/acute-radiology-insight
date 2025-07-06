@@ -1,4 +1,3 @@
-
 ---
 title: "Radiation Dose Management: ALARA in Practice"
 description: "Practical strategies for implementing ALARA principles in emergency radiology without compromising diagnostic accuracy."

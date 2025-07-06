@@ -1,4 +1,3 @@
-
 ---
 title: "The Role of AI in Acute Stroke Imaging"
 description: "Evaluating new AI-powered tools for large vessel occlusion detection and ASPECTS scoring."
@@ -18,6 +17,7 @@ Artificial intelligence is rapidly changing the landscape of neuroradiology, esp
 The integration of AI tools in acute stroke imaging has moved from experimental to clinical reality. These tools are now being deployed in emergency departments worldwide, with varying degrees of success and adoption.
 
 ### Key Applications
+
 - **Large vessel occlusion (LVO) detection**
 - **Automated ASPECTS scoring**
 - **Perfusion analysis**
@@ -36,6 +36,7 @@ We compared the sensitivity and specificity of AI-driven LVO alerts against the 
 | Platform C | 94% | 85% | 72% | 97% |
 
 ### Key Findings
+
 - High sensitivity for M1 and ICA terminus occlusions
 - Lower performance for M2 and posterior circulation
 - False positives often due to severe stenosis or artifact
@@ -53,6 +54,7 @@ We analyzed 200 consecutive non-contrast CT studies with confirmed acute stroke:
 - **AI Consistency**: 100% reproducible scores
 
 ### Clinical Implications
+
 - Reduced variability in scoring
 - Faster turnaround times
 - Consistent application of scoring criteria
@@ -63,12 +65,14 @@ We analyzed 200 consecutive non-contrast CT studies with confirmed acute stroke:
 Successful AI implementation requires careful attention to workflow integration:
 
 ### Technical Requirements
+
 1. **PACS Integration**: Seamless connectivity with existing systems
 2. **Real-time Processing**: Results available within 2-3 minutes
 3. **Mobile Alerts**: Push notifications to clinical teams
 4. **Quality Assurance**: Built-in confidence scoring
 
 ### Change Management
+
 - **Staff Training**: Ensuring proper interpretation of AI results
 - **Protocol Development**: Clear escalation pathways
 - **Performance Monitoring**: Regular assessment of AI accuracy
@@ -78,11 +82,13 @@ Successful AI implementation requires careful attention to workflow integration:
 Despite promising results, several challenges remain:
 
 ### Technical Limitations
+
 - **Image Quality Dependence**: Poor quality scans reduce accuracy
 - **Artifact Sensitivity**: Motion and contrast artifacts cause false positives
 - **Edge Cases**: Unusual anatomy or pathology not well-represented in training data
 
 ### Clinical Considerations
+
 - **Over-reliance Risk**: AI should augment, not replace, clinical judgment
 - **False Positive Management**: Need for rapid verification protocols
 - **Liability Questions**: Unclear responsibility for AI-generated findings
@@ -92,11 +98,13 @@ Despite promising results, several challenges remain:
 Preliminary cost-effectiveness analysis suggests:
 
 ### Potential Benefits
+
 - **Reduced Door-to-Needle Time**: Average reduction of 23 minutes
 - **Improved Outcomes**: 12% increase in good functional outcomes
 - **Resource Optimization**: Better allocation of neurointerventional resources
 
 ### Implementation Costs
+
 - Software licensing: $50,000-100,000 annually
 - Hardware upgrades: Variable
 - Training and support: $20,000-30,000 initially
@@ -115,12 +123,14 @@ The next generation of stroke AI tools will likely include:
 Based on our experience, we recommend:
 
 ### For Implementation
+
 1. **Pilot Program**: Start with a limited deployment
 2. **Multi-stakeholder Involvement**: Include radiologists, neurologists, and IT
 3. **Performance Monitoring**: Establish metrics and review processes
 4. **Continuous Education**: Ongoing training for all users
 
 ### For Vendors
+
 1. **Transparency**: Clear information about training data and limitations
 2. **Customization**: Ability to adapt to local practices and populations
 3. **Integration**: Seamless workflow incorporation

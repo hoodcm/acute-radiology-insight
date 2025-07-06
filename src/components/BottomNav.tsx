@@ -3,15 +3,17 @@
 
 // External dependencies: React hooks, router, icons, and utility functions
 import { NavLink, useLocation } from 'react-router-dom';
-import { LayoutGrid, Brain, BookKey, RadioTower, Zap, Info } from 'lucide-react';
+import { LayoutGrid, BrainCog, BookKey, RadioTower, Zap, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useMemo, useEffect, useState, useRef } from 'react';
 import { useKeyboardAware } from '@/hooks/useKeyboardAware';
 import { getNavigationItems } from '@/config/navigation';
 
+const SCROLL_THRESHOLD = 20;
+
 // Icon mapping for navigation items
 const iconMap = {
-  'Learn': Brain,
+  'Learn': BrainCog,
   'Cases': LayoutGrid,
   'Codex': BookKey,
   'Signal': RadioTower,
@@ -39,9 +41,14 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      // Shrink when scrolling down, expand on scroll up
-      setIsShrunk(currentY > prevScrollY.current);
-      prevScrollY.current = currentY;
+      const deltaY = currentY - prevScrollY.current;
+      if (deltaY > SCROLL_THRESHOLD) {
+        setIsShrunk(true);
+        prevScrollY.current = currentY;
+      } else if (deltaY < -SCROLL_THRESHOLD) {
+        setIsShrunk(false);
+        prevScrollY.current = currentY;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -67,7 +74,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
     // <nav>: fixed bottom nav container, visible on mobile only
     <nav
       className={cn(
-        'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-border bg-clip-padding isolate transition-all duration-150 ease-out transform',
+        'md:hidden fixed h-16 left-4 right-4 max-w-[600px] mx-auto rounded-full overflow-hidden border-2 border-border bg-clip-padding isolate transition-all duration-200 ease-out transform',
         isNavShrunk
           ? 'scale-[0.7] origin-bottom shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]'
           : 'scale-100 shadow-[4px_4px_0_0_theme(colors.shadow-hard)] dark:shadow-[4px_4px_0_0_theme(colors.shadow-hard)]',
@@ -109,7 +116,7 @@ export function BottomNav({ isPreviewOpen }: { isPreviewOpen: boolean }) {
               className={cn(
                 'flex flex-col items-center justify-center w-full h-full space-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-100 ease-in-out active:scale-95 relative z-10',
                 isActive 
-                  ? 'text-white font-semibold' 
+                  ? 'text-white font-medium' 
                   : 'text-text-primary font-normal hover:text-text-primary'
               )}
             >

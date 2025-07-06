@@ -1,4 +1,3 @@
-
 ---
 title: "CT Protocol Optimization in the ED"
 description: "A deep dive into optimizing computed tomography protocols for common emergency department presentations."
